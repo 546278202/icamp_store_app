@@ -1,0 +1,3 @@
+<view class="container">
+    <van-cell title="{{item.camperName}}" is-link value="{{item.camperNameEn}}" wx:for="{{dataList}}" wx:for-item="item" wx:for-index='index' url="/pages/campList/index?camperId={{item.camperId}}" />
+</view>

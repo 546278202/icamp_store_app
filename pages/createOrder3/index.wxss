@@ -1,0 +1,6 @@
+page {
+    background: rgba(243, 243, 243, 1);
+    font-family: PingFangSC;
+    padding-bottom: 50px;
+}
+

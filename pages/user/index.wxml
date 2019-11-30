@@ -1,0 +1,51 @@
+<wxs module="filter" src="../../utils/filter.wxs"></wxs>
+<view class="container">
+    <view style="height:40px;display: flex;align-items: center;padding:12px 15px;position: relative;border-top:1px solid #F1F1F1;background: #fff;font-weight:600;font-size:24px;">
+        <view style="width:6px;height:40px;background:#6C68DF;font-size:24px;color: #303030;position: absolute;left:0;top:12px;"></view>
+        <text>个人信息</text>
+    </view>
+
+    <view style="color:#484848;font-size:14px;">
+        <view class="item" bindtap="chooseImage">
+            <view style="display: flex;align-items: center;justify-content: space-between;flex:1;">
+                <text>头像</text>
+                <image src="{{userInfo.image ? userInfo.image.originalFile : userInfo.image}}" data-index="0" style="height:40px;width:40px;border-radius: 40px;" binderror="avatarError"></image>
+            </view>
+            <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
+        </view>
+        <view class="item">
+            <view style="display: flex;align-items:center; justify-content: space-between; flex:1;">
+                <text>昵称</text>
+                <van-field value="{{userInfo.userName}}" placeholder-style="color:#999999;font-size:14px;" style="flex:1;" placeholder=" " border="{{false}}" disabled bind:change="userNameChange" input-align="right" />
+            </view>
+        </view>
+        <view class="item">
+            <view style="display: flex;align-items:center; justify-content: space-between; flex:1;">
+                <text>性别</text>
+                <picker value="{{index}}" range="{{objectArray}}" range-key="name" bindchange="bindPickerChange" style="flex:1;">
+                    <view class="picker " style="height:44px;width:100%;padding-left:15px;line-height: 44px;color:#D8D8D8;font-size:14px; ">{{objectArray[index].name}}</view>
+                </picker>
+                <text style="color: #999999">{{filter.sex(userInfo.sex)}}</text>
+            </view>
+            <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
+        </view>
+        <view class="item">
+            <view style="display: flex;align-items:center; justify-content: space-between; flex:1;">
+                <text>个性签名</text>
+                <text style="color: #999999">我本将心向明月</text>
+            </view>
+            <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
+        </view>
+        <view class="item" style="margin-top:10px;">
+            <view style="display: flex;align-items:center; justify-content: space-between; flex:1;">
+                <text>邮箱</text>
+                <van-field value="{{userInfo.email}}" placeholder-style="color:#999999;font-size:14px;" style="flex:1;color:#999999;" placeholder="" border="{{false}}" bind:change="emailChange" input-align="right" />
+            </view>
+            <!-- <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" /> -->
+        </view>
+
+    </view>
+    <view style="padding-bottom:30px;">
+        <view class="btn-class" bindtap="handleSubmit">保存并返回</view>
+    </view>
+</view>

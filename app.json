@@ -1,0 +1,85 @@
+{
+    "pages": [
+        "pages/tab1/index",
+        "pages/tab2/index",
+        "pages/tab3/index",
+        "pages/tab4/index",
+        "pages/product/index",
+        "pages/productCate/index",
+        "pages/createOrder/index",
+        "pages/createOrder2/index",
+        "pages/createOrder3/index",
+        "pages/tologin/index",
+        "pages/addCamper/index",
+        "pages/orderList/index",
+        "pages/orderDetail/index",
+        "pages/camperList/index",
+        "pages/camperList-next/index",
+        "pages/campList/index",
+        "pages/campPhoto/index",
+        "pages/addressList/index",
+        "pages/user/index",
+        "pages/coupon/index",
+        "pages/gaga/index",
+        "pages/newAddress/index",
+        "pages/saleService/index",
+        "pages/phoneLogin/index"
+    ],
+    "window": {
+        "backgroundColor": "#F3F3F3",
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#D0D0D0",
+        "selectedColor": "#6C68DF",
+        "borderStyle": "black",
+        "backgroundColor": "#FFF",
+        "list": [{
+                "pagePath": "pages/tab1/index",
+                "iconPath": "image/footer/1.png",
+                "selectedIconPath": "image/footer/1e.png",
+                "text": "首页"
+            },
+            {
+                "pagePath": "pages/tab2/index",
+                "iconPath": "image/footer/2.png",
+                "selectedIconPath": "image/footer/2e.png",
+                "text": "分类"
+            },
+            {
+                "pagePath": "pages/tab3/index",
+                "iconPath": "image/footer/3.png",
+                "selectedIconPath": "image/footer/3e.png",
+                "text": "发现"
+            },
+            {
+                "pagePath": "pages/tab4/index",
+                "iconPath": "image/footer/4.png",
+                "selectedIconPath": "image/footer/4e.png",
+                "text": "我的"
+            }
+        ]
+    },
+    "sitemapLocation": "sitemap.json",
+    "usingComponents": {
+        "van-action-sheet": "dist/action-sheet/index",
+        "van-icon": "dist/icon/index",
+        "van-switch": "dist/switch/index",
+        "van-popup": "dist/popup/index",
+        "van-area": "dist/area/index",
+        "van-swipe-cell": "dist/swipe-cell/index",
+        "van-cell": "dist/cell/index",
+        "van-cell-group": "dist/cell-group/index",
+        "van-dialog": "dist/dialog/index",
+        "van-field": "dist/field/index",
+        "van-radio": "dist/radio/index",
+        "van-radio-group": "dist/radio-group/index",
+        "van-toast": "dist/toast/index",
+        "van-divider": "dist/divider/index",
+        "van-sticky": "dist/sticky/index",
+        "van-loading": "dist/loading/index",
+        "van-button": "dist/button/index"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "navigationBarTitleText": "营会相册",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "van-search": "../../dist/search/index",
+        "van-tab": "../../dist/tab/index",
+        "van-tabs": "../../dist/tabs/index",
+        "van-checkbox": "../../dist/checkbox/index",
+        "van-checkbox-group": "../../dist/checkbox-group/index",
+        "van-icon": "../../dist/icon/index"
+    }
+}

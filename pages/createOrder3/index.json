@@ -1,0 +1,12 @@
+{
+    "navigationBarTitleText": "确认支付",
+    "usingComponents": {
+        "van-search": "../../dist/search/index",
+        "van-tab": "../../dist/tab/index",
+        "van-tabs": "../../dist/tabs/index",
+        "van-checkbox": "../../dist/checkbox/index",
+        "van-checkbox-group": "../../dist/checkbox-group/index",
+        "van-stepper": "../../dist/stepper/index",
+        "van-field": "../../dist/field/index"
+    }
+}

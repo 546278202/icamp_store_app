@@ -1,0 +1,29 @@
+.active{background:#620808;color:#fff;}
+.widget__arrow{
+    width:35rpx;
+    height:35rpx;
+    position:absolute;
+    left:57rpx;
+    top:35rpx;
+}
+.defaultBtn{
+    width:110rpx;
+    height:50rpx;
+    line-height:50rpx;
+    border:1px solid #e8e8e8;
+    text-align:center;
+    border-radius:10rpx;
+    font-size:32rpx;
+}
+.cur{
+    width:110rpx;
+    height:50rpx;
+    line-height:50rpx;
+    border:1px solid #e8e8e8;
+    text-align:center;
+    border-radius:10rpx;
+    font-size:32rpx;
+    color:#fff;
+    background: #000;
+
+}

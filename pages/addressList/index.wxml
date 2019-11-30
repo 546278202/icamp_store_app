@@ -1,0 +1,38 @@
+<view class="container" style="border-top:1px solid #F1F1F1;">
+
+    <van-swipe-cell right-width="{{65}}" wx:for="{{list}}" wx:for-index='index' async-close bind:close="onClose" data-index="{{item.id}}">
+        <!-- <view slot="left">选择</view> -->
+        <view style="height:83px;border-bottom:1px solid #F1F1F1;align-items:center;display: flex;padding-left:15px;">
+            <view style="display: flex;flex-direction: column;flex:1;">
+                <view style="display:flex;">
+                    <view style="width:57px;font-size:16px;color:#484848;font-weight: bold;height:22px;">{{item.linkman}}</view>
+                    <view style="font-size:12px;color:#4C4751;height:22px;line-height: 22px;flex:1;">{{item.phone}}</view>
+                </view>
+                <view style="display:flex;">
+                    <view style="width:57px;font-size:16px;color:#484848;font-weight: bold;height:22px;">
+                        <view wx-if="{{item.isDefault}}" style="font-size:10px;color:#6C68DF;width:39px; height:16px;line-height: 16px;text-align: center; background:rgba(191,188,255,0.4);margin-top:3px;">默认</view>
+                    </view>
+                    <view style="font-size:12px;color:#484848;font-weight: 500; flex:1;">{{item.area.provinceName}} {{item.area.cityName}} {{item.area.countyName}} {{item.detailAddress}}</view>
+                </view>
+            </view>
+            <navigator hover-class="none" style="margin-left:44px;" url="../newAddress/index?id={{item.id}}&title=编辑地址">
+                <view style="width:57px;height:30px;line-height:30px;font-size:12px;color:#A4A4A4;font-weight:500;border-left:1px solid #F1F1F1;text-align: center;">编辑</view>
+            </navigator>
+        </view>
+        <view slot="right">删除</view>
+    </van-swipe-cell>
+
+
+
+
+    <navigator hover-class="none" url="../newAddress/index" style="height:63px;display:flex;border-bottom:1px solid #F1F1F1;align-items:center;padding-left:15px;">
+        <view style="width:57px;">
+            <van-icon name="add-o" color="#6C68DF" size="32px" />
+        </view>
+        <view>
+            <view style="font-size:16px;color:#484848;font-weight: bold;">添加地址</view>
+            <view style="font-size:12px;color:#4C4751;"></view>
+        </view>
+    </navigator>
+</view>
+<van-dialog id="van-dialog" title="温馨提示" />

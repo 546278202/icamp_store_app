@@ -1,0 +1,31 @@
+<view class="container">
+
+    <view wx:for="{{categoryData}}" wx:for-item="item" wx:for-index='index' style="margin:15px;border-radius:8px;overflow: hidden;position: relative;height:190px;">
+        <navigator url="../product/index?title={{item.name}}">
+            <image src="{{item.logoFile.originalFile}}" binderror="avatarError" data-index="{{index}}" />
+            <view style="position: absolute;background: rgba(0,0,0,0.1);width: 100%;height: 100%;left: 0;top: 0;color: #fff;display: flex;align-items: center;justify-content: center;font-size:18px; font-weight:600; color:rgba(255,255,255,1);">
+                <span>{{item.name}}</span>
+            </view>
+        </navigator>
+    </view>
+
+
+    <view wx:for="{{list}}" wx:for-item="item" wx:for-index='index' style="overflow:  hidden;position:  relative;height: auto;">
+        <view style="margin: 0 15px 0 15px;color:#303030;font-size: 14px;display:flex;font-weight:500;">
+            <image src="{{item.src}}" style="height:18px;width:20px;margin-right:15px;" mode='widthFix' />
+            <text>{{item.name}}</text>
+        </view>
+        <swiper display-multiple-items="2" next-margin="60px" interval="5000" duration="500" style="border-radius:8px;overflow: hidden;margin:15px;height:156px;">
+            <block wx:for="{{item.list}}">
+                <swiper-item style="padding-right: 15px;overflow: hidden;">
+                    <navigator url="../product/index?title={{item.name}}" style="position: relative;border-radius: 8px;height:156px;overflow: hidden;">
+                        <image src="{{item.src}}" style="border-radius: 8px;overflow: hidden;height:100%;" mode="aspectFill" />
+                        <view style="position: absolute;background: rgba(0,0,0,0.1);width: 100%;height: 100%;left: 0;top: 0;color: #fff;display: flex;align-items: center;justify-content: center;font-size:18px; font-weight:600; color:rgba(255,255,255,1);">
+                            <span>{{item.name}}</span>
+                        </view>
+                    </navigator>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+</view>

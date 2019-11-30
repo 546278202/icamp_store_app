@@ -1,0 +1,32 @@
+ page {
+     font-family: PingFangSC;
+     padding-bottom: 10px;
+ }
+ /* .container {
+     position: relative;
+     overflow: hidden;
+     white-space: nowrap;
+ } */
+ 
+ .bg_img {
+     height: 227px;
+     background: url(https://tstore.i-camp.com.cn/images/201911131154086769110.png);
+     background-size: 100% 100%;
+     background-position: top right;
+     background-repeat: no-repeat;
+ }
+ 
+ .y {
+     display: inline-block;
+     margin-top: 10rpx;
+     position: relative;
+     overflow: hidden;
+     margin: 0 auto;
+ }
+ /*隐藏滚动条*/
+ 
+ ::-webkit-scrollbar {
+     width: 0;
+     height: 0;
+     color: transparent;
+ }

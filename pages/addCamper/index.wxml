@@ -1,0 +1,105 @@
+<view class="container">
+    <view style="background:rgba(243,243,243,1);padding: 15px 15px 20px 15px;">
+        <view style="font-size:24px;color:#303030;font-weight:600;margin-bottom: 10px;">添加营员</view>
+        <view style="font-size:14px;color:#484848;">为顺利出行，请核对填写的信息与证件一致；我们确保 您的资料受到保护。</view>
+    </view>
+    <div>
+        <view style="color:#484848;font-size:16px;font-weight:600;padding: 25px 15px 0 15px;">基本信息</view>
+        <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
+            <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">姓名（中文名）</view>
+            <view style="display:flex;align-items: center;">
+                <view style="flex:1;">
+                    <van-field value="{{ base.camperName}}" bind:change="onChange" data-id="camperName" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChange" />
+                </view>
+                <view style="width:45px;">
+                    <van-icon name="arrow-down" color="#D8D8D8" />
+                </view>
+            </view>
+        </view>
+        <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
+            <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">姓名（英文名）</view>
+            <view style="display:flex;align-items: center;">
+                <view style="flex:1;">
+                    <van-field value="{{ base.camperNameEn}}" data-id="camperNameEn" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChange" />
+                </view>
+                <view style="width:45px;">
+                    <van-icon name="arrow-down" color="#D8D8D8" />
+                </view>
+            </view>
+        </view>
+        <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
+            <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">姓别</view>
+            <view style="display:flex;align-items: center;">
+                <picker value="{{index}}" range="{{objectArray}}" range-key="name" bindchange="bindPickerChange" style="width: 100%; ">
+                    <view class="picker " style="height:44px;width:100%;padding-left:15px;line-height: 44px;color:#D8D8D8;font-size:14px; ">{{objectArray[index].name}}</view>
+                </picker>
+                <view style="width:45px;">
+                    <van-icon name="arrow-down" color="#D8D8D8" />
+                </view>
+            </view>
+        </view>
+        <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0; ">
+            <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px; ">出生日期</view>
+            <view style="display:flex;align-items: center; ">
+                <picker mode="date" value="{{base.birth}}" start="2015-09-01" end="017-09-01" bindchange="bindDateChange" style="width: 100%;">
+                    <view class="picker" style="height:44px;width:100%;padding-left:15px;line-height: 44px;color:#D8D8D8;font-size:14px;">{{base.birth}} </view>
+                </picker>
+                <view style="width:45px; ">
+                    <van-icon name="arrow-down " color="#D8D8D8 " />
+                </view>
+            </view>
+        </view>
+    </div>
+
+    <div>
+        <view style="color:#484848;font-size:16px;font-weight:600;padding: 25px 15px 0 15px;">证件信息</view>
+
+        <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
+            <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">类型</view>
+            <view style="display:flex;align-items:center;">
+                <picker value="{{index}}" range="{{typeArray}}" range-key="name" bindchange="bindPickerChange1" style="width: 100%; ">
+                    <view class="picker" style="height:44px;width:100%;padding-left:15px;line-height: 44px;color:#D8D8D8;font-size:14px; ">{{typeArray[index].name}}</view>
+                </picker>
+                <view style="width:45px;">
+                    <van-icon name="arrow-down" color="#D8D8D8" />
+                </view>
+            </view>
+        </view>
+        <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
+            <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">证件号</view>
+            <view style="display:flex;align-items: center;">
+                <view style="flex:1;">
+                    <van-field value="{{certificateInformation.idCode}}" bind:change="onChangeCode" data-id="camperName" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChangeIdCode" />
+                </view>
+                <view style="width:45px;">
+                    <van-icon name="arrow-down" color="#D8D8D8" />
+                </view>
+            </view>
+        </view>
+        <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
+            <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">证件签发地</view>
+            <view style="display:flex;align-items: center;">
+                <view style="flex:1;">
+                    <van-field value="{{certificateInformation.issuePlace}}" bind:change="onChangeIssuePlace" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" />
+                </view>
+                <view style="width:45px;">
+                    <van-icon name="arrow-down" color="#D8D8D8" />
+                </view>
+            </view>
+        </view>
+        <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0; ">
+            <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px; ">过期日期</view>
+            <view style="display:flex;align-items: center; ">
+                <picker mode="date" value="{{base.birth}}" start="2015-09-01" end="017-09-01" bindchange="bindDateChange" style="width: 100%;">
+                    <view class="picker" style="height:44px;width:100%;padding-left:15px;line-height: 44px;color:#D8D8D8;font-size:14px;">{{base.birth}} </view>
+                </picker>
+                <view style="width:45px; ">
+                    <van-icon name="arrow-down " color="#D8D8D8 " />
+                </view>
+            </view>
+        </view>
+    </div>
+    <view style="padding: 50px 10px;">
+        <van-button type="primary" size="large" color="#6C68DF" custom-class="btn-class" bindtap="handleSubmit">保存/返回</van-button>
+    </view>
+</view>

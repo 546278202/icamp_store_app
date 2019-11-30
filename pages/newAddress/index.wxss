@@ -1,0 +1,51 @@
+page {
+    background: rgba(243, 243, 243, 1);
+}
+
+.container {}
+
+.active {
+    background: linear-gradient(90deg, rgba(160, 156, 240, 1) 0%, rgba(108, 104, 223, 1) 100%);
+    color: #fff;
+}
+
+.btn-class {
+    height: 49px;
+    line-height: 49px;
+    text-align: center;
+    background: #6C68DF;
+    font-size: 16px;
+    color: #fff;
+    margin: 34px 15px 15px 15px;
+}
+
+
+/* common/nyz_area_picker/nyz_area_picker.wxss */
+
+.nyz_area_view {
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background-color: #fff;
+    z-index: 21;
+}
+
+.nyz_area_pick_view {
+    height: 200px;
+    width: 100%;
+}
+
+.nyz_area_colum_view {
+    line-height: 45px;
+    text-align: center;
+    font-size: 28rpx;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}

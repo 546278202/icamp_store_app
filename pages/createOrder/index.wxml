@@ -1,0 +1,65 @@
+<wxs module="filter" src="../../utils/filter.wxs"></wxs>
+<view class="container">
+    <view class="product_attr" style="font-size:14px;color:#303030; background:rgba(243,243,243,1);color:#696969;">
+        <swiper interval="5000" duration="500" display-multiple-items="1" next-margin='detailData.goodsAttributes[0].values>0 ? "70px":"0px"' style="height:189px;margin:15px;" current="{{active}}">
+            <block wx:for="{{detailData.goodsAttributes[0].values}}" wx:for-item="item">
+                <swiper-item>
+                    <view style="background: #fff;padding:0 15px;border-radius:8px;" data-index="{{index}}" bindtap='tabToggle' class="{{index == active?'active':''}}">
+                        <view class="product_attr_title">
+                            <text> 第{{filter.NumberToChinese(index+1)}}期</text>
+                            <van-checkbox value="kk" checked-color="#6C68DF" wx-if="{{index == active}}">已选</van-checkbox>
+                        </view>
+                        <view class="product_attr_item"><text>出发日期：</text><text>{{item.starDate}}</text></view>
+                        <view class="product_attr_item"><text>返程日期：</text><text>{{item.endDate}}</text></view>
+                        <view class="product_attr_item"><text>时长：</text><text>14天</text></view>
+                        <view class="product_attr_item"><text>价格：</text><text>¥{{item.sellPrice}}</text></view>
+                        <view class="product_attr_item"><text>名额：</text><text>剩余{{item.stockQty}}</text></view>
+                    </view>
+                </swiper-item>
+            </block>
+        </swiper>
+        <view style="font-size:10px;padding: 0 15px 15px 15px;">
+            <view> 提示： </view>
+            <view> 预售优惠：在2019年9月30日前报名可享受立减800元优惠活动；预售营会 不享受报名费3天内可退；预售活动不与其他活动任何优惠活动同享。</view>
+        </view>
+    </view>
+
+    <view style="padding:15px;font-size: 15px;color:#303030;background: #fff;margin-bottom: 10px;">
+        <view style="margin-bottom:20px;">出行人数</view>
+        <view style="margin-bottom:20px;display:flex;justify-items: center;justify-content:space-between;">
+            <text>营员：{{campersName}}</text>
+            <van-stepper value="{{ campersName.length}}" bind:change="onChange3" disabled/>
+        </view>
+        <view style="margin-bottom:20px;">价格：¥{{filter.returnFloat(price)}}</view>
+    </view>
+    <navigator url="../camperList/index?back=true" style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">
+        <view style="display: flex;flex:1;align-items: center;justify-content: space-between;">
+            <text>选择营员</text>
+            <text style="color:#BBC0CA;">{{campersName}}</text>
+        </view>
+        <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
+    </navigator>
+
+    <view wx:for="{{detailData.goodsAttributes}}" wx:key='index' wx:for-index="row" style="margin-bottom:15px;" wx:if="{{item.type!==1}}">
+        <view style="padding:0 15px 15px 15px;">{{item.name}}</view>
+        <view style="background: #fff;padding:15px 15px 0 15px;">
+            <view wx:for="{{item.values}}" wx:for-item="values" data-row='{{row}}' data-index='{{index}}' bindtap="onChange" style="font-size: 15px;color:#303030;padding-bottom:15px;display: flex;justify-content: space-between;">
+                <van-checkbox value="{{values.checked}}" name="{{values.name}}" checked-color="#6C68DF">{{values.name}}</van-checkbox><text>¥{{values.sellPrice}}</text>
+            </view>
+        </view>
+    </view>
+
+    <view style="height:49px;display:flex;background:#fff;box-shadow:0px -3px 6px 0px rgba(233,233,233,0.5);align-items:center;position:fixed;bottom: 0; width: 100%;background: #fff;z-index: 44444; ">
+        <view style="color:#303030;font-size:14px;flex:1;display:flex;padding-left:15px; ">营会费¥{{filter.returnFloat(price)}}+服务费¥{{filter.returnFloat(severPrice)}}</view>
+        <view style="color:#ffffff;font-size:16px;background: #6C68DF;width:133px;height:48px;display: flex;align-items: center;justify-content: center;" bindtap="submitData">去结算</view>
+    </view>
+    <view style="margin-bottom:15px;">
+        <view style="padding:0 15px 15px 15px;">服务条款</view>
+        <view style="background: #fff;padding:15px 15px 0 15px;">
+            <view wx:for="{{termsService}}" wx:for-item="values" data-index='{{index}}' bindtap="severChange" style="font-size: 15px;color:#303030;padding-bottom:15px;display: flex;justify-content: space-between;">
+                <van-checkbox value="{{values.checked}}" name="{{values.name}}" checked-color="#6C68DF">{{values.name}}</van-checkbox>
+            </view>
+        </view>
+    </view>
+</view>
+<van-toast id="van-toast" />

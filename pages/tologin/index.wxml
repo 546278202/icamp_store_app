@@ -1,0 +1,20 @@
+<view class="weui-msg" style="padding:50px 15px 15px 15px;">
+    <view class="weui-msg__icon-area">
+        <icon type="info" size="93"></icon>
+    </view>
+    <view class="weui-msg__text-area">
+        <view class="weui-msg__desc">此页面是微信授权页面</view>
+    </view>
+    <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">微信登录</button>
+        </view>
+    </view>
+    <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+            <navigator hover-class="none" url="../phoneLogin/index">
+                <button class="weui-btn" type="primary">手机登录</button>
+            </navigator>
+        </view>
+    </view>
+</view>

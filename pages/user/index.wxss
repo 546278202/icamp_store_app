@@ -1,0 +1,27 @@
+page {
+    background: rgba(243, 243, 243, 1);
+}
+
+.item {
+    height: 48px;
+    border-bottom: 1px solid #F1F1F1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    padding: 0 15px;
+}
+
+.btn-class {
+    height: 49px;
+    line-height: 49px;
+    text-align: center;
+    background: #6C68DF;
+    font-size: 16px;
+    color: #fff;
+    margin: 58px 15px 15px 15px;
+}
+
+.van-field__input {
+    color: #999999 !important;
+}

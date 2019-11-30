@@ -1,0 +1,25 @@
+page {
+    background: rgba(243, 243, 243, 1);
+    font-family: PingFangSC;
+    padding-bottom: 50px;
+}
+
+.product_attr .product_attr_item {
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #696969;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product_attr .product_attr_title {
+    height: 35px;
+    font-size: 16px;
+    color: #696969;
+    font-weight: Semibold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f3f3f3;
+}

@@ -1,0 +1,17 @@
+<view class="container">
+    <!-- 导航 -->
+    <view wx:for="{{goodsList}}" wx:for-item="item" wx:for-index='index' style="background: #fff; margin:15px 15px 15px 15px;border-radius:8px;overflow: hidden;box-shadow:0px 3px 6px 0px rgba(233,233,233,1);">
+        <navigator url="../productCate/index?id={{item.id}}">
+            <view style="position:relative;">
+                <image src="{{item.icon}}" style="width:100%;height:190px;" mode='aspectFill' />
+                <view style="position: absolute;left:0;bottom:0;width:100%;font-size: 14px;color:#fff;padding:15px 15px 15px 15px;">
+                    <test style="font-size:18px;">7~18</test>岁 单个学生</view>
+            </view>
+
+            <view style="color:#484848;font-size:15px;font-weight:600;padding:15px 15px 0 15px;">
+                2019瑞士·自然探索营会 </view>
+            <view style="color:#505050;font-size:14px;padding:0 15px 10px 15px;">约两周或三周·瑞士/日内瓦
+            </view>
+        </navigator>
+    </view>
+</view>

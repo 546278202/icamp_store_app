@@ -1,0 +1,31 @@
+/**index.wxss**/
+page {
+    background: rgba(255, 255, 255, 1);
+    font-family:PingFangSC;
+}
+.van-tab {
+    color: #303030 !important;
+    font-size: 16px !important;
+}
+
+.van-tabs__line {
+    height: 2px !important;
+    border-radius: 2px !important;
+    background-color: #6C68DF !important;
+    /* width: 40px !important; */
+    /* transform: translateX(40px) !important; */
+}
+
+.van-tab--active {
+    color: #6C68DF !important;
+    font-weight: 500;
+}
+
+.demo-tab .van-tab__pane {
+    padding: 25px 20px;
+    background-color: #fff;
+}
+
+.van-tab__pane--active {
+    padding-bottom: 15px;
+}

@@ -1,0 +1,13 @@
+<view class="container">
+    <van-cell-group>
+        <van-field title-width="70px" v-model="phone" label="用户名" placeholder="请输入手机号" bind:change="getPhone" clearable/>
+        <van-field title-width="70px" v-model="sms" label="验证码" placeholder="请输入短信验证码" bind:change="getSms">
+            <van-button wx:if="{{sendMsgDisabled}}" slot="button" size="small" type="primary" bindtap="getCode">获取验证码</van-button>
+            <van-button wx:else slot="button" size="small" type="primary">{{time}}秒后在获取</van-button>
+        </van-field>
+    </van-cell-group>
+    <view style="margin-top:50px;padding:15px;">
+        <van-button round type="primary" size="large" bindtap="userLogin">登陆</van-button>
+    </view>
+</view>
+<van-toast id="van-toast" />

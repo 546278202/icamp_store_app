@@ -1,0 +1,8 @@
+<view class="outer">
+    <image class="container" wx:for='{{dataList}}' src='{{item.pictureUrl}}' data-index='{{index}}' mode='aspectFill' bindtap='previewImg'></image>
+</view>
+<view wx:if="{{dataList.length==0}}">
+    <image src="https://tstore.i-camp.com.cn/images/201911131617582718155.png" style="height:499px;" mode='aspectFill' binderror="avatarError" />
+    <view style="color:#302C48;font-size: 20px;text-align: center;margin-bottom:10px;">Oh oh!</view>
+    <view style="color:#302C48;font-size: 15px;font-weight:400;text-align: center;font-family:PingFang-SC-Regular,PingFang-SC;">还没有营会</view>
+</view>

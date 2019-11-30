@@ -1,0 +1,116 @@
+function numberToFix(value) {
+    return value.toFixed(1)
+}
+
+function sex(value) {
+    if (value === 0) {
+        return '未知';
+    } else if (value === 1) {
+        return '男';
+    } else if (value === 2) {
+        return '女';
+    }
+}
+
+function toString(value) {
+    return value.toString()
+}
+
+function split(value) {
+    return value.split(" ")[0]
+}
+// 0=已取消 1=待支付 2=待完善营员报名信息 3=待发货 4=待收货 5=订单完成
+function orderType(value) {
+    if (value === 0) {
+        return '已取消';
+    } else if (value === 1) {
+        return '待支付';
+    } else if (value === 2) {
+        return '待完善营员报名信息';
+    } else if (value === 5) {
+        return '订单完成';
+    }
+}
+
+function substring(value, i) {
+    return value.substring(0, i);
+}
+
+
+var chnNumChar = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+var chnUnitSection = ["", "万", "亿", "万亿", "亿亿"];
+var chnUnitChar = ["", "十", "百", "千"];
+
+function SectionToChinese(section) {
+    var strIns = '',
+        chnStr = '';
+    var unitPos = 0;
+    var zero = true;
+    while (section > 0) {
+        var v = section % 10;
+        if (v === 0) {
+            if (!zero) {
+                zero = true;
+                chnStr = chnNumChar[v] + chnStr;
+            }
+        } else {
+            zero = false;
+            strIns = chnNumChar[v];
+            strIns += chnUnitChar[unitPos];
+            chnStr = strIns + chnStr;
+        }
+        unitPos++;
+        section = Math.floor(section / 10);
+    }
+    return chnStr;
+}
+
+function NumberToChinese(num) {
+    var unitPos = 0;
+    var strIns = '',
+        chnStr = '';
+    var needZero = false;
+
+    if (num === 0) {
+        return chnNumChar[0];
+    }
+
+    while (num > 0) {
+        var section = num % 10000;
+        if (needZero) {
+            chnStr = chnNumChar[0] + chnStr;
+        }
+        strIns = SectionToChinese(section);
+        strIns += (section !== 0) ? chnUnitSection[unitPos] : chnUnitSection[0];
+        chnStr = strIns + chnStr;
+        needZero = (section < 1000) && (section > 0);
+        num = Math.floor(num / 10000);
+        unitPos++;
+    }
+    return chnStr;
+}
+
+function returnFloat(value) {
+    var value = Math.round(parseFloat(value) * 100) / 100;
+    var xsd = value.toString().split(".");
+    if (xsd.length == 1) {
+        value = value.toString() + ".00";
+        return value;
+    }
+    if (xsd.length > 1) {
+        if (xsd[1].length < 2) {
+            value = value.toString() + "0";
+        }
+        return value;
+    }
+}
+module.exports = {
+    numberToFix: numberToFix,
+    sex: sex,
+    toString: toString,
+    split: split,
+    orderType: orderType,
+    NumberToChinese: NumberToChinese,
+    substring: substring,
+    returnFloat: returnFloat
+}

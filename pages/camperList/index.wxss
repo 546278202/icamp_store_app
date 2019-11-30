@@ -1,0 +1,24 @@
+page {
+    background: #fff;
+}
+
+.container {
+    padding: 15px;
+}
+
+.active {
+    background: linear-gradient(90deg, rgba(160, 156, 240, 1) 0%, rgba(108, 104, 223, 1) 100%);
+    color: #fff;
+}
+.van-swipe-cell__left,
+.van-swipe-cell__right {
+    display: inline-block;
+    width: 65px;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    background-color: #f44;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

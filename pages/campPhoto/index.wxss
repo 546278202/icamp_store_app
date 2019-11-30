@@ -1,0 +1,11 @@
+.outer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.container {
+    width: 32.80%;
+    height: 250rpx;
+    border: 1px solid #fff;
+}
