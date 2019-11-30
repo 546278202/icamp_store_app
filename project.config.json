@@ -25,7 +25,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.8.2",
 	"appid": "wx7ff613d5d2eb8218",
-	"projectname": "app",
+	"projectname": "icamp_store_app",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
