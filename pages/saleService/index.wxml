@@ -1,7 +1,7 @@
 <wxs module="filter" src="../../utils/filter.wxs"></wxs>
 <view class="container">
     <!-- 导航 -->
-    <van-tabs animated color="#6C68DF" active="{{ active }}" bind:change="onChange" line-width="30">
+    <van-tabs animated color="#5B85BF" active="{{ active }}" bind:change="onChange" line-width="30">
         <van-tab title="退款">
 
         </van-tab>

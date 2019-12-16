@@ -1,0 +1,5 @@
+<wxs module="filter" src="../../utils/filter.wxs"></wxs>
+<import src="../../wxParse/wxParse.wxml" />
+<view style="padding: 15px;background: #fff;">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+</view>

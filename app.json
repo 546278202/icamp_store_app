@@ -13,6 +13,7 @@
         "pages/addCamper/index",
         "pages/orderList/index",
         "pages/orderDetail/index",
+        "pages/addCamper_detail/index",
         "pages/camperList/index",
         "pages/camperList-next/index",
         "pages/campList/index",
@@ -21,9 +22,20 @@
         "pages/user/index",
         "pages/coupon/index",
         "pages/gaga/index",
+        "pages/wallet/index",
         "pages/newAddress/index",
         "pages/saleService/index",
-        "pages/phoneLogin/index"
+        "pages/phoneLogin/index",
+        "pages/companyIntroduction/index",
+        "pages/addCertificate/index",
+        "pages/paysuccess/index",
+        "pages/addCamper_notice/index",
+        "pages/camperReport/index",
+        "pages/projectList/index",
+        "pages/tab3_detail/index",
+        "pages/camperLog/index",
+        "pages/readClause/index",
+        "pages/readClause2/index"
     ],
     "window": {
         "backgroundColor": "#F3F3F3",
@@ -33,31 +45,31 @@
     },
     "tabBar": {
         "color": "#D0D0D0",
-        "selectedColor": "#6C68DF",
+        "selectedColor": "#5B85BF",
         "borderStyle": "black",
         "backgroundColor": "#FFF",
         "list": [{
                 "pagePath": "pages/tab1/index",
-                "iconPath": "image/footer/1.png",
-                "selectedIconPath": "image/footer/1e.png",
+                "iconPath": "image/footer/1.jpg",
+                "selectedIconPath": "image/footer/1e.jpg",
                 "text": "首页"
             },
             {
                 "pagePath": "pages/tab2/index",
-                "iconPath": "image/footer/2.png",
-                "selectedIconPath": "image/footer/2e.png",
+                "iconPath": "image/footer/2.jpg",
+                "selectedIconPath": "image/footer/2e.jpg",
                 "text": "分类"
             },
             {
                 "pagePath": "pages/tab3/index",
-                "iconPath": "image/footer/3.png",
-                "selectedIconPath": "image/footer/3e.png",
+                "iconPath": "image/footer/3.jpg",
+                "selectedIconPath": "image/footer/3e.jpg",
                 "text": "发现"
             },
             {
                 "pagePath": "pages/tab4/index",
-                "iconPath": "image/footer/4.png",
-                "selectedIconPath": "image/footer/4e.png",
+                "iconPath": "image/footer/4.jpg",
+                "selectedIconPath": "image/footer/4e.jpg",
                 "text": "我的"
             }
         ]
@@ -80,6 +92,12 @@
         "van-divider": "dist/divider/index",
         "van-sticky": "dist/sticky/index",
         "van-loading": "dist/loading/index",
-        "van-button": "dist/button/index"
+        "van-button": "dist/button/index",
+        "van-sidebar": "dist/sidebar/index",
+        "van-sidebar-item": "dist/sidebar-item/index",
+        "van-tag": "dist/tag/index",
+        "van-picker": "dist/picker/index",
+        "van-collapse": "dist/collapse/index",
+        "van-collapse-item": "dist/collapse-item/index"
     }
 }

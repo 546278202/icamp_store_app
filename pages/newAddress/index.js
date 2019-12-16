@@ -1,22 +1,23 @@
 const app = getApp()
 Page({
     data: {
+        loading: false,
+        detailData: {
+            isDefault: true,
+            area: {
+                provinceName: "北京市",
+                cityName: "北京",
+                countyName: "东城区",
+                countyId: 500
+            }
+        },
+        handleSubmitType: 0, //0添加，1编辑
         id: null,
         provinces: [],
         citys: [],
-        areas: [],
-
-        province: '',
-        city: '',
-        county: '',
-
+        area: [],
         valueArr: [0, 0, 0],
         show: false,
-
-        name: '',
-        phone: '',
-        detailAddress: '',
-        postCode: '',
         checked: true,
 
         objectArray: [{
@@ -30,45 +31,51 @@ Page({
         ]
     },
     showPopup() {
-        this.setData({ show: true });
+        this.setData({
+            show: true,
+        });
         this.abc()
     },
     handleShowPopup() {
-        console.log(this.data.valueArr)
         let province = this.data.provinces[this.data.valueArr[0]].district
         let city = this.data.citys[this.data.valueArr[1]].district
-        let county = this.data.areas[this.data.valueArr[2]].district
-        console.log(province, city, county)
-        this.setData({
-            show: false,
-            province: province,
-            city: city,
-            county: county,
-        });
+        let county = this.data.area[this.data.valueArr[2]].district
+        let countyId = this.data.area[this.data.valueArr[2]].districtId //区域id
 
+        let _detailData = this.data.detailData
+        _detailData.area.provinceName = province
+        _detailData.area.cityName = city
+        _detailData.area.countyName = county
+        _detailData.area.countyId = countyId
+        this.setData({
+            detailData: _detailData,
+            show: false
+        });
     },
-
     onLoad(options) {
-        this.setData({
-            id: options.id,
-        });
-
-        if (options.title) {
-            this.setTitle(options.title)
-            this.getDetail(options.id)
-        } else {
-            this.abc()
+        // 新增
+        if (options.detail) {
+            console.log(JSON.parse(decodeURIComponent(options.detail)))
+            this.setData({
+                detailData: JSON.parse(decodeURIComponent(options.detail)),
+                handleSubmitType: 1,
+            });
+            console.log(this.data.detailData)
         }
+
     },
 
     abc() {
+        let index1 = this.data.valueArr[0]
+        let index2 = this.data.valueArr[1]
         let url1 = app.globalData.BASE_URL + `/area/children?pid=1`
         app.wxRequest('GET', url1, {}, (res) => {
             this.setData({
-                provinces: res.data.data
+                provinces: res.data.data,
+                loading: false
             })
 
-            let url2 = app.globalData.BASE_URL + `/area/children?pid=${this.data.provinces[0].districtId}`
+            let url2 = app.globalData.BASE_URL + `/area/children?pid=${this.data.provinces[index1].districtId}`
             app.wxRequest('GET', url2, {}, (res) => {
                 this.setData({
                     citys: res.data.data
@@ -76,7 +83,8 @@ Page({
                 let url3 = app.globalData.BASE_URL + `/area/children?pid=${this.data.citys[0].districtId}`
                 app.wxRequest('GET', url3, {}, (res) => {
                     this.setData({
-                        areas: res.data.data
+                        area: res.data.data,
+
                     })
                 })
             })
@@ -84,33 +92,45 @@ Page({
     },
 
     bindchange(e) {
-        this.getCitys(this.data.provinces[e.detail.value[0]].districtId)
+        let index1 = e.detail.value[0]
+        let index2 = e.detail.value[1]
+        let index3 = e.detail.value[2]
+        this.getCitys(this.data.provinces[index1].districtId)
         this.setData({
             valueArr: e.detail.value
         })
     },
 
     nameChange({ detail }) {
-        this.setData({ name: detail });
+        let _detailData = this.data.detailData
+        _detailData.linkman = detail
+        this.setData({ detailData: _detailData });
     },
     phoneChange({ detail }) {
-        this.setData({ phone: detail });
+        let _detailData = this.data.detailData
+        _detailData.phone = detail
+        this.setData({ detailData: _detailData });
     },
-    postCodeChange({ detail }) {
-        this.setData({ postCode: detail });
-    },
+
     addressDetailChange({ detail }) {
-        this.setData({ detailAddress: detail });
+        let _detailData = this.data.detailData
+        _detailData.detailAddress = detail
+        this.setData({ detailData: _detailData });
     },
     checkedChange({ detail }) {
-        this.setData({ checked: detail });
+        let _detailData = this.data.detailData
+        if (detail == true) {
+            _detailData.isDefault = true
+        } else {
+            _detailData.isDefault = false
+        }
+        this.setData({ detailData: _detailData });
     },
 
     // 获取省
     getProvince(id) {
         let url = app.globalData.BASE_URL + `/area/children?pid=${id}`
         app.wxRequest('GET', url, {}, (res) => {
-            console.log(res)
             this.setData({
                 provinces: res.data.data
             })
@@ -126,7 +146,7 @@ Page({
             let url3 = app.globalData.BASE_URL + `/area/children?pid=${this.data.citys[this.data.valueArr[1]].districtId}`
             app.wxRequest('GET', url3, {}, (res) => {
                 this.setData({
-                    areas: res.data.data
+                    area: res.data.data
                 })
             })
         })
@@ -134,35 +154,36 @@ Page({
     //添加地址||更新
     handleSubmit() {
         let data = {
-            // linkId: wx.getStorageSync("userInfo").userId,
-            areaId: this.data.areas[this.data.valueArr[2]].districtId,
-            detailAddress: this.data.detailAddress,
-            linkman: this.data.name,
-            phone: this.data.phone,
-            type: 0,
-            isDefault: this.data.checked
-        }
-        if (this.data.id) {
-            data = Object.assign({ id: Number(this.data.id) }, data)
-        }
-
-        let url3 = app.globalData.URL + "/address"
-        app.wxRequest('POST', url3, data, (res) => {
-            console.log(res)
-            wx.showToast({
-                title: '操作成功',
-                icon: 'success',
-                duration: 1500
-            })
-            var pages = getCurrentPages();
-            if (pages.length > 1) {
-                var prePage = pages[pages.length - 2];
-                prePage.getList()
-                setTimeout(function() {
-                    wx.navigateBack()
-                }, 100)
+                // linkId: wx.getStorageSync("userInfo").userId,
+                areaId: this.data.detailData.area.countyId,
+                detailAddress: this.data.detailData.detailAddress,
+                linkman: this.data.detailData.linkman,
+                phone: this.data.detailData.phone,
+                type: 0,
+                isDefault: this.data.detailData.isDefault
             }
-        }, true)
+            // 编辑
+        if (this.data.handleSubmitType == 1) {
+            data = Object.assign({ id: Number(this.data.detailData.id) }, data)
+        }
+        console.log(data)
+        if (data.areaId && data.detailAddress && data.linkman) {
+            app.wxRequest('POST', app.globalData.URL + "/address", data, (res) => {
+                wx.showToast({
+                    title: '操作成功',
+                    icon: 'success',
+                    duration: 1000
+                })
+                var pages = getCurrentPages();
+                if (pages.length > 1) {
+                    var prePage = pages[pages.length - 2];
+                    prePage.getList()
+                    setTimeout(function() {
+                        wx.navigateBack()
+                    }, 1000)
+                }
+            }, true)
+        }
     },
     // 刷新
     onPullDownRefresh() {
@@ -188,20 +209,20 @@ Page({
             title: e
         })
     },
-    getDetail: function(id) {
-        let url = app.globalData.URL + `/address/${id}`
-        app.wxRequest('GET', url, {}, (res) => {
-            let data = res.data.data
-            console.log(data)
-            this.setData({
-                phone: data.phone,
-                type: data.type,
-                name: data.linkman,
-                detailAddress: data.detailAddress,
-                province: data.area.provinceName,
-                city: data.area.cityName,
-                county: data.area.countyName
-            })
-        }, true)
-    }
+    // getDetail: function(id) {
+    //     let url = app.globalData.URL + `/address/${id}`
+    //     app.wxRequest('GET', url, {}, (res) => {
+    //         let data = res.data.data
+    //         console.log(data)
+    //         this.setData({
+    //             phone: data.phone,
+    //             type: data.type,
+    //             name: data.linkman,
+    //             detailAddress: data.detailAddress,
+    //             province: data.area.provinceName,
+    //             city: data.area.cityName,
+    //             county: data.area.countyName
+    //         })
+    //     }, true)
+    // }
 })

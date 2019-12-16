@@ -25,7 +25,7 @@ page {
 }
 
 .active {
-    border: 1px solid #7470E1;
+    border: 1px solid #5B85BF;
 }
 
 .btn {

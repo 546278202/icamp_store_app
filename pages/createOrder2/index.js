@@ -1,4 +1,6 @@
 const app = getApp()
+const watch = require('../../utils/watch.js');
+
 Page({
     data: {
         goodsId: null,
@@ -8,6 +10,8 @@ Page({
         show: false,
         camperList: [],
         campersName: ["请选择"],
+        couponData: { amount: 0.00 },
+        payIntegral: 0,
         active: 0,
         current: 1,
         result: [],
@@ -17,11 +21,18 @@ Page({
         createOrderList: []
     },
     onLoad() {
-        console.log(app.globalData.paramer)
-        console.log(app.globalData.createOrder)
-        console.log(app.globalData.createOrderList)
 
-
+        // 处理积分
+        if (app.globalData.createOrderList.payableAmount > 10) {
+            this.setData({
+                payIntegral: 10
+            })
+        } else {
+            this.setData({
+                payIntegral: 0
+            })
+        }
+        console.log(this.data.payIntegral)
         this.setData({
             campersNum: app.globalData.createOrder.campersNum,
             campersName: app.globalData.createOrder.campersName,
@@ -30,20 +41,57 @@ Page({
             detailData: app.globalData.detailData
         })
     },
-    submitData(event) {
-        app.wxRequest('POST', app.globalData.URL + `/order`, app.globalData.paramer, (res) => {
-            console.log(res.data.data)
-            app.globalData["createOrder3"] = res.data.data
-            wx.showToast({
-                title: '操作成功',
-                icon: 'success',
-                duration: 1500
+    // 选择优惠卷
+    goCouponPage() {
+        if (this.data.createOrderList.payableAmount - (this.data.payIntegral / 10) > 300) {
+            wx.navigateTo({
+                url: "../coupon/index?back=createOrder2"
             })
-            setTimeout(() => {
-                wx.navigateTo({
-                    url: '../createOrder3/index',
+        }
+    },
+
+    //监听数据
+    // watch: {
+    //     couponData(newVal, oldVal) {
+    //         console.log(newVal, oldVal);
+    //         if (newVal != oldVal) {
+    //             this.setData({
+    //                 couponData: newVal
+    //             })
+    //         }
+    //     }
+    // },
+    watch() {
+        this.setData({
+            couponData: this.data.couponData
+        })
+    },
+    submitData(event) {
+        //优惠卷
+        if (this.data.createOrderList.payableAmount - (this.data.payIntegral / 10) > 300) {
+            if (this.data.couponData.couponId) {
+                app.globalData.paramer.couponId = this.data.couponData.couponId
+            }
+        }
+        // 默认添加积分
+        if (this.data.payIntegral > 0) {
+            app.globalData.paramer.payIntegral = this.data.payIntegral
+        }
+        console.log(app.globalData.paramer)
+        app.wxRequest('POST', app.globalData.URL + `/order`, app.globalData.paramer, (res) => {
+            if (res.statusCode == 200) {
+                app.globalData["createOrder3"] = res.data.data
+                wx.showToast({
+                    title: '操作成功',
+                    icon: 'success',
+                    duration: 1000
                 })
-            }, 1500)
+                setTimeout(() => {
+                    wx.navigateTo({
+                        url: '../createOrder3/index',
+                    })
+                }, 1000)
+            }
         }, true)
     }
 })

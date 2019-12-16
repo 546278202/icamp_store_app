@@ -8,11 +8,13 @@ Page({
             'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
             'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
         ],
-        title: ''
+        title: null,
+        tagIds: null
     },
     onLoad(options) {
         this.setData({
             title: options.title,
+            tagIds: options.tagId,
         })
         wx.setNavigationBarTitle({
             title: options.title
@@ -25,7 +27,7 @@ Page({
     //获取商品分类
     getGoodsList() {
         wx.request({
-            url: app.globalData.BASE_URL + `/goods?status=1&page=0&size=10&cid=&tagIds=&goodsName=&keyWords=&type=`,
+            url: app.globalData.BASE_URL + `/goods?status=1&page=0&size=10&cid=&tagIds=${this.data.tagIds}&goodsName=&keyWords=&type=`,
             data: {},
             method: 'GET',
             header: {}, // 设置请求的 header  

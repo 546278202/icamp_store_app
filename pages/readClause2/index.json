@@ -1,0 +1,15 @@
+{
+    "navigationBarTitleText": "阅读条款二",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+        "van-search": "../../dist/search/index",
+        "van-tab": "../../dist/tab/index",
+        "van-tabs": "../../dist/tabs/index",
+        "van-checkbox": "../../dist/checkbox/index",
+        "van-checkbox-group": "../../dist/checkbox-group/index",
+        "van-icon": "../../dist/icon/index",
+        "van-field": "../../dist/field/index",
+        "van-button": "../../dist/button/index"
+
+    }
+}

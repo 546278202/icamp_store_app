@@ -1,0 +1,22 @@
+page {
+    background: #fff;
+    padding: 0 0 15px 0;
+}
+
+.bg_img {
+    height: 499px;
+    background: url(https://tstore.i-camp.com.cn/images/201911131617582718155.png);
+    background-size: 100% 100%;
+    background-position: top right;
+    background-repeat: no-repeat;
+}
+
+.adshow {
+    height: 148px;
+    color: #fff;
+    background-color: #fff;
+    position: relative;
+    background-image: url(https://tstore.i-camp.com.cn/images/201912141907216024850.jpg);
+    background-size: 100% 100%;
+    padding: 35px 35px 14px 35px;
+}

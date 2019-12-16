@@ -4,7 +4,7 @@
         <view style="height:111px;display:flex;border-bottom:1px solid #F1F1F1;align-items:center;" data-index="{{index}}" bindtap="chooseCamper">
             <view style="display: flex;flex:1;">
                 <view style="padding-right:25px;">
-                    <van-checkbox value="{{ item.isChecked }}" checked-color="#6C68DF" icon-size="30px"></van-checkbox>
+                    <van-checkbox value="{{ item.isChecked }}" checked-color="#5B85BF" icon-size="30px"></van-checkbox>
                 </view>
                 <view>
                     <view style="font-size:16px;color:#484848;font-weight: bold;">{{item.camperName}}</view>
@@ -12,7 +12,7 @@
                 </view>
             </view>
 
-            <view style="margin-left:44px;" bindtap="showPopup">
+            <view style="margin-left:44px;" bindtap="editCamper" data-index="{{index}}">
                 <view style="width:57px;height:30px;line-height:30px;font-size:12px;color:#A4A4A4;font-weight:500;border-left:1px solid #F1F1F1;text-align: center;">编辑</view>
             </view>
         </view>
@@ -20,7 +20,7 @@
     </van-swipe-cell>
     <navigator hover-class="none" url="../addCamper/index" style="height:111px;display:flex;border-bottom:1px solid #F1F1F1;align-items:center;">
         <view style="padding-right:25px;">
-            <van-icon name="add-o" color="#6C68DF" size="32px" />
+            <van-icon name="add-o" color="#5B85BF" size="32px" />
         </view>
         <view>
             <view style="font-size:16px;color:#484848;font-weight: bold;">添加营员</view>
@@ -28,7 +28,7 @@
         </view>
     </navigator>
 </view>
-<view wx-if="{{options.back}}" style="height:49px;display:flex;background:#fff;box-shadow:0px -3px 6px 0px rgba(233,233,233,0.5);align-items:center;position:fixed;bottom: 0; width: 100%;background: #fff;z-index: 44444;">
-    <view style="color:#ffffff;font-size:16px;background: #6C68DF;width:133px;height:48px;display: flex;align-items: center;justify-content: center;flex:1" bindtap="submitData">保存/返回</view>
+<view wx-if="{{options.back}}" style="padding-bottom:30px; ">
+    <view class="btn-class" bindtap="submitData">保存/返回</view>
 </view>
 <van-action-sheet show="{{ show }}" actions="{{ actions }}" bind:select="onSelect" bind:close="onClose1" />

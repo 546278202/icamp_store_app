@@ -1,3 +1,6 @@
 <view class="container">
-    <van-cell title="{{item.camperName}}" is-link value="{{item.camperNameEn}}" wx:for="{{dataList}}" wx:for-item="item" wx:for-index='index' url="/pages/campList/index?camperId={{item.camperId}}" />
+    <view style="padding-top:90px;display:flex;justify-content: center;">
+        <image src="../../image/youhuijuan.png" style="height:291px;width:253px;" mode='aspectFill' binderror="avatarError" />
+    </view>
+    <view style="margin-top:90px;color:#302C48;font-size: 15px;font-weight:400;text-align: center;font-family:PingFang-SC-Regular,PingFang-SC;">还没有营会记录哦</view>
 </view>

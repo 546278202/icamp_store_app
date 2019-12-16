@@ -1,78 +1,90 @@
 const app = getApp()
 Page({
     data: {
-        categoryData: null,
-        list: [{
-                src: '../../image/tab2/1.png',
-                name: "主题营",
-                list: [
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "亲子营" },
-                    { src: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640', name: "研学营" },
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "亲子营" },
-                    { src: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640', name: "研学营" },
-
-                ]
-            },
-            {
-                src: '../../image/tab2/2.png',
-                name: "特色营",
-                list: [
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "科技营" },
-                    { src: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640', name: "军事营" },
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "太空营" },
-                ]
-            },
-            {
-                src: '../../image/tab2/3.png',
-                name: "假日营",
-                list: [
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "周末营" },
-                    { src: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640', name: "周末营" },
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "周末营" }
-
-                ]
-            },
-            {
-                src: '../../image/tab2/4.png',
-                name: "营地培训",
-                list: [
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "导师培训" },
-                    { src: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640', name: "公开课" },
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "公开课" },
-                    { src: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640', name: "公开课" },
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "公开课" },
-                ]
-            },
-            {
-                src: '../../image/tab2/5.png',
-                name: "其他",
-                list: [
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "体验中心" },
-                    { src: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640', name: "技能培训" },
-                    { src: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', name: "体验中心" },
-                    { src: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640', name: "体验中心" },
-                ]
-            }
-        ]
+        list: null,
+        windowHeight: null,
+        windowWidth: null,
+        loadingState: true,
+        page: 0,
+        size: 10,
+        cid: null,
+        imgUrls: [
+            'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+            'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
+            'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
+        ],
+        GoodsList: [],
+        searchModel: false,
+        searchText: "搜索",
+        searchValue: "",
+        active: 0,
     },
     onLoad: function(options) {
         this.getCategory()
+        this.setData({
+            windowHeight: wx.getSystemInfoSync().windowHeight,
+            windowWidth: wx.getSystemInfoSync().windowWidth
+        })
     },
-    //分类数据
-    getCategory() {
-        wx.request({
-            url: app.globalData.BASE_URL + "/category/1?page=0&size=10&type=0",
-            data: {},
-            method: 'GET',
-            // header: {}, // 设置请求的 header  
-            success: (res) => {
-                wx.hideLoading()
-                this.setData({
-                    categoryData: res.data.data,
-                })
-            }
-        });
+    lower: function(e) {
+        this.getGoodsList(this.data.cid)
+        this.setData({
+            isHideLoadMore: true
+        })
+
     },
+    onChangeLeftItem(e) {
+        let index = e.currentTarget.dataset.index
+        console.log(this.data)
+        this.setData({
+            page: 0,
+            active: index,
+            cid: this.data.list[index].id,
+            GoodsList: [],
+            loadingState: true,
+        })
+        setTimeout((res) => {
+            this.getGoodsList(this.data.cid)
+        }, 1000)
+
+    },
+    getCategory(e) {
+        let data = {};
+        app.wxRequest('GET', app.globalData.BASE_URL + "/category/17?page=0&size=10&type=0", data, (res) => {
+            this.setData({
+                list: res.data.data
+            })
+            console.log(this.data.list)
+            this.getGoodsList(this.data.list[0].id)
+        }, true)
+    },
+    onFocus(event) {
+        console.log(event)
+        this.setData({
+            searchModel: true,
+            searchText: "取消",
+            pageBackgroundColor: "#fff"
+        })
+    },
+    onSearchCancel() {
+        this.setData({
+            searchModel: false,
+            searchText: "搜索",
+            searchValue: ''
+        })
+    },
+    onSearchChange(event) {
+        this.setData({
+            searchValue: event.detail,
+            pageBackgroundColor: "#fff"
+        })
+    },
+    onSearch(event) {
+        wx.navigateTo({
+            url: '../product/index?title=' + this.data.searchValue
+        })
+    },
+
     // 刷新
     onPullDownRefresh() {
         wx.showNavigationBarLoading();
@@ -84,20 +96,32 @@ Page({
 
     // 加载更多
     onReachBottom: function() {
-        console.log('加载更多')
-        setTimeout(() => {
-            this.setData({
-                isHideLoadMore: true,
-            })
-        }, 1000)
+        console.log("加载更多")
     },
-    //图加载失败
-    avatarError(e) {
-        var index = e.currentTarget.dataset.index
-        var categoryDataArr = JSON.parse(JSON.stringify(this.data.categoryData))
-        categoryDataArr[index].logoFile.originalFile = "https://ideas-camp.com/img/help_banner.png"
-        this.setData({
-            categoryData: categoryDataArr
-        })
+
+    //获取商品
+    getGoodsList(cid) {
+        let arr = []
+        let url = app.globalData.BASE_URL + `/goods?status=1&page=${this.data.page}&size=${this.data.size}&cid=${cid}&tagIds=&goodsName=&keyWords=&type=`;
+        let data = {};
+        app.wxRequest('GET', url, data, (res) => {
+            console.log(res.data)
+            arr = res.data.data
+
+            let GoodsList = this.data.GoodsList.concat(arr)
+            var page = this.data.page;
+            page += 1;
+            this.setData({
+                GoodsList: GoodsList,
+                page: page
+            })
+            if (arr.length < this.data.size) {
+                console.log("已经最后一页了")
+                this.setData({
+                    loadingState: false,
+                })
+                return
+            }
+        }, )
     }
-})
+});

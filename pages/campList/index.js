@@ -10,7 +10,7 @@ Page({
         this.getList()
     },
     getList() {
-        let url = app.globalData.URL + `/user/camp?camperId=${this.data.camperId}`
+        let url = app.globalData.URL + `/user/camp`
         let data = {};
         app.wxRequest('GET', url, data, (res) => {
             this.setData({ dataList: res.data.data });

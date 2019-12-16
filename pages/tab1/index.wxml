@@ -1,93 +1,64 @@
-<!--index.wxml-->
-<view class="page" style="background-color:{{pageBackgroundColor}}">
-    <view class="container">
-        <van-search value="{{ searchValue }}" placeholder-style="color: #696969;font-size: 12px;" placeholder="搜索热门营会／主题营会" shape="round" use-action-slot bind:search="onSearch" bind:focus="onFocus" bind:change="onSearchChange" show-action>
-            <view slot="action" shape bindtap="onSearchCancel" style="color: #696969;font-size: 14px;">{{searchText}}
+<wxs module="filter" src="../../utils/filter.wxs"></wxs>
+<image src="https://tstore.i-camp.com.cn/images/201912061805973326380.png" style="width:100%;height:252px;" mode='aspectFill' />
+<view style="display:flex;background:#fff; padding: 15px 0;">
+    <view bindtap="bindViewTap" style="display:flex;flex:1;flex-direction:column;align-items: center;font-size:12px; color:#303030" wx:for="{{imgUrls2}}" wx:for-item="item" wx:for-index='index' data-index="{{index}}">
+        <image src="{{item.src}}" style="height:22px;width:22px;" />
+        <!-- <image src="{{item.src}}" style="height:22px;width:22px;" mode='aspectFit' /> -->
+
+
+        <view style="margin-top:5px;">{{item.name}}</view>
+    </view>
+</view>
+
+<view style="background:#fff;margin-top: 15px;padding-top: 13px;">
+    <swiper previous-margin='30px' next-margin='30px' bindchange="swiperChange" indicator-dots="{{indicatorDots}}" circular="true" autoplay="true" indicator-active-color="#5B85BF" style='height:{{"386px"}};'>
+        <swiper-item wx:for="{{hotGoodsList}}" wx:for-item="item" wx:for-index='index'>
+            <view class='le-img {{nowIdx==index?"le-active":""}}' bindtap="swipclick">
+                <image bindload='getHeight' src='{{item.icon}}' binderror="hotAvatarError" data-index="{{index}}"></image>
+                <view style="font-size:13px;color:#696969;height:85px;text-align: center;display: flex;align-items: center;justify-content: center;flex-direction: column;box-shadow: 0px 2px 4px 0px rgba(211, 211, 211, 0.5);margin: 0 2px 2px 2px;">
+                    <view style="font-size:14px;color:#303030;margin-bottom:5px;">{{item.name}}</view>
+                    <view style="font-size:13px;color:#696969;">【早鸟价】¥{{filter.returnFloat(item.goodsPrice)}}</view>
+                </view>
             </view>
-        </van-search>
-        <view wx:if="{{searchModel}}" style="background: #fff;height: 100%;padding:15px;display:flex;flex-direction: column;font-weight:400;">
-            <view style="color:#696969;font-size: 14px;margin-bottom:10px;">热门搜索 </view>
-            <navigator hover-class="none" url="../productCate/index?id={{item.id}}" style="color:#303030;font-size: 12px;margin-bottom:8px;display:flex;align-items: center;" wx:for="{{GoodsList}}" wx:for-item="item" wx:for-index='index'>
-                <view wx:if="{{index==0}}" class="search-1">{{index+1}}</view>
-                <view wx:elif="{{index==1}}" class="search-2">{{index+1}}</view>
-                <view wx:elif="{{index==2}}" class="search-3">{{index+1}}</view>
-                <view wx:elif="{{index>2}}" class="search-4">{{index+1}}</view>
-                <text>{{item.name}}</text>
-            </navigator>
+        </swiper-item>
+    </swiper>
+</view>
+<view style="margin-top: 15px;margin-bottom:15px;" class="adshow" bindtap="companyIntroduction">
+    <view>
+        <view style="font-size:29px;color:#FFFFFF;font-family:DINCondensed-Bold,DINCondensed;font-weight:bold;">ABOUT US</view>
+        <view style="font-size:8px;color:#FFFFFF;margin-bottom:18px;">
+            <view>
+                没有围墙的学校，没有边界的教育
+            </view>
+            <view>
+                A school without wall, an education without boundaries
+            </view>
         </view>
-        <view wx:else>
-            <view style="padding:5px 12px 12px 12px;background: #fff;">
-                <swiper indicator-dots="true" autoplay="true" circular="true" interval="5000" duration="500" height="200">
-                    <block wx:for="{{imgUrls}}">
-                        <swiper-item>
-                            <image src="{{item}}" class="slide-image" />
-                        </swiper-item>
-                    </block>
-                </swiper>
-            </view>
-
-            <view style="background: #fff;margin-bottom:10px;">
-                <view style="display:flex;padding-bottom:30rpx;">
-                    <navigator hover-class="none" url="../product/index?title={{item.name}}" style="display:flex;flex:1;flex-direction:column;align-items: center;font-size:12px; color:#303030" wx:for="{{imgUrls2}}" wx:for-item="item" wx:for-index='index'>
-                        <image src="{{item.src}}" class="" style="width:60px;height:60px;" />
-                        <view>{{item.name}}</view>
-                    </navigator>
-                </view>
-                <view style="display:flex;padding-bottom:30rpx;">
-                    <navigator hover-class="none" url="../product/index?title={{item.name}}" style="display:flex;flex:1;flex-direction:column;align-items: center;font-size:12px; color:#303030" wx:for="{{imgUrls3}}" wx:for-item="item" wx:for-index='index'>
-                        <image src="{{item.src}}" class="" style="width:60px;height:60px;" />
-                        <view>{{item.name}}</view>
-                    </navigator>
-                </view>
-
-            </view>
-            <!-- 导航 -->
-            <van-tabs animated color="#6C68DF" active="{{ active }}" bind:change="onChange" line-width="30">
-                <van-tab title="推荐">
-                    <navigator hover-class="none" url="../productCate/index?id={{item.id}}" wx:for="{{GoodsList}}" wx:for-item="item" wx:for-index='index' style="background: #fff; margin:15px 15px 0px 15px;border-radius:8px;overflow: hidden;box-shadow:0px 3px 6px 0px rgba(233,233,233,1);">
-                        <view style="position:relative;">
-                            <image src="{{item.icon}}" style="width:100%;height:190px;" mode='aspectFill' />
-                            <view style="position: absolute;left:0;bottom:0;width:100%;font-size: 14px;color:#fff;padding:15px 15px 15px 15px;">
-                                <test style="font-size:18px;">7~18</test>岁 单个学生
-                            </view>
-                        </view>
-                        <view style="color:#484848;font-size:15px;font-weight:600;padding:15px 15px 0 15px;">
-                            {{item.name}} </view>
-                        <view style="color:#505050;font-size:14px;padding:0 15px 10px 15px;">{{item.keyWords}}</view>
-                    </navigator>
-                </van-tab>
-                <van-tab title="最新">
-                    <navigator hover-class="none" url="../productCate/index?id={{item.id}}" wx:for="{{GoodsList}}" wx:for-item="item" wx:for-index='index' style="background: #fff; margin:15px 15px 0px 15px;border-radius:8px;overflow: hidden;box-shadow:0px 3px 6px 0px rgba(233,233,233,1);">
-                        <view style="position:relative;">
-                            <image src="{{item.icon}}" style="width:100%;height:190px;" mode='aspectFill' />
-                            <view style="position: absolute;left:0;bottom:0;width:100%;font-size: 14px;color:#fff;padding:15px 15px 15px 15px;">
-                                <test style="font-size:18px;">7~18</test>岁 单个学生
-                            </view>
-                        </view>
-                        <view style="color:#484848;font-size:15px;font-weight:600;padding:15px 15px 0 15px;">
-                            {{item.name}} </view>
-                        <view style="color:#505050;font-size:14px;padding:0 15px 10px 15px;">{{item.keyWords}}</view>
-                    </navigator>
-                </van-tab>
-                <van-tab title="最热">
-                    <navigator hover-class="none" url="../productCate/index?id={{item.id}}" wx:for="{{GoodsList}}" wx:for-item="item" wx:for-index='index' style="background: #fff; margin:15px 15px 0px 15px;border-radius:8px;overflow: hidden;box-shadow:0px 3px 6px 0px rgba(233,233,233,1);">
-                        <view style="position:relative;">
-                            <image src="{{item.icon}}" style="width:100%;height:190px;" mode='aspectFill' />
-                            <view style="position: absolute;left:0;bottom:0;width:100%;font-size: 14px;color:#fff;padding:15px 15px 15px 15px;">
-                                <test style="font-size:18px;">7~18</test>岁 单个学生
-                            </view>
-                        </view>
-                        <view style="color:#484848;font-size:15px;font-weight:600;padding:15px 15px 0 15px;">
-                            {{item.name}} </view>
-                        <view style="color:#505050;font-size:14px;padding:0 15px 10px 15px;">{{item.keyWords}}</view>
-                    </navigator>
-                </van-tab>
-            </van-tabs>
-            <view wx:if="{{loadingState}}" style="padding:15px 15px 0 15px;display:flex;align-items: center;justify-content: center;">
-                <van-loading size="20px"></van-loading>
-                <text style=" margin-left: 8px;color: #969799; font-size: 14px; vertical-align: middle; display: inline-block;">加载中...</text>
-            </view>
-            <van-divider wx:else contentPosition="center" customStyle=";padding:0 15px;color: #969799; font-size: 14px;">已加载完毕</van-divider>
+        <view style="width:63px;height:20px;background:#FFFFFF;border-radius:48px;font-size:11px;color:#666666;text-align: center;line-height: 20px;">
+            点击进入
         </view>
     </view>
 </view>
+<navigator hover-class="none" url="../productCate/index?id={{item.id}}" wx:for="{{GoodsList}}" wx:for-item="item" wx:for-index='index' style="background: #fff; margin-bottom:15px;overflow: hidden;box-shadow:0px 3px 6px 0px rgba(233,233,233,1);margin-top: 15px;padding-bottom: 5px;">
+    <view style="position:relative;">
+        <image src="{{item.icon}}" style="width:100%;" binderror="listAvatarError" data-index="{{index}}" />
+    </view>
+    <view style="position:relative;display:flex;justify-content: space-between;margin-top:5px;">
+        <view style="color:#505050;padding-left:10px;font-size:10px;">
+            <text plain size="medium" wx:for="{{filter.arrSplit(item.tags)}}" wx:for-item="item" wx:for-index='index' style="border:1px solid #D2D2D2;color:#696969; margin-right:10px;width:50px;height:20px;display:inline-block;line-height: 20px; text-align: center;">{{item}}</text>
+        </view>
+        <view style="display: flex;align-items: center;padding-right:10px;">
+            <van-icon name="location" size="15px; color:#696969;" /><text style="font-size:12px;line-height: 22px;color:#696969;">{{item.productionPlace}}</text>
+        </view>
+    </view>
+    <view style="margin-bottom: 5px;display: flex;justify-content:space-between;margin-top:8px;">
+        <view style="color:#303030;font-size:14px;font-weight:600;padding-left:10px;">
+            {{item.name}}
+        </view>
+    </view>
+</navigator>
+<view wx:if="{{loadingState}}" style="padding:15px 0;display:flex;align-items: center;justify-content: center;">
+    <van-loading size="20px"></van-loading>
+    <text style=" margin-left: 8px;color: #969799; font-size: 14px; vertical-align: middle; display: inline-block;">加载中...</text>
+</view>
+<van-divider wx:else contentPosition="center" customStyle=";padding-bottom:15px;color: #969799; font-size: 14px;">已加载完毕</van-divider>

@@ -1,7 +1,6 @@
 {
     "navigationBarTitleText": "分类",
     "enablePullDownRefresh": true,
-    "backgroundColorBottom": "#ffffff",
     "usingComponents": {
         "van-search": "../../dist/search/index",
         "van-tab": "../../dist/tab/index",

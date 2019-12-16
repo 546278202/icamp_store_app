@@ -1,5 +1,7 @@
 /**index.wxss**/
 
+page {}
+
 .van-tab {
     color: #303030 !important;
     font-size: 16px !important;
@@ -8,11 +10,11 @@
 .van-tabs__line {
     height: 2px !important;
     border-radius: 2px !important;
-    background-color: #6C68DF !important;
+    background-color: #5B85BF !important;
 }
 
 .van-tab--active {
-    color: #6C68DF !important;
+    color: #5B85BF !important;
     font-weight: 500;
 }
 
@@ -22,15 +24,6 @@
 }
 
 .van-tab__pane--active {}
-
-.page {
-    display: block;
-    min-height: 100%;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
 
 .van-search {
     padding: 10px 12px !important;
@@ -83,4 +76,33 @@
     line-height: 15px;
     margin-right: 8px;
     background: #E4E4E4;
+}
+
+.le-img {
+    width: 100%;
+    display: block;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+
+.le-img.le-active {
+    transform: scale(1);
+}
+
+
+/* swiper-item {
+    box-shadow: 0px 2px 4px 0px rgba(211, 211, 211, 0.5);
+} */
+
+.adshow {
+    display: flex;
+    flex-direction: row;
+    padding-left: 27px;
+    padding-top: 35px;
+    /* align-items: center; */
+    height: 206px;
+    background-color: #fff;
+    position: relative;
+    background-image: url(https://tstore.i-camp.com.cn/images/201912111007510749993.jpg);
+    background-size: 100% 101%;
 }

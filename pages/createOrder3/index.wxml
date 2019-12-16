@@ -1,25 +1,22 @@
 <wxs module="filter" src="../../utils/filter.wxs"></wxs>
 <view class="container">
-    <view style="padding:0 15px;border-bottom: 1px solid #F3F3F3;background: #fff">
-        <view style="margin:15px 0;">{{createOrder3.orderAmount}}</view>
-        <image src="https://tstore.i-camp.com.cn/images/201909091422682584843.jpeg" style="width:100%;height:190px;" mode='aspectFill' style="border-radius:8px;" />
+    <view style="padding: 0 15px;height:205px;border-bottom: 1px solid #F3F3F3;text-align: center;display: flex;flex-direction: column; align-items: center;">
+        <view style="margin:15px 0;color:#484848;font-size:14px;">{{createOrder3.settleModels[0].attributeValues[0].name}}</view>
+        <image src="{{createOrder3.settleModels[0].goods.coverImage}}" style="width:190px;display: block;height:118px;border-radius:8px;" mode='aspectFill' />
     </view>
-
     <navigator style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">
         <view style="display: flex;flex:1;align-items: center;justify-content: space-between;">
-            <text>数量</text>
-            <text style="color:#BBC0CA;">1</text>
+            <text style="color:#696969;font-size: 14px;">数量</text>
+            <text style="color:#303030;font-size: 14px;">1</text>
         </view>
-        <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
     </navigator>
     <navigator style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">
         <view style="display: flex;flex:1;align-items: center;justify-content: space-between;">
-            <text>总价</text>
-            <text style="color:#BBC0CA;">{{createOrder3.orderAmount}}</text>
+            <text style="color:#696969;font-size: 14px;">总价</text>
+            <text style="color:#303030;font-size: 14px;">¥{{filter.returnFloat(createOrder3.payableAmount)}}</text>
         </view>
-        <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
     </navigator>
     <view style="height:49px;display:flex;background:#fff;box-shadow:0px -3px 6px 0px rgba(233,233,233,0.5);align-items:center;position:fixed;bottom: 0; width: 100%;background: #fff;z-index: 44444; ">
-        <view style="color:#ffffff;font-size:16px;background: #6C68DF;height:48px;display: flex;align-items: center;justify-content: center;" bindtap="submitData">安全支付</view>
+        <view style="width:100%;height:48px;color:#ffffff;font-size:16px;background: #5B85BF;display: flex;align-items: center;justify-content: center;" bindtap="submitData">安全支付</view>
     </view>
 </view>

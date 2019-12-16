@@ -2,7 +2,7 @@ const app = getApp()
 import Dialog from '../../dist/dialog/dialog';
 Page({
     data: {
-        list: null,
+        dataList: null,
     },
 
     onLoad: function() {
@@ -14,7 +14,7 @@ Page({
         app.wxRequest('GET', url, {}, (res) => {
             console.log(res)
             this.setData({
-                list: res.data.data
+                dataList: res.data.data
             })
         }, true)
     },
@@ -63,6 +63,15 @@ Page({
                     console.log('用户点击取消')
                 }
             }
+        })
+    },
+    //编辑人员
+    editCamper(e) {
+        let index = e.currentTarget.dataset.index
+        let item = this.data.dataList[index]
+        let str = JSON.stringify(item)
+        wx.navigateTo({
+            url: `../newAddress/index?detail=${encodeURIComponent(str)}`
         })
     }
 })

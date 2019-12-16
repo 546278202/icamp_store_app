@@ -6,7 +6,6 @@ Page({
         show: false,
         actions: [{
                 name: '编辑营员',
-                url: '../addCamper/index?title=编辑营员'
             },
             // {
             //     name: '编辑详细信息',
@@ -21,9 +20,9 @@ Page({
 
     onLoad: function(options) {
         this.getList()
-            // this.setData({
-            //     options: options,
-            // })
+        this.setData({
+            options: options,
+        })
     },
     getList() {
         let url = app.globalData.URL + "/camper?type=1"
@@ -55,6 +54,8 @@ Page({
     },
     // 删除
     delList(index) {
+
+
         let url = app.globalData.URL + `/camper/${index}`
         app.wxRequest('DELETE', url, {}, (res) => {
             console.log(res)
@@ -64,7 +65,7 @@ Page({
                 duration: 2000
             })
             this.getList()
-        }, true)
+        })
     },
     showPopup() {
         this.setData({ show: true });
@@ -97,7 +98,6 @@ Page({
             }
         });
         var pages = getCurrentPages();
-        console.log(pages)
         if (pages.length > 1) {
             // 上一个页面实例对象
             var prePage = pages[pages.length - 2];
@@ -119,17 +119,41 @@ Page({
     },
     onClose(event) {
         let index = event.currentTarget.dataset.index
+        const { position, instance } = event.detail;
         wx.showModal({
             title: '提示',
             content: '您确定删除当前数据么？',
             success: (res) => {
                 if (res.confirm) {
                     console.log('用户点击确定')
+                    instance.close();
+
                     this.delList(index)
                 } else if (res.cancel) {
                     console.log('用户点击取消')
+                    instance.close();
+
+
                 }
             }
         })
+    },
+    //编辑人员
+    editCamper(e) {
+        let index = e.currentTarget.dataset.index
+        let item = this.data.dataList[index]
+        let arr = [item]
+            // get证件信息
+        app.wxRequest('GET', app.globalData.URL + `/id?linkId=${item.camperId}&type=1&idType=1`, {}, (res) => {
+            if (res.statusCode == 200) {
+                if (res.data.status == 200) {
+                    arr.push(res.data.data)
+                    let str = JSON.stringify(arr)
+                    wx.navigateTo({
+                        url: `../addCamper/index?detail=${encodeURIComponent(str)}`
+                    })
+                }
+            }
+        }, true)
     }
 })

@@ -1,5 +1,5 @@
 {
-    "navigationBarTitleText": "添加营员详细信息",
+    "navigationBarTitleText": "完善营员信息一",
     "enablePullDownRefresh": true,
     "usingComponents": {
         "van-search": "../../dist/search/index",

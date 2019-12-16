@@ -1,0 +1,13 @@
+page {
+    background:#fff;
+    padding: 0 0 15px 0;
+}
+.active {
+    background: linear-gradient(90deg, rgba(160, 156, 240, 1) 0%, rgba(108, 104, 223, 1) 100%);
+    color: #fff;
+}
+
+.van-sticky-wrap,
+.van-sticky-wrap {
+    width: 100%;
+}

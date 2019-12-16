@@ -1,114 +1,41 @@
+// 0=已取消 1=待支付 2=待完善营员报名信息 3=待发货 4=待收货 5=订单完成
 const app = getApp()
 Page({
     data: {
-        dataList: null,
-        options: null,
-        show: false,
-        actions: [{
-                name: '编辑营员信息',
-                url: '../addCamper/index?title=编辑营员信息'
-            },
-            {
-                name: '编辑详细信息',
-                url: '../addCamper_detail/index?title=编辑详细信息'
-            },
-            {
-                name: '编辑注意事项',
-                url: '../addCamper_detail/index?title=编辑注意事项'
-            }
-        ]
+        loadingState: true,
+        page: 0,
+        size: 10,
+        list: null,
+        active: 0,
     },
-
-    onLoad: function(options) {
-        this.getList()
-            // this.setData({
-            //     options: options,
-            // })
+    onLoad: function() {
+        this.getList(1)
     },
-    getList() {
-        let url = app.globalData.URL + "/camper?type=1"
-        let data = {};
-        app.wxRequest('GET', url, data, (res) => {
-            if (res.data.data) {
-                var arr = []
-                res.data.data.forEach(element => {
-                    element["isChecked"] = false
-                    arr.push(element)
-                });
-                this.setData({
-                    dataList: arr,
-                })
-            }
-        }, true)
-    },
-
-    onClose1(event) {
-        this.setData({
-            show: false,
-        })
-    },
-    onSelect(event) {
-        console.log(event);
-        wx.navigateTo({
-            url: event.detail.url
-        })
-    },
-    // 删除
-    delList(index) {
-        let url = app.globalData.URL + `/camper/${index}`
-        app.wxRequest('DELETE', url, {}, (res) => {
-            console.log(res)
-            wx.showToast({
-                title: '操作成功',
-                icon: 'success',
-                duration: 2000
-            })
-            this.getList()
-        }, true)
-    },
-    showPopup() {
-        this.setData({ show: true });
-        // this.abc()
-    },
-    handleShowPopup() {
-        this.setData({
-            show: false,
-        });
-    },
-    chooseCamper(event) {
-        let index = event.currentTarget.dataset.index
-        let dataList = this.data.dataList
-
-        console.log(index, dataList)
-        if (dataList[index].isChecked) {
-            dataList[index].isChecked = false
-        } else {
-            dataList[index]["isChecked"] = true
+    onChange(event) {
+        // 0=已取消 1=待支付 2=待完善营员报名信息 3=待发货 4=待收货 5=订单完成 6=售后
+        if (event.detail.index == 0) {
+            this.getList(1)
         }
-        this.setData({
-            dataList: dataList
-        });
-    },
-    // 保存选择
-    submitData(event) {
-        let arr = []
-        this.data.dataList.forEach(element => {
-            if (element.isChecked) {
-                arr.push(element)
-            }
-        });
-        var pages = getCurrentPages();
-        console.log(pages)
-        if (pages.length > 1) {
-            // 上一个页面实例对象
-            var prePage = pages[pages.length - 2];
-            prePage.data.camperList = arr
-            prePage.getCmpersName()
-            setTimeout(function() {
-                wx.navigateBack()
-            }, 100)
+        if (event.detail.index == 1) {
+            this.getList(2)
         }
+        if (event.detail.index == 2) {
+            this.getList(5)
+        }
+        // if (event.detail.index == 3) {
+        //     this.getList(6)
+        // }
     },
+
+    // 刷新
+    onPullDownRefresh() {
+        wx.showNavigationBarLoading();
+        setTimeout(() => {
+            wx.stopPullDownRefresh()
+            wx.hideNavigationBarLoading();
+        }, 1000)
+    },
+
     // 加载更多
     onReachBottom: function() {
         console.log('加载更多')
@@ -118,19 +45,82 @@ Page({
             })
         }, 1000)
     },
-    onClose(event) {
-        let index = event.currentTarget.dataset.index
-        wx.showModal({
-            title: '提示',
-            content: '您确定删除当前数据么？',
-            success: (res) => {
-                if (res.confirm) {
-                    console.log('用户点击确定')
-                    this.delList(index)
-                } else if (res.cancel) {
-                    console.log('用户点击取消')
-                }
-            }
+    getList(status) {
+        let data = {}
+        console.log(status)
+        let arr = []
+        app.wxRequest('GET', app.globalData.URL + `/order?orderStatus=${status}&page=${this.data.page}&size=${this.data.size}`, data, (res) => {
+            console.log(res)
+            arr = res.data.data
+            this.setData({
+                    loadingState: false,
+                    list: res.data.data,
+                })
+                // if (arr.length < this.data.size) {
+                //     console.log("已经最后一页了")
+                //     this.setData({
+                //         loadingState: false,
+                //         list: res.data.data,
+                //     })
+                //     return
+                // }
+        }, true)
+    },
+    // 根据订单查人数
+    getOrderCampList(e) {
+        let index = e.currentTarget.dataset.index
+        let item = this.data.list[index]
+        let data = {}
+        let arr = []
+        app.wxRequest('GET', app.globalData.URL + `/order/camper/${item.orderId}`, data, (res) => {
+            console.log(res)
+            arr = res.data.data
+            this.setData({
+                    loadingState: false,
+                    list: res.data.data,
+                })
+                // if (arr.length < this.data.size) {
+                //     console.log("已经最后一页了")
+                //     this.setData({
+                //         loadingState: false,
+                //         list: res.data.data,
+                //     })
+                //     return
+                // }
+        }, true)
+    },
+    goDetailPage(e) {
+
+
+
+        let index = e.currentTarget.dataset.index
+        let item = this.data.list[index]
+            // 0=已取消 1=待支付 2=待完善营员报名信息 3=待发货 4=待收货 5=订单完成 6=售后
+        if (item.orderStatus == 0) {
+
+        }
+        if (item.orderStatus == 1) {
+
+            let str = JSON.stringify(item)
+            wx.navigateTo({
+                url: `../orderDetail/index?detail=${encodeURIComponent(str)}`
+            })
+        }
+        if (item.orderStatus == 2) {
+            let str = JSON.stringify(item)
+            wx.navigateTo({
+                url: `../orderDetail/index?detail=${encodeURIComponent(str)}`
+            })
+        }
+    },
+
+    //图加载失败
+    avatarError(e) {
+        let index = e.currentTarget.dataset.index
+        let data = this.data.list
+        data[index].orderGoods[0]["coverImg"]["originalFile"] = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
+        this.setData({
+            list: data
         })
     }
 })

@@ -1,41 +1,55 @@
 <wxs module="filter" src="../../utils/filter.wxs"></wxs>
-<view style="color:#fff;height:131px;background:rgba(110,106,223,1);display:flex;justify-content: center;align-items: center;flex-direction: column;">
-    <view style="font-size:21px;margin-bottom:10px;">{{filter.orderType(list.orderGoodsStatus)}}</view>
-    <view style="font-size:13px;">剩余23小时59分钟关闭</view>
+<view style="color:#fff;height:131px;background:#5B85BF;display:flex;justify-content: center;align-items: center;flex-direction: column;">
+    <view style="font-size:21px;margin-bottom:10px;display:flex;">
+        <!-- <image src="../../image/shijian.png" style="height:20px;width:20px;margin-right:15px;" mode='aspectFit' /> -->
+        <text>{{filter.orderTypeTxt(options.orderStatus)}}</text>
+    </view>
+    <view wx:if="{{options.orderStatus==1}}" style="font-size:13px;">
+        <text>剩余23小时59分钟关闭</text>
+    </view>
 </view>
-<navigator style="background: #fff; margin: 15px 0;border-radius:14px;">
+<navigator hover-class="none" style="background: #fff; margin: 15px 0;border-radius:14px;">
     <view style="display: flex;margin:0 15px;padding: 15px 0;border-bottom: 1px solid #F3F3F3;">
-        <image src="https://tstore.i-camp.com.cn/images/201909091422682584843.jpeg" style="width:93px;height:93px;border-radius:7px;" mode='aspectFill' binderror="avatarError" data-index="{{index}}" />
+        <image src="{{list.coverImg.originalFile}}" style="width:93px;height:93px;border-radius:7px;" mode='aspectFill' binderror="avatarError" data-index="{{index}}" />
         <view style="padding:10px 15px 0 15px;flex:1;">
             <view style="font-size:14px;color:#3D3D3D;font-weight: 500;margin-bottom: 5px;;">{{list.goodsName}}</view>
-            <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">{{list.goodsName}}</view>
+            <!-- <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">{{list.goodsName}}</view> -->
             <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">营员：{{list.camper.camperName}}</view>
-            <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">$5669</view>
+            <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">金额：¥{{filter.returnFloat(options.payableAmount)}}</view>
         </view>
     </view>
-    <view style="padding:15px;">
-        <view style="font-size:14px;color:#303030;margin-bottom: 10px;"><text>服务</text></view>
-        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">交通费</text><text style="color:#696969">1000</text></view>
-        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">交通费</text><text style="color:#696969">1000</text></view>
+    <view style="padding:15px;" wx:if="{{severList.length}}">
+        <view style="font-size:14px;color:#303030;margin-bottom: 10px;"><text>服务信息</text></view>
+        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;" wx:for="{{severList}}" wx:for-item="item" wx:for-index='index'><text style="color:#3D4244">{{filter.returnFloat(item.attributeValueName)}}</text><text style="color:#696969">¥{{filter.returnFloat(item.sellPrice)}}</text></view>
     </view>
-    <view style="padding:15px;color:#3D4244;text-align: center;"> 联系客服 </view>
+    <button open-type="contact">
+        <navigator style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1;background:rgba(255,255,255,1);display:flex;align-items: center;justify-content: center;">
+                <view style="display: flex;align-items: center;justify-content: center;font-size:14px;color:#3D4244;">
+                    <image src="../../image/tab4/sever.png" style="height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
+                    <text open-type="contact">联系客服</text>
+                </view>
+        </navigator>
+    </button>
 </navigator>
 
 <navigator style="background: #fff; margin: 15px 0;border-radius:14px;">
     <view style="padding:15px;">
         <view style="font-size:14px;color:#303030;margin-bottom: 10px;"><text>优惠信息</text></view>
-        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">交通费</text><text style="color:#696969">1000</text></view>
-        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">交通费</text><text style="color:#696969">1000</text></view>
+        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">积分减免</text><text style="color:#696969">-¥{{filter.returnFloat(list.integralDiscountAmount)}}</text></view>
+        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">优惠卷减免</text><text style="color:#696969">-¥{{filter.returnFloat(list.couponDiscountAmount)}}</text></view>
     </view>
 </navigator>
 <navigator style="background: #fff; margin: 15px 0;border-radius:14px;">
     <view style="padding:15px;">
         <view style="font-size:14px;color:#303030;margin-bottom: 10px;"><text>订单信息</text></view>
-        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">订单编号</text><text style="color:#696969">{{id}}</text></view>
-        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">下单时间</text><text style="color:#696969">2019-08-10</text></view>
+        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">订单编号</text><text style="color:#696969">{{options.orderId}}</text></view>
+        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">下单时间</text><text style="color:#696969">{{options.addDateTime}}</text></view>
     </view>
 </navigator>
 <view style="color:#fff;font-size: 14px;background:#fff;display:flex;justify-content: flex-end;align-items:center;padding:17px 0;">
-    <view style="width:77px;height:30px;border-radius:16px;margin-right:15px;text-align: center;line-height: 30px;color:#262626;border:1px solid #989898;">取消订单</view>
-    <view style="width:77px;height:30px;background:rgba(116,112,226,1);border-radius:16px;border:1px solid rgba(116,112,226,1);margin-right:15px;text-align: center;line-height: 30px;">去支付</view>
+    <view wx:if="{{options.orderStatus==0}}" style="width:77px;height:30px;background:#5B85BF;border-radius:16px;border:1px solid #5B85BF;margin-right:15px;text-align: center;line-height: 30px;">已取消</view>
+    <view wx:if="{{options.orderStatus==1}}" style="width:77px;height:30px;border-radius:16px;margin-right:15px;text-align: center;line-height: 30px;color:#262626;border:1px solid #989898;">取消订单</view>
+    <view wx:if="{{options.orderStatus==1}}" style="width:77px;height:30px;background:#5B85BF;border-radius:16px;border:1px solid #5B85BF;margin-right:15px;text-align: center;line-height: 30px;" bindtap="orderPay">去支付</view>
+    <view wx:if="{{options.orderStatus==2}}" bindtap="getCamperDetail" style="width:77px;height:30px;background:#5B85BF;border-radius:16px;border:1px solid #5B85BF;margin-right:15px;text-align: center;line-height: 30px;">去完善</view>
+    <view wx:if="{{options.orderStatus==5}}" style="width:77px;height:30px;background:#5B85BF;border-radius:16px;border:1px solid #5B85BF;margin-right:15px;text-align: center;line-height: 30px;">已完成</view>
 </view>

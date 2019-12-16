@@ -1,21 +1,20 @@
 App({
     globalData: {
-        // BASE_URL: 'http://172.16.10.24:8089', //商品全局 URL
-        BASE_URL: 'http://172.16.10.24:8090', //商品全局 URL
-
         BASE_URL: 'https://t8090.i-camp.com.cn', //商品全局 URL
         URL: 'https://t8091.i-camp.com.cn', //app设置全局 URL
+
+        // BASE_URL: 'http://172.16.10.24:8090',
+        // URL: "http://172.16.10.24:8091",
+
         domainName: "https://test.i-camp.com.cn",
         // domainName: "https://p.i-camp.com.cn",
-        // URL: "http://172.16.10.24:8091", //设置全局 URL
-        appid: 'wx7ff613d5d2eb8218', //appid需自己提供，此处的appid我随机编写
-        secret: '37a58ab663fcf6117d080c2dfa735692', //secret需自己提供，此处的secret我随机编写
-        openid: '',
-        userInfo: {}
+        userInfo: {},
+        appid: "wx7ff613d5d2eb8218"
     },
     // loading配置，请求次数统计
     startLoading() {
         wx.showLoading({
+            mask: true,
             title: '加载中...',
         })
     },
@@ -56,6 +55,7 @@ App({
             method: method,
             data: data,
             header: {
+                'Content-Type': 'application/json',
                 'cookie': wx.getStorageSync("sessionid"), //读取cookie
             },
             dataType: 'json',
@@ -68,6 +68,12 @@ App({
                         duration: 2000
                     })
                 }
+                // if (res.statusCode == 404) {
+                //     wx.showLoading({
+                //         title: '操作失败',
+                //         duration: 2000
+                //     })
+                // }
                 if (res.statusCode == 401) {
                     wx.navigateTo({
                         url: '../tologin/index',
@@ -91,42 +97,51 @@ App({
             }
         })
     },
+
     //登陆||注册
-    userLogin(type) {
-        let data = {}
-        if (type == 1) {
-            data = {
-                phone: this.globalData.phone,
-                code: this.globalData.sms,
-                from: 1
-            }
-        } else {
-            data = {
-                openId: this.globalData.openid,
-                from: 0
-            };
-        }
-        this.wxRequest('POST', this.globalData.URL + '/user/login', data, (res) => {
+    userLogin(paramer) {
+        this.wxRequest('POST', this.globalData.URL + '/user/login', paramer, (res) => {
             if (res.statusCode == 200) {
                 if (res.data.status == 200) {
                     wx.setStorageSync("sessionid", res.header["Set-Cookie"])
                     wx.setStorageSync("userInfo", res.data.data)
-                    this.globalData.userInfo = res.data.data
                     wx.reLaunch({ url: '../tab1/index' })
+                        // this.getUserInfo()
                 }
             }
         }, true)
     },
+    // 微信授权更新用户信息
+    getUserInfo() {
+        wx.getUserInfo({
+            success: (res) => {
+                console.log(res)
+                let data = {
+                        encryptedData: res,
+                        iv: res,
+                        type: 1 //type 0=基本数据 1=手机号
+                    }
+                    // this.wxRequest('PUT', this.globalData.URL + "/user/info", data, (res) => {
+                    //     if (res.statusCode == 200) {
+                    //         this.globalData.userInfo = res.data.data
+                    //     }
+                    // }, true)
+            }
+        })
+    },
+
     onLaunch: function() {
         // 页面出现在前台时执行
         var that = this
-            // wx.checkSession({　
-            //     success: function(res) {　　　　　　},
-            //     fail: function(res) {　
-            //         wx.navigateTo({
-            //             url: '../tologin/index',
-            //         })
-            //     }
-            // })
+        wx.checkSession({　
+            success: function(res) {
+                console.log(res)
+            },
+            fail: function(res) {　
+                console.log(res)
+
+
+            }
+        })
     },
 })

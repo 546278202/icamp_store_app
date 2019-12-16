@@ -7,7 +7,8 @@
     </view>
     <view class="weui-msg__opr-area">
         <view class="weui-btn-area">
-            <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">微信登录</button>
+            <!-- <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="bindgetuserinfo">微信登录</button> -->
+            <button class="weui-btn" type="primary" open-type="getPhoneNumber" bindgetphonenumber="bindgetphonenumber">微信登录</button>
         </view>
     </view>
     <view class="weui-msg__opr-area">

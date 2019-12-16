@@ -1,14 +1,28 @@
-// 0=已取消 1=待支付 2=待完善营员报名信息 3=待发货 4=待收货 5=订单完成
 const app = getApp()
 Page({
     data: {
+        value: null,
         list: null,
+        activeNames: null,
+        GoodsList: [
+            { name: "100", couponId: 1, amount: 300 },
+            { name: "200", couponId: 1, amount: 300 },
+            { name: "300", couponId: 1, amount: 300 },
+        ],
+        options: null,
+        show: false
     },
-
-    onLoad: function() {
-        this.getList(0)
+    onLoad: function(options) {
+        this.setData({
+            options: options
+        });
     },
-
+    onChange(event) {
+        console.log(event)
+        this.setData({
+            activeNames: event.detail
+        });
+    },
     // 刷新
     onPullDownRefresh() {
         wx.showNavigationBarLoading();
@@ -27,6 +41,27 @@ Page({
             })
         }, 1000)
     },
+
+    switchPage(e) {
+        console.log(this.options)
+        let index = e.currentTarget.dataset.index
+        if (this.options.back) {
+            var pages = getCurrentPages();
+            if (pages.length > 1) {
+                var prePage = pages[pages.length - 2];
+                let item = (this.data.GoodsList[index])
+                prePage.data.couponData = item
+                prePage.watch()
+                setTimeout(() => {
+                    wx.navigateBack()
+                }, 1000)
+            }
+        } else {
+            wx.switchTab({
+                url: '../tab1/index',
+            })
+        }
+    },
     getList(status) {
         let data = {}
         app.wxRequest('GET', app.globalData.URL + `/order?orderStatus=${status}`, data, (res) => {
@@ -35,5 +70,12 @@ Page({
             })
         }, true)
     },
+    getCouponInfo(event) {
+        this.setData({ show: true });
+    },
+
+    onClose() {
+        this.setData({ show: false });
+    }
 
 })

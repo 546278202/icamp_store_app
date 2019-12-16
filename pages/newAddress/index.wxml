@@ -2,30 +2,28 @@
     <view style="height: 48px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;">
         <view style="display: flex;align-items: center; flex:1;">
             <text style="width:70px;">人员姓名</text>
-            <van-field value="{{name}}" style="width:100%;" placeholder-style="color:#D8D8D8;font-size:14px;" border="{{false}}" placeholder="输入姓名" bind:change="nameChange" />
+            <van-field value="{{detailData.linkman}}" style="width:100%;" placeholder-style="color:#D8D8D8;font-size:14px;" border="{{false}}" placeholder="输入姓名" bind:change="nameChange" />
         </view>
         <!-- <van-icon name="arrow" color="#BBC0CA" /> -->
     </view>
     <view style="height: 48px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between; ">
         <view style="display: flex;align-items: center; flex:1;">
             <text style="width:70px;">手机号码</text>
-            <van-field value="{{phone}}" style="width:100%;" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入手机号" border="{{false}}" bind:change="phoneChange" />
+            <van-field value="{{detailData.phone}}" style="width:100%;" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入手机号" border="{{false}}" bind:change="phoneChange" />
         </view>
         <van-icon name="arrow" color="#BBC0CA" />
     </view>
-
     <view bindtap="showPopup" style="height: 48px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between; ">
         <view style="display: flex;align-items: center;flex:1;">
             <text style="width:70px;">所在地区</text>
-            <van-field wx:if="{{id}}" style="width:100%;" value="{{province}} {{city}} {{county}}" data-id="camperNameEn" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder=" " border="{{false}}" disabled/>
-            <van-field wx:else value="{{provinces[valueArr[0]].district}} {{citys[valueArr[1]].district}} {{areas[valueArr[2]].district}}" data-id="camperNameEn" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder=" " border="{{false}}" disabled/>
+            <van-field style="width:100%;" value="{{detailData.area.provinceName}} {{detailData.area.cityName}} {{detailData.area.countyName}}" data-id="camperNameEn" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="填写地址" border="{{false}}" disabled/>
         </view>
         <van-icon name="arrow" color="#BBC0CA" />
     </view>
     <view style="height: 48px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between; ">
         <view style="display: flex;align-items: center; flex:1;">
             <text style="width:70px;">详细地址</text>
-            <van-field value="{{detailAddress}}" style="width:100%;" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="填写详细地址" border="{{false}}" bind:change="addressDetailChange" />
+            <van-field value="{{detailData.detailAddress}}" style="width:100%;" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="填写详细地址" border="{{false}}" bind:change="addressDetailChange" />
         </view>
     </view>
 
@@ -34,7 +32,7 @@
     <view style="display: flex;align-items: center; flex:1;">
         <text>是否默认</text>
     </view>
-    <van-switch checked="{{checked}}" size="24px" bind:change="checkedChange" />
+    <van-switch checked="{{detailData.isDefault}}" size="24px" bind:change="checkedChange" />
 </view>
 <view style="padding-bottom:30px; ">
     <view class="btn-class" bindtap="handleSubmit">保存信息</view>
@@ -46,7 +44,8 @@
         <text bindtap="handleShowPopup">取消</text>
         <text bindtap="handleShowPopup">确认</text>
     </div>
-    <picker-view class="nyz_area_pick_view" indicator-style="height: 45px;" value="{{value}}" bindchange="bindchange">
+
+    <picker-view class="nyz_area_pick_view" indicator-style="height: 45px;" value="{{value}}" loading="{{show}}" bindchange="bindchange">
         <picker-view-column>
             <view class="nyz_area_colum_view" wx:for="{{provinces}}" wx:for-index='index' data-id="{{item.districtId}}">{{item.district}}</view>
         </picker-view-column>
@@ -54,7 +53,7 @@
             <view class="nyz_area_colum_view" wx:for="{{citys}}" wx:for-index='index' data-id="{{item.districtId}}">{{item.district}}</view>
         </picker-view-column>
         <picker-view-column>
-            <view class="nyz_area_colum_view" wx:for="{{areas}}">{{item.district}}</view>
+            <view class="nyz_area_colum_view" wx:for="{{area}}">{{item.district}}</view>
         </picker-view-column>
     </picker-view>
 </van-popup>

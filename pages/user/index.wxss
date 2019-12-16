@@ -16,7 +16,7 @@ page {
     height: 49px;
     line-height: 49px;
     text-align: center;
-    background: #6C68DF;
+    background: #5B85BF;
     font-size: 16px;
     color: #fff;
     margin: 58px 15px 15px 15px;

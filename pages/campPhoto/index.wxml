@@ -1,8 +1,10 @@
-<view class="outer">
-    <image class="container" wx:for='{{dataList}}' src='{{item.pictureUrl}}' data-index='{{index}}' mode='aspectFill' bindtap='previewImg'></image>
+<view wx:if="{{dataList.length==0}}" style="display: flex; flex-direction: column; align-items:center;justify-content: center;padding: 50px 0;">
+    <image src="../../image/nolist.png" style="width:200px;" mode='aspectFit' />
+    <text style="font-size:15px;font-family:PingFang-SC-Regular,PingFang-SC;font-weight:400;color:rgba(48,44,72,1);"> 还没营会的记录哦～</text>
 </view>
-<view wx:if="{{dataList.length==0}}">
-    <image src="https://tstore.i-camp.com.cn/images/201911131617582718155.png" style="height:499px;" mode='aspectFill' binderror="avatarError" />
-    <view style="color:#302C48;font-size: 20px;text-align: center;margin-bottom:10px;">Oh oh!</view>
-    <view style="color:#302C48;font-size: 15px;font-weight:400;text-align: center;font-family:PingFang-SC-Regular,PingFang-SC;">还没有营会</view>
+<view wx:else>
+    <view style="height:44px;line-height:44px;font-size: 14px;color:#303030;padding-left:14px;">{{title}}</view>
+    <view class="outer">
+        <image class="container" wx:for='{{dataList}}' src='{{item.pictureUrl}}' data-index='{{index}}' mode='aspectFill' bindtap='previewImg'></image>
+    </view>
 </view>

@@ -19,16 +19,47 @@ function toString(value) {
 function split(value) {
     return value.split(" ")[0]
 }
-// 0=已取消 1=待支付 2=待完善营员报名信息 3=待发货 4=待收货 5=订单完成
+
+function arrSplit(value) {
+    return value.split(",")
+}
+// 0=已取消 1=待支付 2=待完善 3=待发货 4=待收货 5=订单完成
 function orderType(value) {
-    if (value === 0) {
+    console.log(value)
+    if (value == 0) {
         return '已取消';
-    } else if (value === 1) {
-        return '待支付';
-    } else if (value === 2) {
-        return '待完善营员报名信息';
-    } else if (value === 5) {
-        return '订单完成';
+    } else if (value == 1) {
+        return '去支付';
+    } else if (value == 2) {
+        return '去完善';
+    } else if (value == 5) {
+        return '已完成';
+    }
+}
+// 0=已取消 1=待支付 2=待完善 3=待发货 4=待收货 5=订单完成
+function orderTypeTxt(value) {
+    console.log(value)
+    if (value == 0) {
+        return '已取消';
+    } else if (value == 1) {
+        return '等待支付...';
+    } else if (value == 2) {
+        return '待完善...';
+    } else if (value == 5) {
+        return '订单已完成';
+    }
+}
+// 语言(母语) 选单配置 0 = 中文 1 = 英语 2 = 日语 3 = 法语...
+function languageStateTxt(value) {
+    console.log(value)
+    if (value == 0) {
+        return '中文';
+    } else if (value == 1) {
+        return '中文.';
+    } else if (value == 2) {
+        return '英语';
+    } else if (value == 3) {
+        return '法语';
     }
 }
 
@@ -109,8 +140,11 @@ module.exports = {
     sex: sex,
     toString: toString,
     split: split,
+    arrSplit: arrSplit,
     orderType: orderType,
+    orderTypeTxt: orderTypeTxt,
     NumberToChinese: NumberToChinese,
     substring: substring,
-    returnFloat: returnFloat
+    returnFloat: returnFloat,
+    languageStateTxt: languageStateTxt
 }

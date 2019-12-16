@@ -1,15 +1,32 @@
 page {
     background: rgba(243, 243, 243, 1);
-    padding: 0 0 15px 0;
 }
-
-.active {
-    background: linear-gradient(90deg, rgba(160, 156, 240, 1) 0%, rgba(108, 104, 223, 1) 100%);
-    color: #fff;
-    padding: 0 10px;
-}
-
 .van-sticky-wrap,
 .van-sticky-wrap {
     width: 100%;
+}
+.outer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 15px;
+}
+.container {
+    background: #fff;
+    margin-top: 15px;
+    width: 47.75%;
+    height:100%;
+}
+
+.container:nth-child(odd) {
+    margin-right: 15px;
+    /* height: 250rpx; */
+    background: #fff;
+}
+.line-clamp-1{
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 1;
+-webkit-box-orient: vertical;
 }

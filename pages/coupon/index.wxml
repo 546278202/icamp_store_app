@@ -1,7 +1,55 @@
-<view class="container">
-    <view>
-        <image src="https://tstore.i-camp.com.cn/images/201911131617582718155.png" style="height:499px;" mode='aspectFill' binderror="avatarError" />
+<!-- <view class="container">
+    <view style="padding-top:90px;display:flex;justify-content: center;">
+        <image src="../../image/youhuijuan.png" style="height:291px;width:253px;" mode='aspectFill' binderror="avatarError" />
     </view>
-    <view style="color:#302C48;font-size: 20px;text-align: center;margin-bottom:10px;">Oh oh!</view>
-    <view style="color:#302C48;font-size: 15px;font-weight:400;text-align: center;font-family:PingFang-SC-Regular,PingFang-SC;">还没有优惠卷哦</view>
+    <view style="margin-top:90px;color:#302C48;font-size: 15px;font-weight:400;text-align: center;font-family:PingFang-SC-Regular,PingFang-SC;">还没有优惠卷</view>
+</view> -->
+<view style="padding:14px;" wx:for="{{GoodsList}}" wx:for-item="item" wx:for-index='index' data-index="{{index}}">
+    <view style="display:flex;border-radius:6px;overflow: hidden;">
+        <view style="width:3px;min-height:100px;background: #E4625A;"></view>
+        <view>
+            <view class="coupon_item">
+                <view style="position:absolute;right:0px;top:0px;width:53px; height:15px; line-height:15px;text-align:center;background:rgba(228,98,90,1);border-radius:0px 6px 0px 10px; border:1px solid rgba(228,98,90,1);font-size:10px;color:#fff;">今日过期</view>
+                <view style="background: #fff;display: flex;align-items: center;justify-content: center;flex-direction: column;">
+                    <view style="color:#E4625A;font-size:30px;font-family:Arial-BoldMT,Arial;">300</view>
+                    <view style="color:#696969;font-size: 12px;font-size:12px;font-family:PingFang-SC-Medium,PingFang-SC;">无门槛</view>
+                </view>
+                <view style="width:150px;background: #fff;display: flex;align-items: center;justify-content: center;flex-direction: column;">
+                    <view style="color:#303030;font-size:16px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:600;">启行营地折扣卷</view>
+                    <view style="color:#696969;font-size:12px;margin-top:10px;">2019.09.30-2025.09.30</view>
+                </view>
+                <!-- <navigator  hover-class="none" open-type="switchTab" url="{{pageUrl}}" style="background: #fff;display: flex;align-items: center;justify-content: center;">
+                    <view style="width:63px;height:22px;border:1px solid #E4625A;font-size: 12px;color:#E4625A;text-align: center;line-height:22px;border-radius:11px;">去使用</view>
+                </navigator> -->
+                <view bindtap="switchPage" data-index="{{index}}" style="background: #fff;display: flex;align-items: center;justify-content: center;">
+                    <view style="width:63px;height:22px;border:1px solid #E4625A;font-size: 12px;color:#E4625A;text-align: center;line-height:22px;border-radius:11px;">去使用</view>
+                </view>
+            </view>
+
+            <van-collapse value="{{activeNames}}" bind:change="onChange" accordion="true">
+                <van-collapse-item name="{{item.name}}" border="{{false}}">
+                    <view slot="title" style="display: flex;justify-content:space-between;color:#9A9A9A;">
+                        <text>最高折扣¥1000</text>
+                        <!-- <van-icon name="question-o" /> -->
+                        <text>使用规则</text>
+                    </view>
+                    <view class="rule"> 1、 每笔订单限用一张优惠券，每张优惠券限用一次。</view>
+                    <view class="rule"> 2、 只能用于购买商品，不可用于减免运费，亦不可用于兑换现金和找赎。 </view>
+                    <view class="rule"> 3、 如用券购买的商品发生销退，则用券部分金额不予返还。</view>
+                    <view class="rule"> 4、 开具的发票不包含用券金额。</view>
+                    <view class="rule"> 5、 可使用优惠券的商品以中视购物指定为准。</view>
+                    <view class="rule">6、 每一次优惠券活动，详见当次活动用券规则说明。</view>
+                </van-collapse-item>
+            </van-collapse>
+
+        </view>
+    </view>
 </view>
+
+<view style="height:49px;display:flex;background:#fff;box-shadow:0px -3px 6px 0px rgba(233,233,233,0.5);align-items:center;position:fixed;bottom: 0; width: 100%;background: #fff;z-index: 44444; ">
+    <view style="width:100%;height:48px;color:#ffffff;font-size:16px;background: #5B85BF;display: flex;align-items: center;justify-content: center;" bindtap="getCouponInfo">输入兑换码</view>
+</view>
+
+<van-dialog use-slot title="输入您的兑换码" show="{{ show }}" show-cancel-button bind:close="onClose">
+    <van-field value="{{ value }}" placeholder="请输入您的兑换码" border="{{ true }}" bind:change="onChange" />
+</van-dialog>

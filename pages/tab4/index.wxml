@@ -7,13 +7,17 @@
         <view style="height:45px;line-height:45px;font-weight:600;font-size: 18px;color:#fff;text-align: center;padding-top:18px;">个人中心</view>
         <view style=" position: relative; display: flex; height:164px;justify-content: center; align-items: center;flex-direction: column;">
             <image src="{{userInfo.image ? userInfo.image.originalFile : userInfo.image}}" style="height:66px;width:66px;border-radius:66px;box-shadow:0px -3px 6px 0px rgba(139, 138, 138, 0.5);" binderror="avatarError" />
-            <view style="font-weight:600;font-size: 18px;color:#fff;margin-top:5px;">{{filter.substring(userInfo.userName,10)}}</view>
+            <view style="font-weight:600;font-size: 18px;color:#fff;margin-top:5px;">{{filter.substring(userInfo.userName,11)}}</view>
         </view>
     </view>
     <view style="background:rgba(255,255,255,1); border-radius:8px;display:flex;padding:12px 0;margin:15px;">
         <navigator hover-class="none" url="../gaga/index" style="height:46px;display:flex;flex:1; align-items: center;justify-content: center; border-right:1px solid #F1F1F1;flex-direction: column;">
             <text style="color:#303030;font-size:14px;">0</text>
             <text style="color:#8D8D8D;font-size:14px;">GaGa球</text>
+        </navigator>
+        <navigator hover-class="none" url="../wallet/index" style="height:46px;display:flex;flex:1; align-items: center;justify-content: center;border-right:1px solid #F1F1F1;flex-direction: column; ">
+            <text style="color:#303030;font-size:14px;">0</text>
+            <text style="color:#8D8D8D;font-size:14px;">钱包</text>
         </navigator>
         <navigator hover-class="none" url="../coupon/index" style="height:46px;display:flex;flex:1; align-items: center;justify-content: center;flex-direction: column; ">
             <text style="color:#303030;font-size:14px;">0</text>
@@ -30,84 +34,95 @@
         </navigator>
         <view style="background:rgba(255,255,255,1); border-radius:8px;display:flex;padding:0 15px;color:#303030;font-size: 14px;justify-content: space-between;height:88px;">
             <navigator hover-class="none" url="../orderList/index" style="display:flex; align-items: center;justify-content: center;flex-direction: column; ">
-                <image src="../../image/tab4/4.png" style="height:20px;width:20px;" mode='widthFix' />
+                <image src="../../image/tab4/1.png" style="height:20px;width:20px;" mode='aspectFit' />
                 <text style="margin-top:5px;">待付款</text>
             </navigator>
             <navigator hover-class="none" url="../orderList/index" style="display:flex;align-items: center;justify-content: center;flex-direction: column; ">
-                <image src="../../image/tab4/4.png" style="height:20px;width:20px;" mode='widthFix' />
+                <image src="../../image/tab4/2.png" style="height:20px;width:20px;" mode='aspectFit' />
                 <text style="margin-top:5px;">完善信息</text>
             </navigator>
             <navigator hover-class="none" url="../orderList/index" style="display:flex;align-items: center;justify-content: center;flex-direction: column; ">
-                <image src="../../image/tab4/4.png" style="height:20px;width:20px;" mode='widthFix' />
+                <image src="../../image/tab4/3.png" style="height:20px;width:20px;" mode='aspectFit' />
                 <text style="margin-top:5px;">评价</text>
             </navigator>
             <navigator hover-class="none" url="../saleService/index" style="display:flex;align-items: center;justify-content: center;flex-direction: column; ">
-                <image src="../../image/tab4/4.png" style="height:20px;width:20px;" mode='widthFix' />
+                <image src="../../image/tab4/4.png" style="height:20px;width:20px;" mode='aspectFit' />
                 <text style="margin-top:5px;">退款/售后</text>
             </navigator>
         </view>
     </view>
 
     <view style="border-radius:8px;color:#303030;font-size: 14px;margin: 15px;overflow: hidden;">
-        <navigator hover-class="none" url="../camperList-next/index" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
+        <navigator hover-class="none" url="../projectList/index?detail=1" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
             <view style="display: flex;align-items: center;">
-                <image src="../../image/tab4/4.png" style=" height:20px;width:20px;margin-right:15px;" mode='widthFix' />
+                <image src="../../image/tab4/wenjuan.png?detail=1" style="height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
                 <text>营前问卷</text>
             </view>
-            <van-icon name="arrow " color="#BBC0CA " />
+            <van-icon name="arrow " color="#BBC0CA" />
         </navigator>
-        <navigator hover-class="none" url="../camperList-next/index" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
+        <navigator hover-class="none" url="../campList/index?detail=2" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
             <view style="display: flex;align-items: center;">
-                <image src="../../image/tab4/4.png" style="height:20px;width:20px;margin-right:15px;" mode='widthFix' />
+                <image src="../../image/tab4/photo.jpg" style="height:20px;width:20px;margin-right:15px;" mode='widthFix' />
                 <text>我的相册</text>
             </view>
             <van-icon name="arrow" color="#BBC0CA" />
         </navigator>
-        <navigator hover-class="none" url="../camperList-next/index" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
+        <navigator hover-class="none" url="../projectList/index?detail=3" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
             <view style="display: flex;align-items: center;">
-                <image src="../../image/tab4/4.png" style=" height:20px;width:20px;margin-right:15px;" mode='widthFix' />
+                <image src="../../image/tab4/log.png" style=" height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
+                <text>营会日志</text>
+            </view>
+            <van-icon name="arrow " color="#BBC0CA " />
+        </navigator>
+        <navigator hover-class="none" url="../projectList/index?detail=4" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
+            <view style="display: flex;align-items: center;">
+                <image src="../../image/tab4/groupUP.png" style=" height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
                 <text>成长记录</text>
             </view>
-            <van-icon name="arrow " color="#BBC0CA " />
-        </navigator>
-        <navigator hover-class="none" url="../camperList-next/index" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
-            <view style="display: flex;align-items: center;">
-                <image src="../../image/tab4/4.png" style=" height:20px;width:20px;margin-right:15px;" mode='widthFix' />
-                <text>生活记录</text>
-            </view>
-            <van-icon name="arrow " color="#BBC0CA " />
-        </navigator>
-        <navigator hover-class="none" url="../camperList-next/index" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
-            <view style="display: flex;align-items: center;">
-                <image src="../../image/tab4/4.png" style=" height:20px;width:20px;margin-right:15px;" mode='widthFix' />
-                <text>安全健康</text>
-            </view>
-            <van-icon name="arrow " color="#BBC0CA " />
+            <van-icon name="arrow " color="#BBC0CA" />
         </navigator>
     </view>
-    <view style="border-radius:8px;color:#303030;font-size: 14px;margin: 0 15px;overflow: hidden;">
+    <view style="border-radius:8px;color:#303030;font-size: 14px;margin: 0 15px;overflow: hidden;margin-bottom:15px;">
         <navigator url="../camperList/index" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
             <view style="display: flex;align-items: center;">
-                <image src="../../image/tab4/4.png" style="height:20px;width:20px;margin-right:15px;" mode='widthFix' />
+                <image src="../../image/tab4/camper.png" style="height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
                 <text>营员信息</text>
             </view>
             <van-icon name="arrow" color="#BBC0CA" />
         </navigator>
+    </view>
+    <view style="border-radius:8px;color:#303030;font-size: 14px;margin: 0 15px;overflow: hidden;margin-bottom:15px;">
         <navigator url="../addressList/index" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
             <view style="display: flex;align-items: center;">
-                <image src="../../image/tab4/4.png" style=" height:20px;width:20px;margin-right:15px;" mode='widthFix' />
+                <image src="../../image/tab4/address.png" style=" height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
                 <text>收货地址</text>
             </view>
             <van-icon name="arrow " color="#BBC0CA " />
         </navigator>
         <navigator url="../user/index" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
             <view style="display: flex;align-items: center;">
-                <image src="../../image/tab4/4.png" style=" height:20px;width:20px;margin-right:15px;" mode='widthFix' />
+                <image src="../../image/tab4/gerenxinxi.png" style=" height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
                 <text>个人信息</text>
             </view>
             <van-icon name="arrow " color="#BBC0CA " />
         </navigator>
     </view>
+    <view style="border-radius:8px;color:#303030;font-size: 14px;margin: 0 15px;overflow: hidden;margin-bottom:15px;">
+        <button open-type="contact">
+            <navigator style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
+                    <view style="display: flex;align-items: center;">
+                        <image src="../../image/tab4/sever.png" style="height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
+                        <text open-type="contact">客服中心</text>
+                    </view>
+                    <van-icon name="arrow" color="#BBC0CA" />
+            </navigator>
+        </button>
+        <navigator url="" style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background:rgba(255,255,255,1);">
+            <view style="display: flex;align-items: center;">
+                <image src="../../image/tab4/task.png" style=" height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
+                <text>任务中心</text>
+            </view>
+            <van-icon name="arrow " color="#BBC0CA " />
+        </navigator>
+    </view>
 </view>
-<!-- </scroll-view>
-</view> -->

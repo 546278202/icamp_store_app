@@ -3,12 +3,14 @@ Page({
     data: {
         projectId: null,
         camperId: null,
+        title: null,
         dataList: []
     },
     onLoad: function(options) {
         this.setData({
             projectId: options.projectId,
-            camperId: options.camperId
+            camperId: options.camperId,
+            title: options.title
         })
         this.getList()
     },
@@ -29,7 +31,7 @@ Page({
     },
 
     getList() {
-        let url = app.globalData.domainName + "/api/synchro/getPictures?projectId=37&camperId=123"
+        let url = app.globalData.domainName + "/api/synchro/getPictures?projectNum=BJ-20191116-112&camperId=123"
         app.wxRequest('GET', url, {}, (res) => {
             this.setData({
                 dataList: res.data.data

@@ -1,43 +1,71 @@
-//index.js
-//获取应用实例
 const app = getApp()
 Page({
     data: {
-        imgUrls: [
-            'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-            'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
-            'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
-        ],
-        active: 1,
+        loadingState: true,
+        page: 0,
+        size: 10,
+        dataList: [],
     },
-
     onLoad: function() {
-
-    },
-    // 导航切换
-    toggle: function(e) {
-        console.log(e)
-        var a = e.currentTarget.dataset.no
-        this.setData({
-            active: a
-        })
+        this.getGoodsList()
     },
     // 刷新
     onPullDownRefresh() {
         wx.showNavigationBarLoading();
-        setTimeout(() => {
+        this.setData({
+            page: 0,
+            dataList: []
+        })
+        this.getGoodsList()
+    },
+    //获取商品
+    getGoodsList() {
+        let arr = []
+        let url = app.globalData.URL + `/discovery?page=${this.data.page}&size=${this.data.size}`;
+        let data = {};
+        app.wxRequest('GET', url, data, (res) => {
             wx.stopPullDownRefresh()
             wx.hideNavigationBarLoading();
-        }, 1000)
+
+            console.log(res.data)
+            arr = res.data.data
+            let dataList = this.data.dataList.concat(arr)
+            var page = this.data.page;
+            page += 1;
+            this.setData({
+                dataList: dataList,
+                page: page
+            })
+            if (arr.length < this.data.size) {
+                console.log("已经最后一页了")
+                this.setData({
+                    loadingState: false,
+                })
+                return
+            }
+        }, )
     },
 
     // 加载更多
     onReachBottom: function() {
-        console.log('加载更多')
-        setTimeout(() => {
-            this.setData({
-                isHideLoadMore: true,
-            })
-        }, 1000)
+        this.getGoodsList()
+        this.setData({
+            isHideLoadMore: true
+        })
     },
+    goDetailPage(e) {
+        let index = e.currentTarget.dataset.index
+        let item = this.data.dataList[index]
+        let str = JSON.stringify(item)
+        wx.navigateTo({
+            url: `../tab3_detail/index?detail=${encodeURIComponent(str)}`
+        })
+    },
+    // 跳转webview
+    jumpWebview() {
+        let type = "baidu"
+        wx.navigateTo({
+            url: `../webview/index?type=${type}`,
+        })
+    }
 })

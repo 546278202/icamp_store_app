@@ -1,0 +1,16 @@
+<wxs module="filter" src="../../utils/filter.wxs"></wxs>
+<import src="../../wxParse/wxParse.wxml" />
+<view class="container">
+    <van-sticky>
+        <van-tabs animated color="#5B85BF" active="{{ active }}" bind:change="onChange" line-width="30">
+            <van-tab title="第{{index+1}}天" wx:for="{{options}}" wx:for-item="item" wx:for-index='index' data-index="{{index}}"></van-tab>
+        </van-tabs>
+    </van-sticky>
+    <view style="padding: 15px;">
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+    <view wx:if="{{loadingState}}" style="padding:15px 0;display:flex;align-items: center;justify-content: center; ">
+        <van-loading size="20px "></van-loading>
+        <text style=" margin-left: 8px;color: #969799; font-size: 14px; vertical-align: middle; display: inline-block; ">加载中...</text>
+    </view>
+</view>

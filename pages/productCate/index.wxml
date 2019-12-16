@@ -1,36 +1,37 @@
 <wxs module="filter" src="../../utils/filter.wxs"></wxs>
 <import src="../../wxParse/wxParse.wxml" />
 <view class="container">
-    <swiper indicator-dots="true" autoplay="true" circular="true" interval="5000" duration="500" style="height:209px">
-        <block wx:for="{{imgUrls}}">
-            <swiper-item>
-                <image src="{{item}}" class="slide-image" />
-            </swiper-item>
-        </block>
-    </swiper>
-
+    <view style="height: 240px;">
+        <swiper style="width:100%;height:100%;" indicator-dots="true" autoplay="true" circular="true" interval="5000" duration="500">
+            <block wx:for="{{detailData.galleries}}" style="height:240px;">
+                <swiper-item>
+                    <image src="{{item.logoFile.originalFile}}" style="width:100%;" mode="widthFix" class="slide-image" />
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
     <view style="font-size:14px;color:#303030;padding:0 15px;background: #fff;">
         <view style="height: 53px; border-bottom: 1px solid #F3F3F3; display: flex; align-items: center;justify-content: space-between;">
             <view style="display: flex;align-items: center;">
-                <image src="../../image/theme.png" style="height:20px;width:20px;margin-right:15px;" mode='widthFix' />
+                <image src="../../image/theme.png" style="height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
                 <text>主题：</text><text>{{detailData.goodsName}}</text>
             </view>
         </view>
         <view style="height: 53px; border-bottom: 1px solid #F3F3F3; display: flex; align-items: center;justify-content: space-between;">
             <view style="display: flex;align-items: center;">
-                <image src="../../image/icon_diqu.png" style="height:20px;width:20px;margin-right:15px;" mode='widthFix' />
+                <image src="../../image/icon_diqu.png" style="height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
                 <text>地区：</text><text>{{detailData.productionPlace}}</text>
             </view>
         </view>
         <view style="height: 53px; border-bottom: 1px solid #F3F3F3; display: flex; align-items: center;justify-content: space-between;">
             <view style="display: flex;align-items: center;">
-                <image src="../../image/nianling-2.png" style="height:20px;width:20px;margin-right:15px;" mode='widthFix' />
+                <image src="../../image/nianling-2.png" style="height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
                 <text>年龄：</text><text>{{detailData.minTargetAge}}~{{detailData.maxTargetAge}}岁</text>
             </view>
         </view>
         <view style="height: 53px; border-bottom: 1px solid #F3F3F3; display: flex; align-items: center;justify-content: space-between;">
             <view style="display: flex;align-items: center;">
-                <image src="../../image/shijian.png" style="height:20px;width:20px;margin-right:15px;" mode='widthFix' />
+                <image src="../../image/shijian.png" style="height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
                 <text>期数：</text><text>{{detailData.goodsAttributes[0].values.length}}期</text>
             </view>
         </view>
@@ -43,49 +44,44 @@
                     <view style="background: #fff;padding:0 15px;border-radius:8px;" data-index="{{index}}" bindtap='toggle' class="{{index == active?'active':''}}">
                         <view class="product_attr_title">
                             <text> 第{{filter.NumberToChinese(index+1)}}期</text>
-                            <van-checkbox value="kk" checked-color="#6C68DF" wx-if="{{index == active}}">已选</van-checkbox>
+                            <van-checkbox value="kk" checked-color="#5B85BF" wx-if="{{index == active}}">已选</van-checkbox>
                         </view>
                         <view class="product_attr_item"><text>出发日期：</text><text>{{item.starDate}}</text></view>
                         <view class="product_attr_item"><text>返程日期：</text><text>{{item.endDate}}</text></view>
                         <view class="product_attr_item"><text>时长：</text><text>14天</text></view>
-                        <view class="product_attr_item"><text>价格：</text><text>¥{{item.sellPrice}}</text></view>
+                        <view class="product_attr_item"><text>价格：</text><text>¥{{item.sellPrice+detailData.sellPrice}}</text></view>
                         <view class="product_attr_item"><text>名额：</text><text>剩余{{item.stockQty}}</text></view>
                     </view>
                 </swiper-item>
             </block>
         </swiper>
-
-
-        <view style="font-size:10px;padding: 0 15px 15px 15px;">
+        <!-- <view style="font-size:10px;padding: 0 15px 15px 15px;">
             <view> 提示： </view>
             <view> 预售优惠：在2019年9月30日前报名可享受立减800元优惠活动；预售营会 不享受报名费3天内可退；预售活动不与其他活动任何优惠活动同享。</view>
-        </view>
+        </view> -->
     </view>
-
-    <view style="padding: 15px;background: #fff;">
-        <view style="color:#303030;font-size:14px;font-weight: Medium;display:flex;align-items: center;margin-bottom:15px;"><span style="display:block;width:6px;height:6px;background:#7470E1;border-radius: 6px;"></span><text style="padding-left:8px;">营会介绍</text></view>
+    <!-- <view style="padding: 15px;background: #fff;">
+        <view style="color:#303030;font-size:14px;font-weight: Medium;display:flex;align-items: center;margin-bottom:15px;"><span style="display:block;width:6px;height:6px;background:#5B85BF;border-radius: 6px;"></span><text style="padding-left:8px;">营会介绍</text></view>
         <view style="color:#696969;font-size:12px;margin-bottom:15px;">2019年3月开始，美国8所常青藤盟校陆续发出offer，哈佛、耶鲁、 普林斯顿…一所所如雷贯耳的高校名字牵动着众多家长和学子的心。 相信很多家长都在思考，怎样让孩子可以脱颖而出，在各自的领域 出类拔萃？继而树立自信，并因此受益终生。</view>
         <view style="color:#696969;font-size:12px;margin-bottom:15px;"> 欢迎12-14岁挑战国际知名高中的学生，来到由UWC与启行联合主 办的学术夏校， 这个夏天学术与能力双提升！。</view>
-
-    </view>
+    </view> -->
     <view style="padding: 15px;background: #fff;">
         <template is="wxParse" data="{{wxParseData:article.nodes}}" />
     </view>
     <view style="height:49px;display:flex;box-shadow:0px -3px 6px 0px rgba(233,233,233,0.5);align-items: center;justify-content: center;position: fixed;bottom: 0; width: 100%;background: #fff;">
         <button open-type="contact" class="btn">
-            <image src="../../image/tab1/sever_HL.png" mode='widthFix' style="width:20px;height: 20px;" />
-            <text style="margin-top: 5px;">在线咨询</text>
+            <image src="../../image/service.png" mode='aspectFit' style="width:20px;height: 20px;" />
+            <text style="margin-top: 5px;">咨询</text>
         </button>
         <button open-type="share" class="btn">
-            <image src="../../image/tab1/share.png" style="width:18px;" mode='widthFix' />
+            <image src="../../image/tab1/share.png"  mode='aspectFit' style="width:20px;height: 20px;"/>
             <text style="margin-top: 5px;">分享</text>
         </button>
-
-        <navigator url="../createOrder/index?id={{goodsId}}" style="color:#ffffff;font-size:16px;flex:1;background: #6C68DF;height:49px;display: flex;align-items: center;justify-content: center;">
+        <navigator hover-class="none" url="../createOrder/index?id={{goodsId}}" style="color:#ffffff;font-size:16px;flex:1;background: #5B85BF;height:49px;display: flex;align-items: center;justify-content: center;">
             <view>去报名</view>
         </navigator>
 
-        <!-- <view bindtap="postEnroll" style="color:#ffffff;font-size:16px;flex:1;background: #6C68DF;height:49px;display: flex;align-items: center;justify-content: center;">
+        <!-- <view bindtap="postEnroll" style="color:#ffffff;font-size:16px;flex:1;background: #5B85BF;height:49px;display: flex;align-items: center;justify-content: center;">
             <view>立即报名</view>
         </view> -->
     </view>

@@ -1,6 +1,8 @@
 page {
-    background: rgba(243, 243, 243, 1);
     padding: 0 0 15px 0;
+}
+.container{
+    padding:14px;
 }
 .bg_img {
     height: 499px;
@@ -8,4 +10,15 @@ page {
     background-size: 100% 100%;
     background-position: top right;
     background-repeat: no-repeat;
+}
+
+.adshow {
+    height: 116px;
+    color: #fff;
+    background-color: #fff;
+    position: relative;
+    background-image: url(https://tstore.i-camp.com.cn/images/201912142036819997766.jpg);
+    background-size: 100% 100%;
+    padding: 35px 35px 14px 35px;
+    border-radius: 6px;
 }

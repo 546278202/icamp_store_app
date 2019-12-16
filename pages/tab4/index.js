@@ -3,7 +3,6 @@ Page({
     data: {
         windowHeight: null,
         windowWidth: null,
-
         list: [
             { src: '../../image/tab4/1.png', name: "个人资料" },
             { src: '../../image/tab4/2.png', name: "我的营会" },
@@ -13,7 +12,7 @@ Page({
         ],
         userInfo: {
             userName: "登陆/注册",
-            image: { originalFile: "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" }
+            image: { originalFile: "../../image/base.png" }
         }
     },
     onLoad() {
@@ -27,7 +26,7 @@ Page({
                 var _data = res.data
                 console.log(res)
                 if (!_data.image) {
-                    _data.image = { originalFile: "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" }
+                    _data.image = { originalFile: "../../image/base.png" }
                 }
                 this.setData({
                     userInfo: _data
@@ -97,5 +96,4 @@ Page({
             userInfo: data
         })
     }
-
 })

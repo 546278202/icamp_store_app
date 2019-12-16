@@ -1,7 +1,88 @@
-<view class="container">
-    <view>
-        <image src="https://tstore.i-camp.com.cn/images/201911131617582718155.png" style="height:499px;" mode='aspectFill' binderror="avatarError" />
-    </view>
+<!-- <view class="container" wx:if="{{list.length==0}}">
+    <image src="https://tstore.i-camp.com.cn/images/201911131617582718155.png" style="height:499px;" mode='aspectFill' binderror="avatarError" />
     <view style="color:#302C48;font-size: 20px;text-align: center;margin-bottom:10px;">Oh oh!</view>
-    <view style="color:#302C48;font-size: 15px;font-weight:400;text-align: center;font-family:PingFang-SC-Regular,PingFang-SC;">还没有GaGa球哦</view>
+    <view style="color:#302C48;font-size: 15px;font-weight:400;text-align: center;font-family:PingFang-SC-Regular,PingFang-SC;">还没有交易记录</view>
+</view> -->
+<view class="container">
+    <view class="adshow" style="display:flex;justify-content: space-between;">
+        <view style="display:flex;height:100%;flex-direction: column;">
+            <view style="display:flex;height:100%;flex:1;flex-direction: column;">
+                <view style="font-size:14px;color:#fff;margin-bottom:10px;">GaGa球</view>
+                <view style="font-size:33px;font-family:DINCondensed-Bold,DINCondensed;font-weight:bold;">1314.520</view>
+            </view>
+            <view style="display:flex;align-items: center;">
+                <image src="../../image/zijinbaozhang.png" style="width:13px;height:13px;" mode='aspectFit' />
+                <view style="font-size:12px;font-family:PingFang-SC-Medium,PingFang-SC;font-weight:500;margin-left:10px;">有效期：2019.12.12</view>
+            </view>
+        </view>
+        <view style=" width:86px;height:26px;line-height:26px;text-align:center;border-radius:28px;border:1px solid rgba(255,255,255,1);font-weight:bold;font-size: 12px;font-weight: bold;">
+            我的GaGa球
+        </view>
+    </view>
+    <view style="display:flex;justify-content: space-between;justify-content:space-around;color:#303030;font-size:14px;padding:20px 0 14px 0;">
+        <view style="display:flex;flex-direction: column; justify-content: center;">
+            <view style="display:flex;justify-content: center;margin-bottom: 5px;">
+                <image src="../../image/huodong.png" style="width:22px;height:22px;" mode='aspectFit' />
+            </view>
+            <view>活动特权</view>
+        </view>
+        <view style="display:flex;flex-direction: column;justify-content: center;">
+            <view style="display:flex;justify-content: center;margin-bottom: 5px;">
+                <image src="../../image/shengri.png" style="width:22px;height:22px;" mode='aspectFit' />
+            </view>
+            <text>生日特权</text>
+        </view>
+        <view style="display:flex;flex-direction: column;justify-content: center;">
+            <view style="display:flex;justify-content: center;margin-bottom: 5px;">
+                <image src="../../image/choujiang.png" style="width:22px;height:22px;" mode='aspectFit' />
+            </view>
+            <text>抽奖特权</text>
+        </view>
+    </view>
+    <view style="background: #fff;padding:14px 0;margin-bottom: 14px;border-radius:6px;">
+        <view style="padding:0 14px;">赢取GaGa球</view>
+        <view style="display:flex;justify-content: space-between;justify-content:space-around;color:#8D8D8D;font-size:12px;height:70px;">
+            <view style="display:flex;flex-direction: column; justify-content: center;">
+                <view style="display:flex;justify-content: center;margin-bottom: 5px;">
+                    <image src="../../image/youxi-1.png" style="width:20px;height:20px;" mode='aspectFit' />
+                </view>
+                <view>游戏</view>
+            </view>
+            <view style="display:flex;flex-direction: column;justify-content: center;">
+                <view style="display:flex;justify-content: center;margin-bottom: 5px;">
+                    <image src="../../image/choujiang-1.png" style="width:20px;height:20px;" mode='aspectFit' />
+                </view>
+                <text>抽奖</text>
+            </view>
+            <view style="display:flex;flex-direction: column;justify-content: center;">
+                <view style="display:flex;justify-content: center;margin-bottom: 5px;">
+                    <image src="../../image/renwu-1.png" style="width:20px;height:20px;" mode='aspectFit' />
+                </view>
+                <text>任务</text>
+            </view>
+            <view style="display:flex;flex-direction: column;justify-content: center;">
+                <view style="display:flex;justify-content: center;margin-bottom: 5px;">
+                    <image src="../../image/tuijian-1.png" style="width:20px;height:20px;" mode='aspectFit' />
+                </view>
+                <text>推荐</text>
+            </view>
+        </view>
+        <view style="display:flex;; height:72px;background:rgba(248,248,248,1);border-radius:6px;align-items: center; margin: 0 14px;padding:0 10px;">
+            <image src="../../image/lingqu.png" style="width:68px;height:40px;" mode='aspectFit' />
+            <view style="margin-left: 25px;">
+                <view style="font-size:14px;color:#302C48;margin-bottom: 5px;">分享启行发现文章</view>
+                <view style="font-size:12px;color:#808080;">赢取GaGa球</view>
+            </view>
+        </view>
+    </view>
+    <view style="background: #fff;padding:14px 0 20px 0;border-radius:6px;">
+        <view style="padding:0 14px;margin-bottom:14px;">消费GaGa球</view>
+        <view style="display:flex;; height:72px;background:rgba(248,248,248,1);border-radius:6px;align-items: center; margin: 0 14px;padding:0 10px;">
+            <image src="../../image/xiaofei.png" style="width:68px;height:40px;" mode='aspectFit' />
+            <view style="margin-left: 25px;">
+                <view style="font-size:14px;color:#302C48;margin-bottom: 5px;">GaGa球兑换大全</view>
+                <view style="font-size:12px;color:#808080;">营会/活动/线下体验</view>
+            </view>
+        </view>
+    </view>
 </view>

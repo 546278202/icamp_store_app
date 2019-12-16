@@ -17,7 +17,7 @@ Page({
         severPrice: 0,
         severAttributes: [],
         campDataAttributes: [],
-        termsService: [{ name: '我已阅读条款1', checked: false }, { name: '条我已阅读条款2', checked: false }]
+        termsService: [{ name: '我已阅读条款一', url: '../readClause/index', checked: false }, { name: '我已阅读条款二', url: '../readClause2/index', checked: false }]
     },
     onLoad: function(options) {
         this.setData({
@@ -97,7 +97,9 @@ Page({
     getPrice() {
         let item = this.data.detailData.goodsAttributes[0].values[this.data.active]
         this.setData({
-            price: item.sellPrice * this.data.campersName.length
+            // price: item.sellPrice 
+            price: (item.sellPrice + this.data.detailData.sellPrice)
+
         })
         console.log(this.data.price)
     },
@@ -217,13 +219,16 @@ Page({
             froms: 0,
             orderType: 1
         }
-
         app.globalData["paramer"] = paramer
+        console.log(paramer)
         app.wxRequest('POST', app.globalData.URL + "/order/settlement", paramer, (res) => {
-            app.globalData["createOrderList"] = res.data.data
-            wx.navigateTo({
-                url: '../createOrder2/index',
-            })
+            console.log(res)
+            if (res.data.status == 200) {
+                app.globalData["createOrderList"] = res.data.data
+                wx.navigateTo({
+                    url: '../createOrder2/index',
+                })
+            }
         }, true)
     }
 })

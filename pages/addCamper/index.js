@@ -2,16 +2,15 @@ const app = getApp()
 Page({
     data: {
         disabled: false,
+        handleSubmitType: 0, //0添加，1编辑
         list: [],
         base: {
-            camperName: "",
-            camperNameEn: "",
             sex: 1,
-            birth: "1988-09-20",
+            birth: "1988-11-20",
             imgId: 20,
             status: 1,
         },
-        certificateInformation: {
+        certificates: {
             idCode: "",
             idType: 1,
             linkId: '',
@@ -19,9 +18,7 @@ Page({
             expiryDate: '',
             status: 1,
             type: 1,
-
         },
-
         index: 0,
         objectArray: [{
                 id: 1,
@@ -52,26 +49,19 @@ Page({
                 id: 5,
                 name: '企业营业执照 '
             },
-
         ]
     },
     onLoad(options) {
-        if (options.title) {
+        if (options.detail) {
             wx.setNavigationBarTitle({
-                title: options.title
+                title: "编辑营员"
             })
-            this.getDetail(options.id)
+            this.setData({
+                handleSubmitType: 1,
+                base: JSON.parse(decodeURIComponent(options.detail))[0],
+                certificates: JSON.parse(decodeURIComponent(options.detail))[1],
+            });
         }
-    },
-
-    getDetail(id) {
-        let url = app.globalData.URL + `/address?type=0`
-            // app.wxRequest('GET', url, {}, (res) => {
-            //     console.log(res)
-            //     this.setData({
-            //         list: res.data.data
-            //     })
-            // }, true)
     },
     bindPickerChange: function(e) {
         this.setData({
@@ -87,10 +77,10 @@ Page({
         this.setData({
             index: e.detail.value
         })
-        let certificateInformation = this.data.certificateInformation
-        certificateInformation.idType = this.data.typeArray[e.detail.value].id
+        let certificates = this.data.certificates
+        certificates.idType = this.data.typeArray[e.detail.value].id
         this.setData({
-            certificateInformation: certificateInformation
+            certificates: certificates
         })
     },
     bindDateChange: function(e) {
@@ -120,76 +110,69 @@ Page({
     },
     onChangeIdCode(event) {
         let id = event.currentTarget.dataset.id
-        let certificateInformation = this.data.certificateInformation
-        certificateInformation.idCode = event.detail
+        let certificates = this.data.certificates
+        certificates.idCode = event.detail
         this.setData({
-            certificateInformation: certificateInformation
+            certificates: certificates
         })
     },
 
     onChangeIssuePlace(event) {
         let id = event.currentTarget.dataset.id
-        let certificateInformation = this.data.certificateInformation
-        certificateInformation.issuePlace = event.detail
+        let certificates = this.data.certificates
+        certificates.issuePlace = event.detail
         this.setData({
-            certificateInformation: certificateInformation
+            certificates: certificates
         })
     },
     handleSubmit() {
-        this.operationCamper()
-
-    },
-    operationCamper() {
-        let url = app.globalData.URL + "/camper";
         let data = {
-            camperName: this.data.base.camperName,
-            camperNameEn: this.data.base.camperNameEn,
-            sex: this.data.base.sex,
-            birth: this.data.base.birth,
-            imgId: 20,
-            status: 1,
-            // addressId: this.data.list[0].areaId
+                camperName: this.data.base.camperName,
+                camperNameEn: this.data.base.camperNameEn,
+                sex: this.data.base.sex,
+                birth: this.data.base.birth,
+                imgId: 20,
+                status: 1,
+            }
+            // 编辑
+        if (this.data.handleSubmitType == 1) {
+            data.camperId = this.data.base.camperId
         }
+        // 验证参数
         if (data.camperName && data.camperNameEn) {
-            app.wxRequest('POST', url, data, (res) => {
-                let camperId = res.data.data.camperId
-                if (camperId) {
-                    this.operationInformation(camperId)
+            app.wxRequest('POST', app.globalData.URL + "/camper", data, (res) => {
+                if (res.statusCode == 200) {
+                    if (res.data.status == 200) {
+                        let camperId = res.data.data.camperId
+                        this.getCertificate(camperId)
+                    }
                 }
             }, true)
         }
     },
-    // 证件信息
-    operationInformation(id) {
-        let url = app.globalData.URL + "/id";
-        let data = {
-            linkId: id,
-            idType: this.data.certificateInformation.idType,
-            idCode: this.data.certificateInformation.idCode,
-            issuePlace: this.data.certificateInformation.issuePlace,
-            expiryDate: this.data.base.birth,
-            type: 1
-        }
-        console.log(data)
-        if (data.idCode) {
-            app.wxRequest('POST', url, data, (res) => {
-                wx.showToast({
-                    title: '操作成功',
-                    icon: 'success',
-                    duration: 1500
-                })
-                var pages = getCurrentPages();
-                if (pages.length > 1) {
-                    var prePage = pages[pages.length - 2];
-                    prePage.getList()
-                    setTimeout(function() {
-                        wx.navigateBack()
-                    }, 100)
+    // 查询证件
+    getCertificate(linkId) {
+        app.wxRequest('GET', app.globalData.URL + `/id?linkId=${linkId}&type=1&idType=1`, {}, (res) => {
+            if (res.statusCode == 200) {
+                if (res.data.status == 200) {
+                    let list = res.data.data
+                    if (list.length == 0) {
+                        // 代表新增
+                        list = { linkId: linkId }
+                        let str = JSON.stringify(list)
+                        wx.navigateTo({
+                            url: `../addCertificate/index?detail0=${encodeURIComponent(str)}`
+                        })
+                    } else {
+                        let str = JSON.stringify(list)
+                        wx.navigateTo({
+                            url: `../addCertificate/index?detail1=${encodeURIComponent(str)}`
+                        })
+                    }
                 }
-            }, true)
-        }
+            }
+        }, true)
     },
-
 
     // 刷新
     onPullDownRefresh() {
@@ -208,5 +191,5 @@ Page({
                 isHideLoadMore: true,
             })
         }, 1000)
-    },
+    }
 })

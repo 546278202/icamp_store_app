@@ -2,11 +2,6 @@ const app = getApp()
 var WxParse = require('../../wxParse/wxParse.js');
 Page({
     data: {
-        imgUrls: [
-            'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-            'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
-            'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
-        ],
         list: [
             { src: '../../image/tab4/1.png', name: "个人资料" },
             { src: '../../image/tab4/2.png', name: "成长记录" },
@@ -66,7 +61,6 @@ Page({
                 detailData: res.data.data,
             })
             var article = res.data.data.goodsDesc;
-            console.log(article)
             WxParse.wxParse('article', 'html', article, this, 5);
         }, true)
     },

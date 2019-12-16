@@ -5,15 +5,15 @@
             <div style="display:flex;justify-content: space-between;width: 100%;">
                 <text style="font-size:14px;color:#484848;font-weight: 500;width:80px;text-align: center;"> 出发日期</text>
                 <text style="font-size:14px;color:#484848;font-weight: 500;"> / </text>
-                <text style="font-size:14px;color:#484848;font-weight: 500;width:80px;text-align: center;"> 出发日期</text>
+                <text style="font-size:14px;color:#484848;font-weight: 500;width:80px;text-align: center;"> 返程日期</text>
             </div>
             <div style="display:flex;justify-content: space-between;width: 100%;">
-                <text style="font-size:12px;color:#6E6E6E;font-weight: 400;width:80px;text-align: center;">  2019/12/08</text>
-                <text style="font-size:12px;color:#6E6E6E;font-weight: 400;width:80px;text-align: center;">  2019/12/08</text>
+                <text style="font-size:12px;color:#6E6E6E;font-weight: 400;width:80px;text-align: center;">{{item.attributeValues[0].starDate}}</text>
+                <text style="font-size:12px;color:#6E6E6E;font-weight: 400;width:80px;text-align: center;"> {{item.attributeValues[0].endDate}}</text>
             </div>
         </view>
         <view style="padding:0 15px;border-bottom: 1px solid #F3F3F3;background: #fff">
-            <image src="https://tstore.i-camp.com.cn/images/201909091422682584843.jpeg" style="width:100%;height:190px;" mode='aspectFill' style="border-radius:8px;" />
+            <image src="{{item.goods.coverImage}}" style="width:100%;height:190px;" mode='aspectFill' style="border-radius:8px;" />
             <view style="margin:15px 0;">{{item.goods.goodsName}}</view>
         </view>
     </view>
@@ -22,10 +22,12 @@
         <view style="margin-bottom:20px;">出行人数</view>
         <view style="margin-bottom:20px;display:flex;justify-items: center;justify-content:space-between;">
             <text>营员：{{campersName}}</text>
-            <van-stepper value="{{ campersName.length}}" bind:change="onChange3" disabled/>
+            <text>人数：x{{campersName.length}}</text>
+            <!-- <van-stepper value="{{ campersName.length}}" bind:change="onChange3" disabled/> -->
         </view>
-        <view style="margin-bottom:20px;">价格：¥{{filter.returnFloat(price)}}</view>
+        <view style="margin-bottom:20px;">价格：¥{{filter.returnFloat(createOrderList.settleModels[0].attributeValues[0].sellPrice+createOrderList.settleModels[0].goods.sellPrice)}}</view>
     </view>
+
     <navigator style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">
         <view style="display: flex;flex:1;align-items: center;justify-content: space-between;">
             <text>选择营员</text>
@@ -33,29 +35,32 @@
         </view>
         <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
     </navigator>
-    <navigator style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">
+
+    <view bindtap="goCouponPage" style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">
         <view style="display: flex;flex:1;align-items: center;justify-content: space-between; ">
-            <text>选择优惠</text>
-            <text style="color:#BBC0CA; ">暂无</text>
+            <text>选择优惠卷</text>
+            <text wx:if="{{createOrderList.payableAmount -payIntegral / 10 <300}}" style="color:#BBC0CA; ">无可用优惠</text>
+            <text wx:else style="color:#BBC0CA; ">-¥{{filter.returnFloat(couponData.amount)}}</text>
         </view>
         <van-icon name="arrow " color="#BBC0CA " style="margin-left:10px;" />
-    </navigator>
+    </view>
+
     <navigator style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">
         <view style="display: flex;flex:1;align-items: center;justify-content: space-between;">
             <text>选择积分</text>
-            <text style="color:#BBC0CA;">暂无</text>
+            <text wx:if="{{payIntegral>0}}" style="color:#BBC0CA; ">可用积分{{payIntegral}} (1元钱=10积分)</text>
+            <text wx:else style="color:#BBC0CA; ">可用积分0 (1元钱=10积分)</text>
         </view>
         <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
     </navigator>
-
     <view style="padding:15px;font-size: 15px;color:#303030;background: #fff;margin-bottom: 10px;">
         <view style="color:#303030;font-size:14px;flex:1;display:flex;margin-bottom: 5px; ">费用明细：</view>
         <view style="color:#303030;font-size:14px;flex:1;display:flex;justify-content: space-between;margin-bottom: 5px;"><text>商品总额：</text> <text style="color:#E64340;">¥{{filter.returnFloat(createOrderList.payableAmount)}}</text></view>
-        <view style="color:#303030;font-size:14px;flex:1;display:flex;justify-content: space-between;margin-bottom: 5px;"><text>服务费用：</text> <text style="color:#E64340;">¥{{filter.returnFloat(createOrderList.expressAmount)}}</text></view>
-        <view style="color:#303030;font-size:14px;flex:1;display:flex;justify-content: space-between;margin-bottom: 5px;"><text>平台优惠：</text> <text style="color:#E64340;">¥{{filter.returnFloat(createOrderList.expressAmount)}}</text></view>
+        <view style="color:#303030;font-size:14px;flex:1;display:flex;justify-content: space-between;margin-bottom: 5px;"><text>优惠卷减免：</text> <text style="color:#E64340;">-¥{{filter.returnFloat(couponData.amount)}}</text></view>
+        <view style="color:#303030;font-size:14px;flex:1;display:flex;justify-content: space-between;margin-bottom: 5px;"><text>积分抵扣：</text> <text style="color:#E64340;">-¥{{filter.returnFloat(payIntegral/10)}}</text></view>
     </view>
     <view style="height:49px;display:flex;background:#fff;box-shadow:0px -3px 6px 0px rgba(233,233,233,0.5);align-items:center;position:fixed;bottom: 0; width: 100%;background: #fff;z-index: 44444; ">
-        <view style="color:#303030;font-size:14px;flex:1;display:flex;padding-left:15px;">共计¥{{filter.returnFloat(createOrderList.payableAmount)}}</view>
-        <view style="color:#ffffff;font-size:16px;background: #6C68DF;width:133px;height:48px;display: flex;align-items: center;justify-content: center;" bindtap="submitData">提交订单</view>
+        <view style="color:#303030;font-size:14px;flex:1;display:flex;padding-left:15px;">共计¥{{filter.returnFloat(createOrderList.payableAmount-couponData.amount-payIntegral/10)}}</view>
+        <view style="color:#ffffff;font-size:16px;background: #5B85BF;width:133px;height:48px;display: flex;align-items: center;justify-content: center;" bindtap="submitData">提交订单</view>
     </view>
 </view>

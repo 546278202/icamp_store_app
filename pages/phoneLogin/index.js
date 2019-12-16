@@ -24,6 +24,7 @@ Page({
         if (this.getCheckPhone(this.data.phone)) {
             app.wxRequest('GET', app.globalData.URL + `/code/${this.data.phone}`, {}, (res) => {
                 if (res.data.status == 200) {
+                    console.log(res)
                     wx.showToast({
                         title: '发送成功',
                         icon: 'success',
@@ -78,9 +79,12 @@ Page({
         console.log(wx.getStorageSync("sessionid"))
         if (this.getCheckPhone(this.data.phone)) {
             if (this.data.sms) {
-                app.globalData.phone = this.data.phone
-                app.globalData.sms = this.data.sms
-                app.userLogin(1)
+                let paramer = {
+                    phone: this.data.phone,
+                    code: this.data.sms,
+                    from: 1
+                }
+                app.userLogin(paramer)
             }
         }
     }

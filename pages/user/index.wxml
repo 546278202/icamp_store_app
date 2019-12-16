@@ -1,7 +1,7 @@
 <wxs module="filter" src="../../utils/filter.wxs"></wxs>
 <view class="container">
     <view style="height:40px;display: flex;align-items: center;padding:12px 15px;position: relative;border-top:1px solid #F1F1F1;background: #fff;font-weight:600;font-size:24px;">
-        <view style="width:6px;height:40px;background:#6C68DF;font-size:24px;color: #303030;position: absolute;left:0;top:12px;"></view>
+        <view style="width:6px;height:40px;background:#5B85BF;font-size:24px;color: #303030;position: absolute;left:0;top:12px;"></view>
         <text>个人信息</text>
     </view>
 

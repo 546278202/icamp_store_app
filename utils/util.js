@@ -23,7 +23,6 @@ function chooseImage(e) {
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function(res) {
             console.log(res)
-            debugger
             var Arr = that.data.arr;
             var _arr = that.data.arr[e.currentTarget.dataset.key];
             var _name = e.currentTarget.dataset.name;

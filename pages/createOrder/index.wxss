@@ -24,5 +24,5 @@ page {
     border-bottom: 1px solid #f3f3f3;
 }
 .active {
-    border: 1px solid #7470E1;
+    border: 1px solid #5B85BF;
 }

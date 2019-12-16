@@ -10,7 +10,7 @@
  
  .bg_img {
      height: 227px;
-     background: url(https://tstore.i-camp.com.cn/images/201911131154086769110.png);
+     background: url(https://tstore.i-camp.com.cn/images/201912111749246995198.png);
      background-size: 100% 100%;
      background-position: top right;
      background-repeat: no-repeat;
@@ -30,3 +30,23 @@
      height: 0;
      color: transparent;
  }
+
+ button {
+  font-size: 14px;
+  background-color: #fff;
+  color:#303030;
+  border: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+input {
+  outline: none;
+  border: none;
+  list-style: none;
+}
+
+button::after {
+  border: none;
+}

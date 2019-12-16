@@ -1,31 +1,44 @@
-<view class="container">
-
-    <view wx:for="{{categoryData}}" wx:for-item="item" wx:for-index='index' style="margin:15px;border-radius:8px;overflow: hidden;position: relative;height:190px;">
-        <navigator url="../product/index?title={{item.name}}">
-            <image src="{{item.logoFile.originalFile}}" binderror="avatarError" data-index="{{index}}" />
-            <view style="position: absolute;background: rgba(0,0,0,0.1);width: 100%;height: 100%;left: 0;top: 0;color: #fff;display: flex;align-items: center;justify-content: center;font-size:18px; font-weight:600; color:rgba(255,255,255,1);">
-                <span>{{item.name}}</span>
-            </view>
-        </navigator>
+<wxs module="filter" src="../../utils/filter.wxs"></wxs>
+<van-search value="{{ searchValue }}" placeholder-style="color: #696969;font-size: 12px;" placeholder="搜索热门营会／主题营会" shape="round" use-action-slot bind:search="onSearch" bind:focus="onFocus" bind:change="onSearchChange" show-action>
+    <view slot="action" shape bindtap="onSearchCancel" style="color: #696969;font-size: 14px;">{{searchText}}
     </view>
-
-
-    <view wx:for="{{list}}" wx:for-item="item" wx:for-index='index' style="overflow:  hidden;position:  relative;height: auto;">
-        <view style="margin: 0 15px 0 15px;color:#303030;font-size: 14px;display:flex;font-weight:500;">
-            <image src="{{item.src}}" style="height:18px;width:20px;margin-right:15px;" mode='widthFix' />
+</van-search>
+<view wx:if="{{searchModel}}" style="background: #fff;height: 100%;padding:15px;display:flex;flex-direction: column;font-weight:400;">
+    <view style="color:#696969;font-size: 14px;margin-bottom:10px;">热门搜索 </view>
+    <navigator hover-class="none" url="../productCate/index?id={{item.id}}" style="color:#303030;font-size: 12px;margin-bottom:8px;display:flex;align-items: center;" wx:for="{{GoodsList}}" wx:for-item="item" wx:for-index='index'>
+        <view wx:if="{{index>4}}" class="search-4">{{index+1}}</view>
+        <view wx:else class="search-2">{{index+1}}</view>
+        <text>{{item.name}}</text>
+    </navigator>
+</view>
+<view wx:else style="display:flex;">
+    <view style="width:106px;height:{{windowHeight-54}}px;background:#F3F3F3;color:#696969;font-size:14px;">
+        <view style="height:56px;line-height:56px;text-align: center;position: relative;" bindtap="onChangeLeftItem" data-index="{{index}}" class="{{active==index? '.active' : ''}}" wx:for="{{list}}" wx:for-item="item" wx:for-index='index'>
+            <view wx:if="{{active==index}}" style="position:absolute;top:23px;left:0;width:3px;height:10px;background: #5B85BF;"></view>
             <text>{{item.name}}</text>
         </view>
-        <swiper display-multiple-items="2" next-margin="60px" interval="5000" duration="500" style="border-radius:8px;overflow: hidden;margin:15px;height:156px;">
-            <block wx:for="{{item.list}}">
-                <swiper-item style="padding-right: 15px;overflow: hidden;">
-                    <navigator url="../product/index?title={{item.name}}" style="position: relative;border-radius: 8px;height:156px;overflow: hidden;">
-                        <image src="{{item.src}}" style="border-radius: 8px;overflow: hidden;height:100%;" mode="aspectFill" />
-                        <view style="position: absolute;background: rgba(0,0,0,0.1);width: 100%;height: 100%;left: 0;top: 0;color: #fff;display: flex;align-items: center;justify-content: center;font-size:18px; font-weight:600; color:rgba(255,255,255,1);">
-                            <span>{{item.name}}</span>
-                        </view>
-                    </navigator>
-                </swiper-item>
-            </block>
-        </swiper>
     </view>
+    <scroll-view scroll-y="true" style="height:{{windowHeight-54}}px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+        <view class="page-section-spacing" style="padding:0 10px;">
+            <image src="https://tstore.i-camp.com.cn/images/201912112238044598436.png" style="width:100%;height:86px;" mode='aspectFill' binderror="avatarError" data-index="{{index}}" />
+            <navigator hover-class="none" url="../productCate/index?id={{item.id}}" style="display:flex;flex-direction: row;height:112px;align-items: center;border-bottom: 1px solid #F3F3F3;" wx:for="{{GoodsList}}" wx:for-item="item" wx:for-index='index'>
+                <image src="{{item.icon}}" style="width:81px;height:85px;border-radius: 4px;" mode='aspectFill' binderror="avatarError" data-index="{{index}}" />
+                <view style="padding:10px 0 0 8px;flex:1;">
+                    <view style="font-size:14px;color:#303030;font-weight: 500;margin-bottom: 5px;padding-left:2px;" class="line-clamp-1">{{item.name}}</view>
+                    <view style="margin-bottom: 5px;display: flex;align-items: center;">
+                        <van-icon name="location" size="15px;" /><text style="font-size:12px;color:#484848;line-height: 22px;">{{item.productionPlace}}</text></view>
+                    <view style="font-size:14px;padding-left:2px;"><text style="color:#5B85BF;margin-right:10px;">¥{{filter.returnFloat(item.sellPrice)}}</text><text style="font-size:10px;color:#C3C3C3;text-decoration:line-through;">¥{{filter.returnFloat(item.goodsPrice)}}</text> </view>
+                    <view style="font-size:10px;color:#484848;text-align: right;"><text>剩余{{item.warnQty}}人</text> </view>
+                </view>
+            </navigator>
+            <view wx:if="{{loadingState}}" style="padding:15px;display:flex;align-items: center;justify-content: center;">
+                <van-loading size="20px"></van-loading>
+                <text style=" margin-left: 8px;color: #969799; font-size: 14px; vertical-align: middle; display: inline-block;">加载中...</text>
+            </view>
+            <view wx:if="{{loadingState==false && GoodsList.length==0}}" style="display: flex; flex-direction: column; align-items:center;justify-content: center;padding: 50px 0;">
+                <image src="../../image/nolist.png" style="width:200px;" mode='aspectFit' />
+                <text style="font-size:15px;font-family:PingFang-SC-Regular,PingFang-SC;font-weight:400;color:rgba(48,44,72,1);"> 还没有营会哦～</text>
+            </view>
+        </view>
+    </scroll-view>
 </view>
