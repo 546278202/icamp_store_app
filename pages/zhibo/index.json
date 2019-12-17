@@ -1,5 +1,5 @@
 {
-    "navigationBarTitleText": "发现好文章",
+    "navigationBarTitleText": "直播",
     "enablePullDownRefresh": true,
     "usingComponents": {
         "van-search": "../../dist/search/index",

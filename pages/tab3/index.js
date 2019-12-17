@@ -18,6 +18,13 @@ Page({
         })
         this.getGoodsList()
     },
+    // goDetailHua() {
+    //     let str = "huati"
+    //     wx.navigateTo({
+    //         url: `../webview/index?detail=${encodeURIComponent(JSON.stringify(str))}`
+    //     })
+    // },
+
     //获取商品
     getGoodsList() {
         let arr = []

@@ -48,8 +48,8 @@
     <navigator style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">
         <view style="display: flex;flex:1;align-items: center;justify-content: space-between;">
             <text>选择积分</text>
-            <text wx:if="{{payIntegral>0}}" style="color:#BBC0CA; ">可用积分{{payIntegral}} (1元钱=10积分)</text>
-            <text wx:else style="color:#BBC0CA; ">可用积分0 (1元钱=10积分)</text>
+            <text wx:if="{{payIntegral>0}}" style="color:#BBC0CA; ">可用积分{{payIntegral}} (10积分=1元钱)</text>
+            <text wx:else style="color:#BBC0CA; ">可用积分0 (10积分=1元钱)</text>
         </view>
         <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
     </navigator>

@@ -43,8 +43,8 @@
         <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">语言（母语）</view>
             <view style="display:flex;align-items: center;" bindtap="handleShowPopup">
-                <view style="flex:1;">
-                    <van-field value="{{base.language}}" data-id="language" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" />
+                <view style="flex:1;color:#333;font-size:14px;padding:14px;" data-id="language"> {{base.language}}
+                    <!-- <van-field value="{{base.language}}" data-id="language" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" /> -->
                 </view>
                 <view style="width:45px;">
                     <van-icon name="arrow-down" color="#D8D8D8" />
@@ -53,9 +53,9 @@
         </view>
         <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">语言等级</view>
-            <view style="display:flex;align-items: center;">
-                <view style="flex:1;">
-                    <van-field value="{{base.languageGrade}}" data-id="languageGrade" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bindtap="languageGradeShowPopup" />
+            <view style="display:flex;align-items: center;" bindtap="languageGradeShowPopup">
+                <view style="flex:1;color:#333;font-size:14px;padding:14px;" data-id="languageGrade">
+                    {{base.languageGrade}}
                 </view>
                 <view style="width:45px;">
                     <van-icon name="arrow-down" color="#D8D8D8" />

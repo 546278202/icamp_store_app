@@ -8,11 +8,6 @@ Page({
         page: 0,
         size: 10,
         cid: null,
-        imgUrls: [
-            'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-            'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
-            'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
-        ],
         GoodsList: [],
         searchModel: false,
         searchText: "搜索",
@@ -20,11 +15,12 @@ Page({
         active: 0,
     },
     onLoad: function(options) {
-        this.getCategory()
+        // this.getCategory()
         this.setData({
             windowHeight: wx.getSystemInfoSync().windowHeight,
             windowWidth: wx.getSystemInfoSync().windowWidth
         })
+        this.getTreeCategory()
     },
     lower: function(e) {
         this.getGoodsList(this.data.cid)
@@ -45,19 +41,43 @@ Page({
         })
         setTimeout((res) => {
             this.getGoodsList(this.data.cid)
-        }, 1000)
+        }, 300)
 
     },
-    getCategory(e) {
+
+    // 树形分类
+    getTreeCategory(e) {
         let data = {};
-        app.wxRequest('GET', app.globalData.BASE_URL + "/category/17?page=0&size=10&type=0", data, (res) => {
-            this.setData({
-                list: res.data.data
-            })
-            console.log(this.data.list)
-            this.getGoodsList(this.data.list[0].id)
+        app.wxRequest('GET', app.globalData.BASE_URL + "/category/tree/2?type=0", data, (res) => {
+            if (res.statusCode == 200) {
+                if (res.data.status == 200) {
+                    let array = res.data.data[1].children
+                    let list = []
+                    array.forEach(element => {
+                        element.children.forEach(e => {
+                            list.push(e)
+                        })
+                    });
+                    this.setData({
+                        list: list
+                    })
+                    this.getGoodsList(this.data.list[0].id)
+                }
+            }
         }, true)
     },
+
+    //
+    // getCategory(e) {
+    //     let data = {};
+    //     app.wxRequest('GET', app.globalData.BASE_URL + "/category/17?page=0&size=10&type=0", data, (res) => {
+    //         this.setData({
+    //             list: res.data.data
+    //         })
+    //         console.log(this.data.list)
+    //         this.getGoodsList(this.data.list[0].id)
+    //     }, true)
+    // },
     onFocus(event) {
         console.log(event)
         this.setData({

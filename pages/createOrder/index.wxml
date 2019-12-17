@@ -28,7 +28,8 @@
         <view style="margin-bottom:20px;">出行人数</view>
         <view style="margin-bottom:20px;display:flex;justify-items: center;justify-content:space-between;">
             <text>营员：{{campersName}}</text>
-            <van-stepper value="{{ campersName.length}}" bind:change="onChange3" disabled/>
+            <text>人数：x{{campersName.length}}</text>
+            <!-- <van-stepper value="{{ campersName.length}}" bind:change="onChange3" disabled/> -->
         </view>
         <view style="margin-bottom:20px;">价格：¥{{filter.returnFloat(price)}}</view>
     </view>
@@ -50,7 +51,8 @@
     </view>
 
     <view style="height:49px;display:flex;background:#fff;box-shadow:0px -3px 6px 0px rgba(233,233,233,0.5);align-items:center;position:fixed;bottom: 0; width: 100%;background: #fff;z-index: 44444; ">
-        <view style="color:#303030;font-size:14px;flex:1;display:flex;padding-left:15px; ">营会费¥{{filter.returnFloat(price)}}+服务费¥{{filter.returnFloat(severPrice)}}</view>
+        <!-- <view style="color:#303030;font-size:14px;flex:1;display:flex;padding-left:15px; ">营会费¥{{filter.returnFloat(price+severPrice)xcampersName.length}}</view> -->
+        <view style="color:#303030;font-size:14px;flex:1;display:flex;padding-left:15px; ">营会费¥{{filter.returnFloat(price*campersName.length)}}</view>
         <view style="color:#ffffff;font-size:16px;background: #5B85BF;width:133px;height:48px;display: flex;align-items: center;justify-content: center;" bindtap="submitData">去结算</view>
     </view>
     <view style="margin-bottom:15px;">
@@ -60,10 +62,10 @@
                 <view bindtap="severChange" data-index='{{index}}' style="display:flex;flex:1;">
                     <van-checkbox value="{{values.checked}}" name="{{values.name}}" checked-color="#5B85BF">{{values.name}}</van-checkbox>
                 </view>
-                <navigator hover-class="none" url="{{values.url}}">
+                <view bindtap="getReadMe" data-index='{{index}}'>
                     <text style="color:#BBC0CA;">查看</text>
                     <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
-                </navigator>
+                </view>
             </view>
         </view>
     </view>

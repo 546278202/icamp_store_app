@@ -10,7 +10,13 @@ Page({
         active: 0,
 
     },
-    onLoad: function() {
+    onLoad: function(options) {
+        if (options.detail) {
+            this.setData({
+                active: options.detail
+            })
+        }
+
         this.getList()
     },
     onChange(event) {
@@ -46,10 +52,7 @@ Page({
     // 刷新
     onPullDownRefresh() {
         wx.showNavigationBarLoading();
-        setTimeout(() => {
-            wx.stopPullDownRefresh()
-            wx.hideNavigationBarLoading();
-        }, 1000)
+        this.getList()
     },
 
     // 加载更多
@@ -64,6 +67,8 @@ Page({
         let url = app.globalData.URL + `/order?status=${this.data.status}&page=${this.data.page}&size=${this.data.size}`;
         let data = {};
         app.wxRequest('GET', url, data, (res) => {
+            wx.stopPullDownRefresh()
+            wx.hideNavigationBarLoading();
             console.log(res.data)
             arr = res.data.data
             let GoodsList = this.data.GoodsList.concat(arr)

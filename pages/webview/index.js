@@ -6,19 +6,25 @@ Page({
         options: null
     },
     onLoad: function(options) {
-        this.setData({
-            options: JSON.parse(decodeURIComponent(options.detail)),
-        });
-        console.log(this.data.options)
-        if (options) {
+        if (options.detail == "huati") {
             this.setData({
-                    url: `https://www.ideas-camp.com/camper/pages/camper.html?projectId=${this.options.projectNum}&linkId=${this.options.camperId}`
-                        // url: `https://www.ideas-camp.com/camper/pages/children.html?projectId=${this.options.projectNum}&linkId=${this.options.camperId}`
-
-                })
-                // this.setData({
-                //     url: "https://www.ideas-camp.com/new.html"
-                // })
+                url: `https://www.ideas-camp.com/limesurvey/index.php?r=survey/index&sid=673322&lang=zh-Hans`
+            })
+        } else if (options.detail == "toupiao") {
+            this.setData({
+                url: `https://www.ideas-camp.com/limesurvey/index.php?r=survey/index&sid=754177&lang=zh-Hans`
+            })
+        } else if (options.detail == "fankui") {
+            this.setData({
+                url: `https://www.ideas-camp.com/limesurvey/index.php?r=survey/index&sid=647835&lang=zh-Hans`
+            })
+        } else {
+            this.setData({
+                options: JSON.parse(decodeURIComponent(options.detail)),
+            });
+            this.setData({
+                url: `https://www.ideas-camp.com/camper_app/pages/camper.html?projectId=${this.options.projectNum}&linkId=${this.options.camperId}`
+            })
         }
     },
     // 刷新

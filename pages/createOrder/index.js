@@ -17,7 +17,12 @@ Page({
         severPrice: 0,
         severAttributes: [],
         campDataAttributes: [],
-        termsService: [{ name: '我已阅读条款一', url: '../readClause/index', checked: false }, { name: '我已阅读条款二', url: '../readClause2/index', checked: false }]
+        termsService: [
+            { name: '我已阅读条款一', url: '../readClause/index', file: 'https://tstore.i-camp.com.cn/images/201912151639850754965.docx', checked: false },
+            { name: '我已阅读条款二', url: '../readClause2/index', checked: false, file: 'https://tstore.i-camp.com.cn/images/201912151708994415801.docx' }
+        ],
+        allAmount: null
+
     },
     onLoad: function(options) {
         this.setData({
@@ -44,7 +49,8 @@ Page({
                 }
                 this.setData({
                     camperList: camperList,
-                    campersName: [camperList[0].camperName]
+                    campersName: [camperList[0].camperName],
+                    allAmount: (this.data.price + this.data.severPrice) * this.data.campersName.length
 
                 })
             }
@@ -102,6 +108,7 @@ Page({
 
         })
         console.log(this.data.price)
+        console.log()
     },
     getCmpersName() {
         var arr = []
@@ -230,5 +237,40 @@ Page({
                 })
             }
         }, true)
+    },
+
+    getReadMe(event) {
+        let index = event.currentTarget.dataset.index
+        let url = this.data.termsService[index].file
+        wx.downloadFile({
+            url: url,
+            success: function(res) {
+                var filePath = res.tempFilePath
+                wx.openDocument({
+                    filePath: filePath,
+                    fileType: "docx",
+                    success: function(res) {
+                        console.log('打开文档成功')
+                        console.log(res)
+                    },
+                    fail: function(res) {
+                        console.log('fail')
+                        console.log(res)
+                    },
+                    complete: function(res) {
+                        console.log('complete')
+                        console.log(res)
+                    }
+                })
+            },
+            fail: function(res) {
+                console.log('fail')
+                console.log(res)
+            },
+            complete: function(res) {
+                console.log('complete')
+                console.log(res)
+            }
+        })
     }
 })

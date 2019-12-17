@@ -9,10 +9,9 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">姓名（中文名）</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{ base.camperName}}" bind:change="onChange" data-id="camperName" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChange" />
+                    <van-field value="{{ base.camperName}}" bind:change="onChange" data-id="camperName" style="color:red;" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChange" />
                 </view>
                 <view style="width:45px;">
-                    <!-- <van-icon name="arrow-down" color="#D8D8D8" /> -->
                 </view>
             </view>
         </view>
@@ -23,7 +22,6 @@
                     <van-field value="{{ base.camperNameEn}}" data-id="camperNameEn" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChange" />
                 </view>
                 <view style="width:45px;">
-                    <!-- <van-icon name="arrow-down" color="#D8D8D8" /> -->
                 </view>
             </view>
         </view>
@@ -31,7 +29,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">姓别</view>
             <view style="display:flex;align-items: center;">
                 <picker value="{{index}}" range="{{objectArray}}" range-key="name" bindchange="bindPickerChange" style="width: 100%; ">
-                    <view class="picker " style="height:44px;width:100%;padding-left:15px;line-height: 44px;color:#D8D8D8;font-size:14px; ">{{objectArray[index].name}}</view>
+                    <view class="picker" style="height:44px;width:100%;padding-left:15px;line-height: 44px;font-size:14px;color:#333">{{objectArray[index].name}}</view>
                 </picker>
                 <view style="width:45px;">
                     <van-icon name="arrow-down" color="#D8D8D8" />
@@ -42,7 +40,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px; ">出生日期</view>
             <view style="display:flex;align-items: center; ">
                 <picker mode="date" value="{{base.birth}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange" style="width: 100%;">
-                    <view class="picker" style="height:44px;width:100%;padding-left:15px;line-height: 44px;color:#D8D8D8;font-size:14px;">{{base.birth}} </view>
+                    <view class="picker" style="height:44px;width:100%;padding-left:15px;line-height: 44px;color:#D8D8D8;font-size:14px;color:#333">{{base.birth}} </view>
                 </picker>
                 <view style="width:45px; ">
                     <van-icon name="arrow-down " color="#D8D8D8 " />

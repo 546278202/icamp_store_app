@@ -41,8 +41,4 @@
         <image src="../../image/nolist.png" style="width:200px;" mode='aspectFit' />
         <text style="font-size:15px;font-family:PingFang-SC-Regular,PingFang-SC;font-weight:400;color:rgba(48,44,72,1);"> 暂无数据</text>
     </view>
-    <view wx:if="{{loadingState==false && GoodsList.length>0}}" style="display: flex; flex-direction: column; align-items:center;justify-content: center;padding: 50px 0;">
-        <image src="../../image/nolist.png" style="width:200px;" mode='aspectFit' />
-        <text style="font-size:15px;font-family:PingFang-SC-Regular,PingFang-SC;font-weight:400;color:rgba(48,44,72,1);"> 加载完毕</text>
-    </view>
 </view>

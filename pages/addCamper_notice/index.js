@@ -114,13 +114,13 @@ Page({
                     wx.showToast({
                         title: '操作成功',
                         icon: 'success',
-                        duration: 1500
+                        duration: 1000
                     })
                     setTimeout(() => {
                         wx.navigateTo({
-                            url: `../orderList/index`
+                            url: `../orderList/index?detail=2`
                         })
-                    }, 1500)
+                    }, 1000)
                 }
             }, true)
         }

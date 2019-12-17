@@ -3,7 +3,12 @@ Page({
     data: {
         show: false,
         languageGradeShow: false,
-        base: {},
+        base: {
+            languageType: 0,
+            language: "中文",
+            languageGrade: "一般",
+            languageGradeType: 0
+        },
         // 语言(母语) 选单配置 0 = 中文 1 = 英语 2 = 日语 3 = 法语...
         objectArray: ["中文", "英语", "日语", "法语"],
         languageGradeArray: ["一般", "良好", "优秀"],

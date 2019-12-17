@@ -6,10 +6,8 @@ Page({
     onLoad(options) {
         wx.downloadFile({
             url: "https://tstore.i-camp.com.cn/images/201912151639850754965.docx",
-            // url: 'https://cynthianc.github.io/images/123.pdf',
             success: function(res) {
                 var filePath = res.tempFilePath
-                debugger
                 wx.openDocument({
                     filePath: filePath,
                     fileType: "docx",
