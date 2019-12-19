@@ -22,8 +22,9 @@
                     <image src="{{item.icons}}" style="width:81px;height:83px;border-radius:8px;" mode='aspectFill' binderror="avatarError" data-index="{{index}}" />
                 </view>
                 <view style="display:flex;flex:1;flex-direction: column;">
+                    <view style="font-size:12px;color:#6E6E6E;margin-bottom: 5px;">订单号：{{item.orderId}}</view>
                     <view style="font-size:12px;color:#6E6E6E;margin-bottom: 5px;">{{filter.split(item.addDateTime)}} - {{filter.split(item.addDateTime)}}</view>
-                    <view style="font-size:12px;color:#6E6E6E;margin-bottom: 25px;"><text>营员-{{item.camperNames}}</text> </view>
+                    <view style="font-size:12px;color:#6E6E6E;margin-bottom: 5px;"><text>营员：{{item.camperNames}}</text> </view>
                     <view style="font-size:12px;color:#6E6E6E;display:flex;justify-content: space-between;">
                         <view style="font-size:16px;color:#303030;">¥{{filter.returnFloat(item.payableAmount)}}</view>
                         <view style="color:#5B85BF;border:1px solid #5B85BF;width:64px;height:22px;text-align:center;line-height:22px;border-radius:16px;">{{filter.orderType(item.orderStatus)}}</view>

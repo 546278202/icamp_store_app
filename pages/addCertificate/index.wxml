@@ -40,7 +40,7 @@
         <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0; ">
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px; ">过期日期</view>
             <view style="display:flex;align-items: center; ">
-                <picker mode="date" value="{{certificates.expiryDate}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange" style="width: 100%;">
+                <picker mode="date" value="{{certificates.expiryDate}}" bindchange="bindDateChange" style="width: 100%;">
                     <view class="picker" style="height:44px;width:100%;padding-left:15px;line-height: 44px;color:#333;font-size:14px;">{{certificates.expiryDate}} </view>
                 </picker>
                 <view style="width:45px; ">

@@ -1,7 +1,11 @@
+const file = require('../../utils/file.js');
+
 const app = getApp()
+
 Page({
     data: {
         disabled: false,
+        arr: [],
         handleSubmitType: 0, //0添加，1编辑
         list: [],
         base: {
@@ -9,6 +13,7 @@ Page({
             birth: "1988-11-20",
             imgId: 20,
             status: 1,
+            fileList: []
         },
         certificates: {
             idCode: "",
@@ -56,9 +61,16 @@ Page({
             wx.setNavigationBarTitle({
                 title: "编辑营员"
             })
+            let _base = JSON.parse(decodeURIComponent(options.detail))[0]
+            let arr = []
+
+            let obj = { url: _base.image.originalFile }
+            arr.push(obj)
+            _base.fileList = arr
+
             this.setData({
                 handleSubmitType: 1,
-                base: JSON.parse(decodeURIComponent(options.detail))[0],
+                base: _base,
                 certificates: JSON.parse(decodeURIComponent(options.detail))[1],
             });
         }
@@ -127,13 +139,14 @@ Page({
     },
     handleSubmit() {
         let data = {
-                camperName: this.data.base.camperName,
-                camperNameEn: this.data.base.camperNameEn,
-                sex: this.data.base.sex,
-                birth: this.data.base.birth,
-                imgId: 20,
-                status: 1,
-            }
+            camperName: this.data.base.camperName,
+            camperNameEn: this.data.base.camperNameEn,
+            sex: this.data.base.sex,
+            birth: this.data.base.birth,
+            imgId: this.getImgIds().toString(),
+            status: 1,
+        }
+        console.log(data)
             // 编辑
         if (this.data.handleSubmitType == 1) {
             data.camperId = this.data.base.camperId
@@ -149,6 +162,13 @@ Page({
                 }
             }, true)
         }
+    },
+    getImgIds() {
+        let arr = []
+        this.data.base.fileList.forEach(element => {
+            arr.push(element.fileId)
+        });
+        return arr
     },
     // 查询证件
     getCertificate(linkId) {
@@ -191,5 +211,27 @@ Page({
                 isHideLoadMore: true,
             })
         }, 1000)
+    },
+    afterRead(event) {
+        // 当设置 mutiple 为 true 时, file 为数组格式， 否则为对象格式
+        let imgs = event.detail.file.path
+        file.fileUpload(app.globalData.BASE_URL + `/files`, imgs).then((res) => {
+            let url = JSON.parse(res.data).data[0]
+            let base = this.data.base
+            base.fileList.push(url)
+            this.setData({
+                base: base
+            })
+        }, true)
+    },
+
+    deleteImg(event) {
+        let index = event.detail.index
+        let base = this.data.base
+        base.fileList.splice(index, 1)
+        this.setData({
+            base: base
+        })
+        console.log(this.data)
     }
 })

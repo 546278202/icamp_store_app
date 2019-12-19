@@ -6,6 +6,9 @@
                 <view style="padding-right:25px;">
                     <van-checkbox value="{{ item.isChecked }}" checked-color="#5B85BF" icon-size="30px"></van-checkbox>
                 </view>
+                <view style="padding-right:10px;">
+                    <image style="width: 60px; height: 60px;" mode="aspectFill" src="{{item.image.originalFile}}" binderror="listAvatarError" data-index="{{index}}"></image>
+                </view>
                 <view>
                     <view style="font-size:16px;color:#484848;font-weight: bold;">{{item.camperName}}</view>
                     <view style="font-size:12px;color:#4C4751;">英文名：{{item.camperNameEn}}</view>

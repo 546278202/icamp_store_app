@@ -5,17 +5,8 @@ Page({
         options: null,
         show: false,
         actions: [{
-                name: '编辑营员',
-            },
-            // {
-            //     name: '编辑详细信息',
-            //     url: '../addCamper_detail/index?title=编辑详细信息'
-            // },
-            // {
-            //     name: '编辑注意事项',
-            //     url: '../addCamper_detail/index?title=编辑注意事项'
-            // }
-        ]
+            name: '编辑营员',
+        }, ]
     },
 
     onLoad: function(options) {
@@ -102,7 +93,7 @@ Page({
             // 上一个页面实例对象
             var prePage = pages[pages.length - 2];
             prePage.data.camperList = arr
-            prePage.getCmpersName()
+            prePage.getCmpersList()
             setTimeout(function() {
                 wx.navigateBack()
             }, 100)
@@ -155,5 +146,14 @@ Page({
                 }
             }
         }, true)
+    },
+    //商品列表默认图
+    listAvatarError(e) {
+        let index = e.currentTarget.dataset.index
+        let data = this.data.dataList
+        data[index]["image"]["originalFile"] = "../../image/base.png"
+        this.setData({
+            dataList: data
+        })
     }
 })

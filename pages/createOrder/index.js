@@ -4,13 +4,11 @@ const watch = require('../../utils/watch.js');
 import Toast from '../../dist/toast/toast';
 Page({
     data: {
-        goodsId: null,
         detailData: null,
         checked: true,
         price: 0,
         show: false,
         camperList: [],
-        campersName: ["请选择"],
         active: 0,
         current: 1,
         result: [],
@@ -25,17 +23,21 @@ Page({
 
     },
     onLoad: function(options) {
+        let _options = JSON.parse(decodeURIComponent(options.detail))
         this.setData({
-            goodsId: options.id
-        })
+            detailData: _options.detailData,
+            active: _options.active,
+            current: _options.current
+        });
+
+
         this.getDetail()
         this.getList()
         watch.setWatcher(this);
     },
     getList() {
-        let url = app.globalData.URL + "/camper?type=1"
         let data = {};
-        app.wxRequest('GET', url, data, (res) => {
+        app.wxRequest('GET', app.globalData.URL + "/camper?type=1", data, (res) => {
             let list = res.data.data
             let camperList = []
             if (list) {
@@ -50,14 +52,14 @@ Page({
                 this.setData({
                     camperList: camperList,
                     campersName: [camperList[0].camperName],
-                    allAmount: (this.data.price + this.data.severPrice) * this.data.campersName.length
-
+                    allAmount: (this.data.price + this.data.severPrice) * this.data.camperList.length
                 })
             }
         }, true)
     },
+
     watch: {
-        campersName(newVal, oldVal) {
+        camperList(newVal, oldVal) {
             console.log(newVal, oldVal);
             if (newVal != oldVal) {
                 this.getPrice()
@@ -85,6 +87,16 @@ Page({
             severPrice: num,
         })
     },
+
+    delCamper(e) {
+        let index = e.currentTarget.dataset.index
+        var item = this.data.camperList[index]
+        let camperList = this.data.camperList
+        camperList.splice(index, 1)
+        this.setData({
+            camperList: camperList,
+        })
+    },
     //获取所有勾选的属性值
     getAttributeValues() {
         var arr = this.data.severAttributes
@@ -103,25 +115,23 @@ Page({
     getPrice() {
         let item = this.data.detailData.goodsAttributes[0].values[this.data.active]
         this.setData({
-            // price: item.sellPrice 
             price: (item.sellPrice + this.data.detailData.sellPrice)
-
         })
-        console.log(this.data.price)
-        console.log()
     },
-    getCmpersName() {
+
+    getCmpersList() {
         var arr = []
         this.data.camperList.forEach(element => {
             if (element.isChecked) {
-                arr.push(element.camperName)
+                arr.push(element)
             }
         });
         this.setData({
-            campersName: arr,
+            camperList: arr,
         });
         this.getPrice()
     },
+
     getCmpersIds() {
         var arr = []
         if (this.data.camperList) {
@@ -159,7 +169,6 @@ Page({
         this.setData({
             detailData: detailData
         })
-
         this.getSeverPrice()
     },
 
@@ -177,28 +186,20 @@ Page({
     },
 
     getDetail() {
-        let data = {}
-        app.wxRequest('GET', app.globalData.BASE_URL + `/goods/${this.data.goodsId}`, data, (res) => {
-            let list = res.data.data.goodsAttributes
-            var _arr = []
-            var arr = []
-
-            for (var i = 0; i < list.length; i++) {
-                if (list[i].type != 1) {
-                    _arr.push(list[i])
-                } else {
-                    arr.push(list[i])
-                }
+        let list = this.data.detailData.goodsAttributes
+        var _arr = []
+        var arr = []
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].type != 1) {
+                _arr.push(list[i])
+            } else {
+                arr.push(list[i])
             }
-
-            this.setData({
-                detailData: res.data.data,
-                severAttributes: _arr,
-                campDataAttributes: arr,
-            })
-
-            app.globalData["detailData"] = this.data.detailData
-        }, true)
+        }
+        this.setData({
+            severAttributes: _arr,
+            campDataAttributes: arr,
+        })
     },
 
     submitData(event) {
@@ -216,18 +217,23 @@ Page({
             return false
         }
         app.globalData["createOrder"] = this.data
+        const _settleModels = []
+        this.data.camperList.forEach(element => {
+            let obj = {
+                goodsId: this.data.detailData.goodsId,
+                attributeValues: this.getAttributeValues(),
+                camperId: element.camperId
+            }
+            _settleModels.push(obj)
+        })
 
         let paramer = {
-            settleModels: [{
-                goodsId: this.data.goodsId,
-                attributeValues: this.getAttributeValues(),
-                camperId: this.getCmpersIds()
-            }],
+            settleModels: _settleModels,
             froms: 0,
             orderType: 1
         }
         app.globalData["paramer"] = paramer
-        console.log(paramer)
+
         app.wxRequest('POST', app.globalData.URL + "/order/settlement", paramer, (res) => {
             console.log(res)
             if (res.data.status == 200) {

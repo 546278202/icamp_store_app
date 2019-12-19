@@ -25,26 +25,25 @@
     </view>
 
     <view style="padding:15px;font-size: 15px;color:#303030;background: #fff;margin-bottom: 10px;">
-        <view style="margin-bottom:20px;">出行人数</view>
-        <view style="margin-bottom:20px;display:flex;justify-items: center;justify-content:space-between;">
-            <text>营员：{{campersName}}</text>
-            <text>人数：x{{campersName.length}}</text>
-            <!-- <van-stepper value="{{ campersName.length}}" bind:change="onChange3" disabled/> -->
+        <view style="margin-bottom:20px;">营员</view>
+        <view wx:for="{{camperList}}" wx:for-item="item" data-index='{{index}}' class="camper_item">
+            <view>
+                <text style="margin-right: 10px;">{{item.camperName}}</text><text style="margin-right: 10px;">220381199308202023</text><text style="margin-right: 10px;">{{filter.sex(item.sex)}}</text><text style="margin-right: 10px;">{{filter.getAge(item.birth)}}岁</text>
+            </view>
+            <view>
+                <text bindtap="delCamper" data-index='{{index}}'>删除</text>
+            </view>
         </view>
-        <view style="margin-bottom:20px;">价格：¥{{filter.returnFloat(price)}}</view>
     </view>
-    <navigator url="../camperList/index?back=true" style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">
-        <view style="display: flex;flex:1;align-items: center;justify-content: space-between;">
-            <text>选择营员</text>
-            <text style="color:#BBC0CA;">{{campersName}}</text>
-        </view>
-        <van-icon name="arrow" color="#BBC0CA" style="margin-left:10px;" />
+    <navigator hover-class="none" url="../camperList/index?back=true" style="display: flex;flex:1;align-items: center;justify-content: center;height: 53px; background: #fff;padding:0 15px;margin-bottom:10px;">
+        <van-icon name="add-o" color="#5B85BF" size="20px" style="display:flex;margin-right:5px;" />
+        <text>选择营员</text>
     </navigator>
 
     <view wx:for="{{detailData.goodsAttributes}}" wx:key='index' wx:for-index="row" style="margin-bottom:15px;" wx:if="{{item.type!==1}}">
         <view style="padding:0 15px 15px 15px;">{{item.name}}</view>
         <view style="background: #fff;padding:15px 15px 0 15px;">
-            <view wx:for="{{item.values}}" wx:for-item="values" data-row='{{row}}' data-index='{{index}}' bindtap="onChange" style="font-size: 15px;color:#303030;padding-bottom:15px;display: flex;justify-content: space-between;">
+            <view wx:for="{{item.values}}" wx:for-item="values" data-row='{{row}}' data-index='{{index}}' style="font-size: 15px;color:#303030;padding-bottom:15px;display: flex;justify-content: space-between;">
                 <van-checkbox value="{{values.checked}}" name="{{values.name}}" checked-color="#5B85BF">{{values.name}}</van-checkbox><text>¥{{values.sellPrice}}</text>
             </view>
         </view>
@@ -52,7 +51,7 @@
 
     <view style="height:49px;display:flex;background:#fff;box-shadow:0px -3px 6px 0px rgba(233,233,233,0.5);align-items:center;position:fixed;bottom: 0; width: 100%;background: #fff;z-index: 44444; ">
         <!-- <view style="color:#303030;font-size:14px;flex:1;display:flex;padding-left:15px; ">营会费¥{{filter.returnFloat(price+severPrice)xcampersName.length}}</view> -->
-        <view style="color:#303030;font-size:14px;flex:1;display:flex;padding-left:15px; ">营会费¥{{filter.returnFloat(price*campersName.length)}}</view>
+        <view style="color:#303030;font-size:14px;flex:1;display:flex;padding-left:15px; ">营会费¥{{filter.returnFloat(price*camperList.length)}}</view>
         <view style="color:#ffffff;font-size:16px;background: #5B85BF;width:133px;height:48px;display: flex;align-items: center;justify-content: center;" bindtap="submitData">去结算</view>
     </view>
     <view style="margin-bottom:15px;">

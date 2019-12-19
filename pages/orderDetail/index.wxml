@@ -8,22 +8,18 @@
         <text>剩余23小时59分钟关闭</text>
     </view>
 </view>
-<navigator hover-class="none" style="background: #fff; margin: 15px 0;border-radius:14px;">
-    <view style="display: flex;margin:0 15px;padding: 15px 0;border-bottom: 1px solid #F3F3F3;">
-        <image src="{{list.coverImg.originalFile}}" style="width:93px;height:93px;border-radius:7px;" mode='aspectFill' binderror="avatarError" data-index="{{index}}" />
+<navigator hover-class="none" style="background: #fff; margin: 15px 0;border-radius:14px;overflow: hidden;">
+    <view style="display: flex;margin:0 15px;padding: 15px 0;border-bottom: 1px solid #F3F3F3;" wx:for="{{list}}" wx:for-item="item" wx:for-index='index' data-index="{{index}}">
+        <image src="{{item.coverImg.originalFile}}" style="width:93px;height:93px;border-radius:7px;" mode='aspectFill' binderror="avatarError" data-index="{{index}}" />
         <view style="padding:10px 15px 0 15px;flex:1;">
-            <view style="font-size:14px;color:#3D3D3D;font-weight: 500;margin-bottom: 5px;;">{{list.goodsName}}</view>
-            <!-- <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">{{list.goodsName}}</view> -->
-            <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">营员：{{list.camper.camperName}}</view>
-            <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">金额：¥{{filter.returnFloat(options.payableAmount)}}</view>
+            <view style="font-size:14px;color:#3D3D3D;font-weight: 500;margin-bottom: 5px;;">{{item.goodsName}}</view>
+            <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">订单编号：{{item.orderId}}</view>
+            <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">营员：{{item.camper.camperName}}</view>
+            <view style="font-size:11px;color:#3D3D3D;margin-bottom: 5px;">金额：¥{{filter.returnFloat(item.sellPrice)}}</view>
         </view>
     </view>
-    <view style="padding:15px;" wx:if="{{severList.length}}">
-        <view style="font-size:14px;color:#303030;margin-bottom: 10px;"><text>服务信息</text></view>
-        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;" wx:for="{{severList}}" wx:for-item="item" wx:for-index='index'><text style="color:#3D4244">{{filter.returnFloat(item.attributeValueName)}}</text><text style="color:#696969">¥{{filter.returnFloat(item.sellPrice)}}</text></view>
-    </view>
     <button open-type="contact">
-        <navigator style="height: 53px;padding: 0 15px;border-bottom: 1px solid #F1F1F1;background:rgba(255,255,255,1);display:flex;align-items: center;justify-content: center;">
+        <navigator style="height: 53px;padding: 0 15px;background:rgba(255,255,255,1);display:flex;align-items: center;justify-content: center;">
                 <view style="display: flex;align-items: center;justify-content: center;font-size:14px;color:#3D4244;">
                     <image src="../../image/tab4/sever.png" style="height:20px;width:20px;margin-right:15px;" mode='aspectFit' />
                     <text open-type="contact">联系客服</text>
@@ -35,8 +31,10 @@
 <navigator style="background: #fff; margin: 15px 0;border-radius:14px;">
     <view style="padding:15px;">
         <view style="font-size:14px;color:#303030;margin-bottom: 10px;"><text>优惠信息</text></view>
-        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">积分减免</text><text style="color:#696969">-¥{{filter.returnFloat(list.integralDiscountAmount)}}</text></view>
-        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">优惠卷减免</text><text style="color:#696969">-¥{{filter.returnFloat(list.couponDiscountAmount)}}</text></view>
+        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">商品总额</text><text style="color:#696969">¥{{filter.returnFloat(options.payableAmount)}}</text></view>
+        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">积分减免</text><text style="color:#696969">-¥{{filter.returnFloat(list[0].integralDiscountAmount)}}</text></view>
+        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: space-between;"><text style="color:#3D4244">优惠卷减免</text><text style="color:#696969">-¥{{filter.returnFloat(list[0].couponDiscountAmount)}}</text></view>
+        <view style="font-size:11px;margin-bottom: 5px;display:flex;justify-content: right;"><text style="color:#3D4244">实付款：</text><text style="color:#696969">¥{{filter.returnFloat(options.payableAmount)}}</text></view>
     </view>
 </navigator>
 <navigator style="background: #fff; margin: 15px 0;border-radius:14px;">

@@ -33,9 +33,8 @@
         "pages/camperReport/index",
         "pages/projectList/index",
         "pages/tab3_detail/index",
-        "pages/camperLog/index",
-        "pages/readClause/index",
-        "pages/readClause2/index"
+        "pages/camperLog/index"
+
     ],
     "window": {
         "backgroundColor": "#F3F3F3",
@@ -98,6 +97,7 @@
         "van-tag": "dist/tag/index",
         "van-picker": "dist/picker/index",
         "van-collapse": "dist/collapse/index",
-        "van-collapse-item": "dist/collapse-item/index"
+        "van-collapse-item": "dist/collapse-item/index",
+        "van-uploader": "dist/uploader/index"
     }
 }

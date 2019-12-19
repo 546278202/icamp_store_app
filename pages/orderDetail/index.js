@@ -29,7 +29,7 @@ Page({
         let data = {}
         app.wxRequest('GET', app.globalData.URL + `/order/${this.data.options.orderId}`, data, (res) => {
             this.setData({
-                list: res.data.data[0],
+                list: res.data.data,
             });
             this.getSeverList()
         }, true)
@@ -44,23 +44,26 @@ Page({
     },
     // 筛选服务属性
     getSeverList() {
-        let arr = this.data.list.orderGoodsAttributes
-        let _arr = []
-        for (var i = 0; i < arr.length; i++) {
-            if (arr[i].type !== 1) {
-                _arr.push(arr[i])
-            }
-        }
-        this.setData({
-            severList: _arr,
-        });
+        // let arr = this.data.list.orderGoodsAttributes
+        // this.data.list.forEach(element => {
+        //     console.log()
+        // });
+        // let _arr = []
+        // for (var i = 0; i < arr.length; i++) {
+        //     if (arr[i].type !== 1) {
+        //         _arr.push(arr[i])
+        //     }
+        // }
+        // this.setData({
+        //     severList: _arr,
+        // });
     },
     //发起支付
     orderPay() {
         console.log(this.data.list)
         let paramer = {
-            desc: this.data.list.goodsAttr,
-            orderId: this.data.list.orderId,
+            desc: this.data.list[0].goodsAttr,
+            orderId: this.data.list[0].orderId,
             type: 1,
             amount: this.data.options.payableAmount,
         }

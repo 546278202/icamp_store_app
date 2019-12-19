@@ -64,47 +64,18 @@ Page({
             WxParse.wxParse('article', 'html', article, this, 5);
         }, true)
     },
-    submitPostEnroll() {
-        let attributeValueIds = [];
-        this.data.detailData.goodsAttributes.forEach(element => {
-            attributeValueIds.push(element.values[this.data.active].attributeValueId)
-        });
-        var data = [{
-            "goodsId": this.data.detailData.goodsId,
-            "attributeValueIds": attributeValueIds
-        }]
-        app.wxRequest('POST', app.globalData.URL + `/order/enroll`, data, (res) => {
-            console.log(res.data)
-            wx.navigateTo({
-                url: '../createOrder/index',
-            })
-        }, true)
-    },
-    //报名
-    postEnroll() {
-        if (wx.getStorageSync("userInfo").campers) {
-            this.submitPostEnroll()
-        } else {
-            wx.showModal({
-                title: '体统提示',
-                content: '营员信息未填写，建议填写完整',
-                showCancel: true, //是否显示取消按钮
-                cancelText: "现在填写", //默认是“取消”
-                cancelColor: '#576B95', //取消文字的颜色
-                confirmText: "继续报名", //默认是“确定”
-                confirmColor: '#576B95', //确定文字的颜色
-                success: (res) => {
-                    if (res.cancel) {
-                        wx.navigateTo({
-                            url: '../camperList/index',
-                        })
-                    } else {
-                        this.submitPostEnroll()
-                    }
-                },
-                fail: function(res) {}, //接口调用失败的回调函数
-                complete: function(res) {}, //接口调用结束的回调函数（调用成功、失败都会执行）
-            })
+
+    goDetailPage(e) {
+        let data = {
+            active: this.data.active,
+            current: this.data.current,
+            detailData: this.data.detailData,
         }
+        console.log(data)
+
+        let str = JSON.stringify(data)
+        wx.navigateTo({
+            url: `../createOrder/index?detail=${encodeURIComponent(str)}`
+        })
     }
 })

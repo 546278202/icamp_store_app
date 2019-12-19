@@ -81,16 +81,9 @@ Page({
         app.wxRequest('POST', app.globalData.URL + `/order`, app.globalData.paramer, (res) => {
             if (res.statusCode == 200) {
                 app.globalData["createOrder3"] = res.data.data
-                wx.showToast({
-                    title: '操作成功',
-                    icon: 'success',
-                    duration: 1000
+                wx.navigateTo({
+                    url: '../createOrder3/index',
                 })
-                setTimeout(() => {
-                    wx.navigateTo({
-                        url: '../createOrder3/index',
-                    })
-                }, 1000)
             }
         }, true)
     }

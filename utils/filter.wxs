@@ -135,6 +135,21 @@ function returnFloat(value) {
         return value;
     }
 }
+
+
+
+
+//获取年龄
+function getAge(date) {
+    var birthday = getDate(date);
+    // var birthday = new Date(date);
+    // var d = new Date();
+    var d = getDate();
+
+
+    var age = d.getFullYear() - birthday.getFullYear() - ((d.getMonth() < birthday.getMonth() || d.getMonth() == birthday.getMonth() && d.getDate() < birthday.getDate()) ? 1 : 0)
+    return age;
+}
 module.exports = {
     numberToFix: numberToFix,
     sex: sex,
@@ -146,5 +161,6 @@ module.exports = {
     NumberToChinese: NumberToChinese,
     substring: substring,
     returnFloat: returnFloat,
-    languageStateTxt: languageStateTxt
+    languageStateTxt: languageStateTxt,
+    getAge: getAge,
 }

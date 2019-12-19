@@ -23,6 +23,21 @@ page {
     align-items: center;
     border-bottom: 1px solid #f3f3f3;
 }
+
 .active {
     border: 1px solid #5B85BF;
+}
+
+.camper_item {
+    margin-bottom: 20px;
+    display: flex;
+    justify-items: center;
+    justify-content: space-between;
+}
+
+.camper_item:last-child {
+    margin-bottom: 0;
+    display: flex;
+    justify-items: center;
+    justify-content: space-between;
 }

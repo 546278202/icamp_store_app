@@ -77,12 +77,8 @@
             <image src="../../image/tab1/share.png"  mode='aspectFit' style="width:20px;height: 20px;"/>
             <text style="margin-top: 5px;">分享</text>
         </button>
-        <navigator hover-class="none" url="../createOrder/index?id={{goodsId}}" style="color:#ffffff;font-size:16px;flex:1;background: #5B85BF;height:49px;display: flex;align-items: center;justify-content: center;">
+        <view bindtap="goDetailPage" style="color:#ffffff;font-size:16px;flex:1;background: #5B85BF;height:49px;display: flex;align-items: center;justify-content: center;">
             <view>去报名</view>
-        </navigator>
-
-        <!-- <view bindtap="postEnroll" style="color:#ffffff;font-size:16px;flex:1;background: #5B85BF;height:49px;display: flex;align-items: center;justify-content: center;">
-            <view>立即报名</view>
-        </view> -->
+        </view>
     </view>
 </view>

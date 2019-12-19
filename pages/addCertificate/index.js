@@ -10,7 +10,7 @@ Page({
             idType: 1,
             linkId: '',
             issuePlace: '',
-            expiryDate: '1988-09-20',
+            expiryDate: null,
             status: 1,
             type: 1,
         },
@@ -39,11 +39,7 @@ Page({
             {
                 id: 4,
                 name: '港澳通行证'
-            },
-            {
-                id: 5,
-                name: '企业营业执照 '
-            },
+            }
         ]
     },
     onLoad(options) {
@@ -142,7 +138,7 @@ Page({
             data.id = this.data.certificates.id
         }
         // 验证参数
-        if (data.linkId && data.idCode && data.issuePlace && data.issuePlace) {
+        if (data.linkId && data.idCode) {
             app.wxRequest('POST', app.globalData.URL + "/id", data, (res) => {
                 if (res.statusCode == 200) {
                     if (res.data.status == 200) {

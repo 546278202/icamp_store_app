@@ -34,19 +34,13 @@ Page({
                     paySign: data.paySign,
                     success(res) {
                         console.log(res)
-                        wx.showToast({
-                            title: '操作成功',
-                            icon: 'success',
-                            duration: 2000
-                        })
                         wx.navigateTo({
                             url: `../paysuccess/index`
                         })
                     },
                     fail(res) {
-                        wx.showLoading({
-                            title: '付款失败',
-                            duration: 2000
+                        wx.navigateTo({
+                            url: `../orderList/index?detail=0`
                         })
                     }
                 })
