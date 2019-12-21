@@ -14,11 +14,9 @@ Page({
             this.setData({
                 options: JSON.parse(decodeURIComponent(options.detail)),
             });
-            console.log(JSON.parse(decodeURIComponent(options.detail)))
+            this.getCamperDetail()
         }
-        this.getCamperDetail()
     },
-
     onChangehealthCondition(event) {
         let _base = this.data.base
         _base.healthCondition = event.detail
@@ -99,17 +97,9 @@ Page({
         this.operationCamper()
     },
     operationCamper() {
-        let data = {
-            camperId: this.data.options.camperId,
-            orderId: Number(this.data.options.orderId),
-            healthCondition: this.data.base.healthCondition,
-            dieteticContraindication: this.data.base.dieteticContraindication,
-            allergy: this.data.base.allergy,
-            history: this.data.base.history,
-            vaccine: this.data.base.vaccine
-        }
-        if (data.healthCondition && data.healthCondition && data.healthCondition) {
-            app.wxRequest('POST', app.globalData.URL + "/camper/notice", data, (res) => {
+        console.log(this.data.base)
+        if (this.data.base.camperId && this.data.base.healthCondition) {
+            app.wxRequest('POST', app.globalData.URL + "/camper/notice", this.data.base, (res) => {
                 if (res.data.status == 200) {
                     wx.showToast({
                         title: '操作成功',
@@ -117,7 +107,7 @@ Page({
                         duration: 1000
                     })
                     setTimeout(() => {
-                        wx.navigateTo({
+                        wx.redirectTo({
                             url: `../orderList/index?detail=2`
                         })
                     }, 1000)
@@ -128,11 +118,31 @@ Page({
     //查看详情
     getCamperDetail() {
         let item = this.data.options
-        let url = `orderId=${item.orderId}&camperId=${item.camperId}&projectCode=${item.attributeValue}`
-        app.wxRequest('GET', app.globalData.URL + `/order/camper/detail?${url}`, {}, (res) => {
+        let url = `orderId=${item.orderId}&camperId=${item.camperId}&projectCode=${item.orderGoodsAttributes[0].attributeValue}`
+        app.wxRequest('GET', app.globalData.URL + `/order/camper/notice?${url}`, {}, (res) => {
             if (res.statusCode == 200) {
-                console.log(res)
-                this.data.dataList = res.data.data
+                if (res.data.status == 200) {
+                    if (res.data.data) {
+                        // 编辑
+                        let _base = {
+                            camperId: res.data.data.camperId,
+                            id: res.data.data.id,
+                            healthCondition: res.data.data.healthCondition,
+                            dieteticContraindication: res.data.data.dieteticContraindication,
+                            allergy: res.data.data.allergy,
+                            history: res.data.data.history,
+                            vaccine: res.data.data.vaccine
+                        }
+                        this.setData({ base: _base })
+                    } else {
+                        // 新增
+                        let _base = {
+                            camperId: this.data.options.camperId,
+                            orderId: Number(this.data.options.orderId)
+                        }
+                        this.setData({ base: _base })
+                    }
+                }
             }
         }, true)
     }

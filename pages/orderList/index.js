@@ -8,16 +8,16 @@ Page({
         status: 1,
         GoodsList: [],
         active: 0,
-
     },
     onLoad: function(options) {
+        console.log(options)
         if (options.detail) {
             this.setData({
-                active: options.detail
+                active: parseInt(options.detail),
             })
+        } else {
+            this.getList()
         }
-
-        this.getList()
     },
     onChange(event) {
         this.setData({

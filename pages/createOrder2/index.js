@@ -44,7 +44,7 @@ Page({
     // 选择优惠卷
     goCouponPage() {
         if (this.data.createOrderList.payableAmount - (this.data.payIntegral / 10) > 300) {
-            wx.navigateTo({
+            wx.redirectTo({
                 url: "../coupon/index?back=createOrder2"
             })
         }
@@ -81,7 +81,7 @@ Page({
         app.wxRequest('POST', app.globalData.URL + `/order`, app.globalData.paramer, (res) => {
             if (res.statusCode == 200) {
                 app.globalData["createOrder3"] = res.data.data
-                wx.navigateTo({
+                wx.redirectTo({
                     url: '../createOrder3/index',
                 })
             }

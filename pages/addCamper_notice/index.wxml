@@ -9,7 +9,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">健康状况</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{ base.healthCondition}}" data-id="healthCondition" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChangehealthCondition" />
+                    <van-field value="{{ base.healthCondition}}" data-id="healthCondition" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入健康状况" border="{{false}}" bind:change="onChangehealthCondition" />
                 </view>
                 <view style="width:45px;">
                 </view>
@@ -19,7 +19,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">饮食禁忌</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{ base.dieteticContraindication}}" data-id="dieteticContraindication" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChangedieteticContraindication" />
+                    <van-field value="{{ base.dieteticContraindication}}" data-id="dieteticContraindication" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入饮食禁忌" border="{{false}}" bind:change="onChangedieteticContraindication" />
                 </view>
                 <view style="width:45px;">
                 </view>
@@ -30,7 +30,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">过敏史</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{ base.allergy}}" data-id="allergy" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChangeAllergy" />
+                    <van-field value="{{ base.allergy}}" data-id="allergy" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入过敏史" border="{{false}}" bind:change="onChangeAllergy" />
                 </view>
                 <view style="width:45px;">
                 </view>
@@ -40,7 +40,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">病史</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{ base.history}}" data-id="history" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChangeHistory" />
+                    <van-field value="{{ base.history}}" data-id="history" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入病史" border="{{false}}" bind:change="onChangeHistory" />
                 </view>
                 <view style="width:45px;">
                 </view>
@@ -50,7 +50,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">疫苗接种记录</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{base.vaccine}}" data-id="vaccine" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChangevaccine" />
+                    <van-field value="{{base.vaccine}}" data-id="vaccine" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入疫苗接种记录" border="{{false}}" bind:change="onChangevaccine" />
                 </view>
                 <view style="width:45px;">
                 </view>

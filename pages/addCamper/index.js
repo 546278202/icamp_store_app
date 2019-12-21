@@ -108,13 +108,13 @@ Page({
         let id = event.currentTarget.dataset.id
         if (id == "camperName") {
             let _base = this.data.base
-            _base.camperName = event.detail
+            _base.camperName = event.detail.replace(/\s+/g, '')
             this.setData({
                 base: _base
             })
         } else if (id == "camperNameEn") {
             let _base = this.data.base
-            _base.camperNameEn = event.detail
+            _base.camperNameEn = event.detail.replace(/\s+/g, '')
             this.setData({
                 base: _base
             })

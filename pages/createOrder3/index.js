@@ -34,12 +34,12 @@ Page({
                     paySign: data.paySign,
                     success(res) {
                         console.log(res)
-                        wx.navigateTo({
+                        wx.redirectTo({
                             url: `../paysuccess/index`
                         })
                     },
                     fail(res) {
-                        wx.navigateTo({
+                        wx.redirectTo({
                             url: `../orderList/index?detail=0`
                         })
                     }

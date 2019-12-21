@@ -4,10 +4,8 @@ Page({
         show: false,
         languageGradeShow: false,
         base: {
-            languageType: 0,
-            language: "中文",
-            languageGrade: "一般",
-            languageGradeType: 0
+            language: 0,
+            languageGrade: 0
         },
         // 语言(母语) 选单配置 0 = 中文 1 = 英语 2 = 日语 3 = 法语...
         objectArray: ["中文", "英语", "日语", "法语"],
@@ -18,7 +16,7 @@ Page({
     onLoad(options) {
         if (options.detail) {
             this.setData({
-                options: JSON.parse(decodeURIComponent(options.detail)),
+                options: JSON.parse(decodeURIComponent(options.detail))[0],
             });
         }
         this.getCamperDetail()
@@ -63,9 +61,9 @@ Page({
     },
     handleOnConfirm(event) {
         const { picker, value, index } = event.detail;
+        console.log(index)
         let _base = this.data.base
-        _base.language = value
-        _base.languageType = index
+        _base.language = index
         this.setData({
             base: _base,
             show: false
@@ -79,9 +77,8 @@ Page({
     languageGradeOnConfirm(event) {
         const { picker, value, index } = event.detail;
         let _base = this.data.base
-        _base.languageGrade = value
-        _base.languageGradeType = index
-
+        _base.languageGrade = index
+        console.log(_base.languageGrade)
         this.setData({
             base: _base,
             languageGradeShow: false
@@ -96,30 +93,11 @@ Page({
         this.operationCamper()
     },
     operationCamper() {
-        console.log(this.data.options)
-        let data = {
-                camperId: this.data.options.camperId,
-                attributeValueId: this.data.options.orderGoodsAttributes[0].attributeValueId,
-                heigh: this.data.base.heigh,
-                weigth: this.data.base.weigth,
-                language: this.data.base.languageType,
-                languageGrade: this.data.base.languageGradeType,
-                scholl: this.data.base.school,
-                remark: this.data.base.remark
-            }
-            // 编辑
-        if (this.data.base.id) {
-            data.id = this.data.base.id
-        } else {
-            data.orderId = Number(this.data.options.orderId)
-        }
-
-        console.log(data)
-        if (data.camperId && data.attributeValueId && data.heigh) {
-            app.wxRequest('POST', app.globalData.URL + "/camper/detail", data, (res) => {
-
+        console.log(this.data.base)
+        if (this.data.base.camperId && this.data.base.heigh) {
+            app.wxRequest('POST', app.globalData.URL + "/camper/detail", this.data.base, (res) => {
                 if (res.statusCode == 200) {
-                    wx.navigateTo({
+                    wx.redirectTo({
                         url: `../addCamper_notice/index?detail=${encodeURIComponent(JSON.stringify(this.data.options))}`
                     })
                 }
@@ -131,12 +109,32 @@ Page({
         let item = this.data.options
         let url = `orderId=${item.orderId}&camperId=${item.camperId}&projectCode=${item.orderGoodsAttributes[0].attributeValue}`
         app.wxRequest('GET', app.globalData.URL + `/order/camper/detail?${url}`, {}, (res) => {
-            console.log(res)
             if (res.statusCode == 200) {
                 if (res.data.status == 200) {
-                    wx.navigateTo({
-                        url: `../addCamper_notice/index?detail=${encodeURIComponent(JSON.stringify(this.data.options))}`
-                    })
+                    if (res.data.data) {
+                        // 编辑
+                        let _base = {
+                            camperId: res.data.data.camperId,
+                            imgId: res.data.data.imgId,
+                            heigh: res.data.data.heigh,
+                            weigth: res.data.data.weigth,
+                            language: res.data.data.language,
+                            languageGrade: res.data.data.languageGrade,
+                            school: res.data.data.school,
+                            remark: res.data.data.remark,
+                            id: res.data.data.id
+                        }
+                        this.setData({ base: _base })
+                    } else {
+                        // 新增
+                        let _base = {
+                            camperId: this.data.options.camperId,
+                            orderId: Number(this.data.options.orderId),
+                            language: 0,
+                            languageGrade: 0
+                        }
+                        this.setData({ base: _base })
+                    }
                 }
             }
         }, true)

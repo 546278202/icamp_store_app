@@ -55,11 +55,26 @@ function languageStateTxt(value) {
     if (value == 0) {
         return '中文';
     } else if (value == 1) {
-        return '中文.';
-    } else if (value == 2) {
         return '英语';
+    } else if (value == 2) {
+        return '日语';
     } else if (value == 3) {
         return '法语';
+    } else {
+        return value;
+    }
+}
+// 语言等级 0=一般 1=良好 2=优秀
+function languageGradeTxt(value) {
+    console.log(value)
+    if (value == 0) {
+        return '一般';
+    } else if (value == 1) {
+        return '良好';
+    } else if (value == 2) {
+        return '优秀';
+    } else {
+        return value;
     }
 }
 
@@ -162,5 +177,6 @@ module.exports = {
     substring: substring,
     returnFloat: returnFloat,
     languageStateTxt: languageStateTxt,
+    languageGradeTxt: languageGradeTxt,
     getAge: getAge,
 }

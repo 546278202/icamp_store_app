@@ -3,5 +3,5 @@
         <van-icon name="success" size="40px" color="#fff" />
     </view>
     <view style="text-align:center;color:#696969;font-size:14px;margin-bottom: 27px;;"> 恭喜您支付成功！</view>
-    <navigator hover-class="none" url="../orderList/index?detail=1" style="width:200px;height:44px;line-height:44px;text-align:center;color:#fff;font-size:16px;background:#5B85BF;">查看订单</navigator>
+    <navigator hover-class="none" open-type="redirectTo" url="../orderList/index?detail=1" style="width:200px;height:44px;line-height:44px;text-align:center;color:#fff;font-size:16px;background:#5B85BF;">查看订单</navigator>
 </view>

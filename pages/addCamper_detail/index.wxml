@@ -10,7 +10,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">身高 cm</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{ base.heigh}}" data-id="heigh" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChangeHeight" />
+                    <van-field value="{{ base.heigh}}" data-id="heigh" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入身高" border="{{false}}" bind:change="onChangeHeight" />
                 </view>
                 <view style="width:45px;">
                     <!-- <van-icon name="arrow-down" color="#D8D8D8" /> -->
@@ -21,7 +21,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">体重 kg</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{ base.weigth}}" data-id="weigth" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChangeWeigth" />
+                    <van-field value="{{ base.weigth}}" data-id="weigth" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入体重" border="{{false}}" bind:change="onChangeWeigth" />
                 </view>
                 <view style="width:45px;">
                     <!-- <van-icon name="arrow-down" color="#D8D8D8" /> -->
@@ -33,7 +33,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">就读学校</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{ base.school}}" data-id="school" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChangeSchool" />
+                    <van-field value="{{base.school}}" data-id="school" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入就读学校" border="{{false}}" bind:change="onChangeSchool" />
                 </view>
                 <view style="width:45px;">
                     <!-- <van-icon name="arrow-down" color="#D8D8D8" /> -->
@@ -43,7 +43,8 @@
         <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">语言（母语）</view>
             <view style="display:flex;align-items: center;" bindtap="handleShowPopup">
-                <view style="flex:1;color:#333;font-size:14px;padding:14px;" data-id="language"> {{base.language}}
+                <view style="flex:1;color:#333;font-size:14px;padding:14px;" data-id="language">
+                    {{filter.languageStateTxt(base.language)}}
                     <!-- <van-field value="{{base.language}}" data-id="language" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" /> -->
                 </view>
                 <view style="width:45px;">
@@ -55,7 +56,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">语言等级</view>
             <view style="display:flex;align-items: center;" bindtap="languageGradeShowPopup">
                 <view style="flex:1;color:#333;font-size:14px;padding:14px;" data-id="languageGrade">
-                    {{base.languageGrade}}
+                    {{filter.languageGradeTxt(base.languageGrade)}}
                 </view>
                 <view style="width:45px;">
                     <van-icon name="arrow-down" color="#D8D8D8" />
@@ -66,7 +67,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">备注信息</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{base.remark}}" data-id="remark" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChangeRemark" />
+                    <van-field value="{{base.remark}}" data-id="remark" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入备注信息" border="{{false}}" bind:change="onChangeRemark" />
                 </view>
                 <view style="width:45px;">
                     <!-- <van-icon name="arrow-down" color="#D8D8D8" /> -->
@@ -75,7 +76,8 @@
         </view>
     </div>
     <view style="padding: 50px 10px;">
-        <van-button type="primary" size="large" color="#5B85BF" custom-class="btn-class" bindtap="handleSubmit">下一步</van-button>
+        <van-button type="primary" size="large" color="#5B85BF" custom-class="btn-class" bindtap="handleSubmit">下一步
+        </van-button>
     </view>
 </view>
 <van-popup show="{{show}}" bind:close="onClose" position="bottom">

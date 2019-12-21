@@ -9,7 +9,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">姓名（中文名）</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{ base.camperName}}" bind:change="onChange" data-id="camperName" style="color:red;" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChange" />
+                    <van-field value="{{ base.camperName}}" bind:change="onChange" data-id="camperName" style="color:red;" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入中文名" border="{{false}}" bind:change="onChange" />
                 </view>
                 <view style="width:45px;">
                 </view>
@@ -19,7 +19,7 @@
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">姓名（英文名）</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
-                    <van-field value="{{ base.camperNameEn}}" data-id="camperNameEn" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="确保与证件一样" border="{{false}}" bind:change="onChange" />
+                    <van-field value="{{ base.camperNameEn}}" data-id="camperNameEn" placeholder-style="color:#D8D8D8;font-size:14px;" placeholder="输入英文名" border="{{false}}" bind:change="onChange" />
                 </view>
                 <view style="width:45px;">
                 </view>

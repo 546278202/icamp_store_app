@@ -31,7 +31,7 @@
                 <text style="margin-right: 10px;">{{item.camperName}}</text><text style="margin-right: 10px;">220381199308202023</text><text style="margin-right: 10px;">{{filter.sex(item.sex)}}</text><text style="margin-right: 10px;">{{filter.getAge(item.birth)}}岁</text>
             </view>
             <view>
-                <text bindtap="delCamper" data-index='{{index}}'>删除</text>
+                <text bindtap="delCamper" data-index='{{index}}' style="color:#5B85BF;">删除</text>
             </view>
         </view>
     </view>
