@@ -1,7 +1,7 @@
 <wxs module="filter" src="../../utils/filter.wxs"></wxs>
 <view class="container">
     <!-- 导航 -->
-    <van-tabs animated color="#5B85BF" active="{{ active }}" bind:change="onChange" line-width="30">
+    <!-- <van-tabs animated color="#5B85BF" active="{{ active }}" bind:change="onChange" line-width="30">
         <van-tab title="退款">
 
         </van-tab>
@@ -11,6 +11,45 @@
         <van-tab title="延期">
 
         </van-tab>
-    </van-tabs>
+    </van-tabs> -->
+
+
+    <view bindtap="goDetailPage" wx:for="{{list}}" wx:for-item="item" wx:for-index='index' data-index="{{index}}" style="margin:15px;background: #fff;border-radius:8px;overflow: hidden; box-shadow:0px 3px 6px 0px rgba(214,214,214,1);">
+        <view style="padding:14px;">
+            <view style="display:flex;justify-content: space-between;margin-bottom: 7px;">
+                <view style="font-size:14px;color:#484848;font-weight: 500;" class="line-clamp-1">
+                    {{item.attributeValueNames}}</view>
+                <view style="font-size:12px;color:#5B85BF;font-weight: 500;" class="line-clamp-1">{{filter.afterSalesType(item.currentAfterSaleType)}}</view>
+            </view>
+            <view style="display:flex;">
+                <view style="margin-right:15px;">
+                    <image src="{{item.icons}}" style="width:81px;height:83px;border-radius:8px;" mode='aspectFill' binderror="avatarError" data-index="{{index}}" />
+                </view>
+                <view style="display:flex;flex:1;flex-direction: column;">
+                    <view style="font-size:12px;color:#6E6E6E;margin-bottom: 5px;">订单号：{{item.orderId}}</view>
+                    <view style="font-size:12px;color:#6E6E6E;margin-bottom: 5px;">{{filter.split(item.addDateTime)}} - {{filter.split(item.addDateTime)}}
+                    </view>
+                    <view style="font-size:12px;color:#6E6E6E;margin-bottom: 5px;"><text>营员：{{item.camperNames}}</text>
+                    </view>
+                    <view style="font-size:12px;color:#6E6E6E;display:flex;justify-content: space-between;">
+                        <view style="font-size:16px;color:#303030;">¥{{filter.returnFloat(item.payableAmount)}}</view>
+                        <view wx:if="{{item.currentAfterSaleType==1}}" style="color:#5B85BF;border:1px solid #5B85BF;height:22px;text-align:center;line-height:22px;border-radius:16px;padding:0 10px;">{{filter.refundStatus(item.currentAfterSaleStatus)}}</view>
+                        <!-- <view wx:if="{{item.currentAfterSaleType==2}}" style="color:#5B85BF;border:1px solid #5B85BF;height:22px;text-align:center;line-height:22px;border-radius:16px;padding:0 10px;">{{filter.postponeStatus(item.currentAfterSaleStatus)}}</view> -->
+                        <view wx:if="{{item.currentAfterSaleType==3}}" style="color:#5B85BF;border:1px solid #5B85BF;height:22px;text-align:center;line-height:22px;border-radius:16px;padding:0 10px;">{{filter.postponeStatus(item.currentAfterSaleStatus)}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view wx:if="{{loadingState}}" style="padding:15px 0;display:flex;align-items: center;justify-content: center;">
+        <van-loading size="20px"></van-loading>
+        <text style=" margin-left: 8px;color: #969799; font-size: 14px; vertical-align: middle; display: inline-block;">加载中...</text>
+    </view>
+
+    <view wx:if="{{loadingState==false && GoodsList.length==0}}" style="display: flex; flex-direction: column; align-items:center;justify-content: center;padding: 50px 0;">
+        <image src="../../image/nolist.png" style="width:200px;" mode='aspectFit' />
+        <text style="font-size:15px;font-family:PingFang-SC-Regular,PingFang-SC;font-weight:400;color:rgba(48,44,72,1);">
+            暂无数据</text>
+    </view>
     <van-divider contentPosition="center" customStyle=";padding:0 15px;">已加载完毕</van-divider>
 </view>

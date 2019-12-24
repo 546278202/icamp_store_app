@@ -15,6 +15,9 @@ Page({
             this.setData({
                 active: parseInt(options.detail),
             })
+            setTimeout(() => {
+                this.getList()
+            }, 100)
         } else {
             this.getList()
         }

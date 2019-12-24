@@ -24,11 +24,14 @@
         </view> -->
     </view>
 
-    <view style="padding:15px;font-size: 15px;color:#303030;background: #fff;margin-bottom: 10px;">
+    <view wx:if="{{camperList.length>0}}" style="padding:15px;font-size: 15px;color:#303030;background: #fff;margin-bottom: 10px;">
         <view style="margin-bottom:20px;">营员</view>
         <view wx:for="{{camperList}}" wx:for-item="item" data-index='{{index}}' class="camper_item">
-            <view>
-                <text style="margin-right: 10px;">{{item.camperName}}</text><text style="margin-right: 10px;">220381199308202023</text><text style="margin-right: 10px;">{{filter.sex(item.sex)}}</text><text style="margin-right: 10px;">{{filter.getAge(item.birth)}}岁</text>
+            <view style="display:flex;">
+                <view style="margin-right: 10px;width:60px;" class="line-clamp-1">{{item.camperName}}</view>
+                <view style="margin-right: 10px;width:60px;">{{item.camperNameEn}}</view>
+                <view style="margin-right: 10px;width:60px;">{{filter.sex(item.sex)}}</view>
+                <view style="margin-right: 10px;width:60px;">{{filter.getAge(item.birth)}}岁</view>
             </view>
             <view>
                 <text bindtap="delCamper" data-index='{{index}}' style="color:#5B85BF;">删除</text>

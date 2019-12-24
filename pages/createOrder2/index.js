@@ -18,9 +18,14 @@ Page({
         severPrice: 0,
         severAttributes: [],
         campDataAttributes: [],
-        createOrderList: []
+        createOrderList: [],
+        options: null
     },
-    onLoad() {
+    onLoad(options) {
+        this.setData({
+            options: JSON.parse(decodeURIComponent(options.detail)),
+        });
+        console.log(this.data.options)
 
         // 处理积分
         if (app.globalData.createOrderList.payableAmount > 10) {
@@ -32,7 +37,7 @@ Page({
                 payIntegral: 0
             })
         }
-        console.log(this.data.payIntegral)
+        // console.log(this.data.payIntegral)
         this.setData({
             campersNum: app.globalData.createOrder.campersNum,
             campersName: app.globalData.createOrder.campersName,
@@ -40,32 +45,39 @@ Page({
             createOrderList: app.globalData.createOrderList,
             detailData: app.globalData.detailData
         })
+
+        console.log(this.data.createOrderList)
     },
     // 选择优惠卷
     goCouponPage() {
         if (this.data.createOrderList.payableAmount - (this.data.payIntegral / 10) > 300) {
-            wx.redirectTo({
+            wx.navigateTo({
                 url: "../coupon/index?back=createOrder2"
             })
         }
     },
 
     //监听数据
-    // watch: {
-    //     couponData(newVal, oldVal) {
-    //         console.log(newVal, oldVal);
-    //         if (newVal != oldVal) {
-    //             this.setData({
-    //                 couponData: newVal
-    //             })
-    //         }
-    //     }
-    // },
-    watch() {
+    watch: {
+        couponData(newVal, oldVal) {
+            console.log(newVal, oldVal);
+            if (newVal != oldVal) {
+                this.setData({
+                    couponData: newVal
+                })
+            }
+        }
+    },
+    changeWatch() {
         this.setData({
             couponData: this.data.couponData
         })
     },
+    // watch: {
+    //     this.setData({
+    //         couponData: this.data.couponData
+    //     })
+    // },
     submitData(event) {
         //优惠卷
         if (this.data.createOrderList.payableAmount - (this.data.payIntegral / 10) > 300) {

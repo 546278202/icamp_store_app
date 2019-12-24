@@ -27,7 +27,7 @@
                 </view>
             </view>
         </view>
-        <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
+        <!-- <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0;">
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px;">证件签发地</view>
             <view style="display:flex;align-items: center;">
                 <view style="flex:1;">
@@ -47,7 +47,7 @@
                     <van-icon name="arrow-down " color="#D8D8D8 " />
                 </view>
             </view>
-        </view>
+        </view> -->
     </div>
     <view style="padding: 50px 10px;">
         <van-button type="primary" size="large" color="#5B85BF" custom-class="btn-class" bindtap="handleSubmit">保存/返回</van-button>

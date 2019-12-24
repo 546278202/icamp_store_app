@@ -50,7 +50,7 @@
         <view style="border-bottom:1px solid #F1F1F1;padding:15px 0 10px 0; ">
             <view style="font-size:14px;color:#484848;font-weight: bold;padding:0 15px; ">营员头像</view>
             <view style="padding:15px;">
-                <van-uploader file-list="{{ base.fileList }}" max-count="1" bind:after-read="afterRead" bind:delete="deleteImg" />
+                <van-uploader file-list="{{fileList }}" max-count="1" bind:after-read="afterRead" bind:delete="deleteImg" />
             </view>
         </view>
     </div>

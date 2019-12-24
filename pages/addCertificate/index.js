@@ -9,8 +9,8 @@ Page({
             idCode: "",
             idType: 1,
             linkId: '',
-            issuePlace: '',
-            expiryDate: null,
+            issuePlace: "中国北京",
+            expiryDate: "2050-12-12",
             status: 1,
             type: 1,
         },
@@ -45,8 +45,11 @@ Page({
     onLoad(options) {
         // 新增
         if (options.detail0) {
+            let detail0 = JSON.parse(decodeURIComponent(options.detail0))
+            let _certificates = this.data.certificates
+            _certificates.linkId = detail0.linkId
+            console.log(_certificates)
             this.setData({
-                certificates: JSON.parse(decodeURIComponent(options.detail0)),
                 handleSubmitType: 0,
             });
         }
@@ -150,14 +153,8 @@ Page({
                         })
                         var pages = getCurrentPages();
                         setTimeout(function() {
-                            if (pages[pages.length - 4].route === 'pages/createOrder/index') {
-                                pages[pages.length - 4].getList()
-                                wx.navigateBack({ delta: 3 });
-                            } else {
-                                console.log(pages)
-                                pages[pages.length - 3].getList()
-                                wx.navigateBack({ delta: 2 });
-                            }
+                            wx.navigateBack({ delta: 2 });
+                            pages[pages.length - 3].getList()
                         }, 1000)
                     }
                 }

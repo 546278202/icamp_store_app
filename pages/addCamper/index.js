@@ -8,12 +8,13 @@ Page({
         arr: [],
         handleSubmitType: 0, //0添加，1编辑
         list: [],
+        fileList: [],
         base: {
             sex: 1,
             birth: "1988-11-20",
             imgId: 20,
             status: 1,
-            fileList: []
+
         },
         certificates: {
             idCode: "",
@@ -63,11 +64,14 @@ Page({
             })
             let _base = JSON.parse(decodeURIComponent(options.detail))[0]
             let arr = []
-
-            let obj = { url: _base.image.originalFile }
-            arr.push(obj)
-            _base.fileList = arr
-
+            if (_base.image) {
+                let obj = { url: _base.image.originalFile }
+                arr.push(obj)
+                this.data.fileList = arr
+                this.setData({
+                    fileList: arr
+                });
+            }
             this.setData({
                 handleSubmitType: 1,
                 base: _base,
@@ -165,7 +169,7 @@ Page({
     },
     getImgIds() {
         let arr = []
-        this.data.base.fileList.forEach(element => {
+        this.data.fileList.forEach(element => {
             arr.push(element.fileId)
         });
         return arr
@@ -217,20 +221,21 @@ Page({
         let imgs = event.detail.file.path
         file.fileUpload(app.globalData.BASE_URL + `/files`, imgs).then((res) => {
             let url = JSON.parse(res.data).data[0]
-            let base = this.data.base
-            base.fileList.push(url)
+            let _base = this.data.base
+            let _fileList = this.data.fileList
+            _fileList.push(url)
             this.setData({
-                base: base
+                fileList: _fileList
             })
         }, true)
     },
 
     deleteImg(event) {
         let index = event.detail.index
-        let base = this.data.base
-        base.fileList.splice(index, 1)
+        let _fileList = this.data.fileList
+        _fileList.splice(index, 1)
         this.setData({
-            base: base
+            fileList: _fileList
         })
         console.log(this.data)
     }

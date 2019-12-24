@@ -5,21 +5,31 @@ Page({
         active: 0,
     },
     onLoad: function() {
-        this.getList(0)
+        this.getList()
     },
     onChange(event) {
+
         // 1=退款 2=更换 3=延期
-        if (event.detail.index == 0) {
-            this.getList(0)
-        }
+        // if (event.detail.index == 0) {
+        //     this.setData({
+        //         active: 0,
+        //     })
+        //     this.getList()
+        // }
         // 最新
-        if (event.detail.index == 1) {
-            this.getList(1)
-        }
+        // if (event.detail.index == 1) {
+        //     this.setData({
+        //         active: 1
+        //     })
+        //     this.getList()
+        // }
         // 最热
-        if (event.detail.index == 2) {
-            this.getList(2)
-        }
+        // if (event.detail.index == 2) {
+        //     this.setData({
+        //         active: 2,
+        //     })
+        //     this.getList()
+        // }
     },
     // 刷新
     onPullDownRefresh() {
@@ -38,15 +48,13 @@ Page({
             })
         }, 1000)
     },
-    getList(status) {
+    getList() {
         let data = {}
-        app.wxRequest('GET', app.globalData.URL + `/order?orderStatus=${status}`, data, (res) => {
+        app.wxRequest('GET', app.globalData.URL + `/order?status=6&currentAfterSaleType=${this.data.active+1}`, data, (res) => {
             this.setData({
                 list: res.data.data,
             })
-        }, (err) => {
-            console.log(err.errMsg)
-        })
+        }, true)
     },
     //图加载失败
     avatarError(e) {

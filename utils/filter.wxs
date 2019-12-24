@@ -44,7 +44,7 @@ function orderTypeTxt(value) {
     } else if (value == 1) {
         return '等待支付...';
     } else if (value == 2) {
-        return '待完善...';
+        return '待完善营员信息';
     } else if (value == 5) {
         return '订单已完成';
     }
@@ -165,6 +165,40 @@ function getAge(date) {
     var age = d.getFullYear() - birthday.getFullYear() - ((d.getMonth() < birthday.getMonth() || d.getMonth() == birthday.getMonth() && d.getDate() < birthday.getDate()) ? 1 : 0)
     return age;
 }
+// 退款状态
+function refundStatus(status) {
+    if (status == 0) {
+        return "等待审核"
+    } else if (status == 1) {
+        return "处理中"
+    } else if (status == 2) {
+        return "已完成"
+    } else {
+        return "审核不通过"
+    }
+}
+// 延期状态
+function postponeStatus(status) {
+    if (status == 0) {
+        return "待审核"
+    } else if (status == 1) {
+        return "已延期"
+    } else if (status == 2) {
+        return "审核不通过"
+    }
+}
+
+// 售后类型 1=退款 2=更换 3=延期
+function afterSalesType(status) {
+    if (status == 1) {
+        return "退款"
+    } else if (status == 2) {
+        return "更换"
+    } else if (status == 3) {
+        return "延期"
+    }
+}
+
 module.exports = {
     numberToFix: numberToFix,
     sex: sex,
@@ -173,6 +207,9 @@ module.exports = {
     arrSplit: arrSplit,
     orderType: orderType,
     orderTypeTxt: orderTypeTxt,
+    refundStatus: refundStatus,
+    postponeStatus: postponeStatus,
+    afterSalesType: afterSalesType,
     NumberToChinese: NumberToChinese,
     substring: substring,
     returnFloat: returnFloat,

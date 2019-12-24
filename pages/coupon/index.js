@@ -45,17 +45,17 @@ Page({
     switchPage(e) {
         console.log(this.options)
         let index = e.currentTarget.dataset.index
+        let item = (this.data.GoodsList[index])
         if (this.options.back) {
-            var pages = getCurrentPages();
-            if (pages.length > 1) {
-                var prePage = pages[pages.length - 2];
-                let item = (this.data.GoodsList[index])
-                prePage.data.couponData = item
-                prePage.watch()
-                setTimeout(() => {
-                    wx.navigateBack()
-                }, 1000)
-            }
+            setTimeout(function() {
+                var pages = getCurrentPages();
+                var beforePage = pages[pages.length - 2];
+                beforePage.data.couponData = item
+                beforePage.changeWatch();
+                wx.navigateBack({
+                    delta: 1,
+                })
+            }, 1000)
         } else {
             wx.switchTab({
                 url: '../tab1/index',

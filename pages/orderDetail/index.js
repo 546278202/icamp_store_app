@@ -14,14 +14,18 @@ Page({
         this.getDetail()
     },
     //根据订单号，营员id、项目编号查询详细信息
-    getCamperDetail() {
-        let item = this.data.list
-            // let data = {
-            //     camperId: item.camperId,
-            //     orderId: item.orderId,
-            //     attributeValue: item.orderGoodsAttributes[0].attributeValue
-            // }
-        wx.navigateTo({
+    getCamperDetail(e) {
+        let index = e.currentTarget.dataset.index
+        let item = this.data.list[index]
+            // console.log(item)
+            //     let data = {
+            //         camperId: item.camperId,
+            //         orderId: item.orderId,
+            //         attributeValue: item.orderGoodsAttributes[0].attributeValue
+            //     }
+        console.log(item)
+
+        wx.redirectTo({
             url: `../addCamper_detail/index?detail=${encodeURIComponent(JSON.stringify(item))}`
         })
     },
@@ -29,7 +33,7 @@ Page({
         let data = {}
         app.wxRequest('GET', app.globalData.URL + `/order/${this.data.options.orderId}`, data, (res) => {
             this.setData({
-                list: res.data.data,
+                list: res.data.data.orderGoods,
             });
             this.getSeverList()
         }, true)

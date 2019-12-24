@@ -32,31 +32,31 @@ Page({
 
 
         this.getDetail()
-        this.getList()
+            // this.getList()
         watch.setWatcher(this);
     },
-    getList() {
-        let data = {};
-        app.wxRequest('GET', app.globalData.URL + "/camper?type=1", data, (res) => {
-            let list = res.data.data
-            let camperList = []
-            if (list) {
-                for (var i = 0; i < list.length; i++) {
-                    if (i == 0) {
-                        list[i]["isChecked"] = true
-                        camperList.push(list[i])
-                    } else {
-                        list[i]["isChecked"] = false
-                    }
-                }
-                this.setData({
-                    camperList: camperList,
-                    campersName: [camperList[0].camperName],
-                    allAmount: (this.data.price + this.data.severPrice) * this.data.camperList.length
-                })
-            }
-        }, true)
-    },
+    // getList() {
+    //     let data = {};
+    //     app.wxRequest('GET', app.globalData.URL + "/camper?type=1", data, (res) => {
+    //         let list = res.data.data
+    //         let camperList = []
+    //         if (list) {
+    //             for (var i = 0; i < list.length; i++) {
+    //                 if (i == 0) {
+    //                     list[i]["isChecked"] = true
+    //                     camperList.push(list[i])
+    //                 } else {
+    //                     list[i]["isChecked"] = false
+    //                 }
+    //             }
+    //             this.setData({
+    //                 camperList: camperList,
+    //                 campersName: [camperList[0].camperName],
+    //                 allAmount: (this.data.price + this.data.severPrice) * this.data.camperList.length
+    //             })
+    //         }
+    //     }, true)
+    // },
 
     watch: {
         camperList(newVal, oldVal) {
@@ -238,8 +238,9 @@ Page({
             console.log(res)
             if (res.data.status == 200) {
                 app.globalData["createOrderList"] = res.data.data
+                let str = JSON.stringify(this.data.camperList)
                 wx.navigateTo({
-                    url: '../createOrder2/index',
+                    url: `../createOrder2/index?detail=${encodeURIComponent(str)}`
                 })
             }
         }, true)

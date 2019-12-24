@@ -7,7 +7,7 @@
     <navigator style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">
         <view style="display: flex;flex:1;align-items: center;justify-content: space-between;">
             <text style="color:#696969;font-size: 14px;">数量</text>
-            <text style="color:#303030;font-size: 14px;">1</text>
+            <text style="color:#303030;font-size: 14px;">x{{createOrder3.settleModels.length}}</text>
         </view>
     </navigator>
     <navigator style="height: 53px; border-bottom: 1px solid #F1F1F1; display: flex; align-items: center;justify-content: space-between;background: #fff;padding:0 15px;margin-bottom:10px;">

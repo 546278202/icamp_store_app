@@ -101,19 +101,40 @@ Page({
         if (this.data.base.camperId && this.data.base.healthCondition) {
             app.wxRequest('POST', app.globalData.URL + "/camper/notice", this.data.base, (res) => {
                 if (res.data.status == 200) {
-                    wx.showToast({
-                        title: '操作成功',
-                        icon: 'success',
-                        duration: 1000
-                    })
+                    let _item = res.data.data
+                    this.getOrderDetail(_item.orderId)
+                }
+            }, true)
+        }
+    },
+    getOrderDetail(id) {
+        let data = {}
+        app.wxRequest('GET', app.globalData.URL + `/order/${id}`, data, (res) => {
+            if (res.data.status == 200) {
+                let item = res.data.data
+                if (item.orderStatus == 2) {
+                    // 跳详情
+                    setTimeout(() => {
+                        wx.redirectTo({
+                            url: `../orderList/index?detail=1`
+                        })
+                    }, 1000)
+                }
+                if (item.orderStatus == 5) {
+                    // 跳已完成
                     setTimeout(() => {
                         wx.redirectTo({
                             url: `../orderList/index?detail=2`
                         })
                     }, 1000)
                 }
-            }, true)
-        }
+                wx.showToast({
+                    title: '操作成功',
+                    icon: 'success',
+                    duration: 1000
+                })
+            }
+        }, true)
     },
     //查看详情
     getCamperDetail() {
@@ -126,7 +147,7 @@ Page({
                         // 编辑
                         let _base = {
                             camperId: res.data.data.camperId,
-                            id: res.data.data.id,
+                            noticeId: res.data.data.noticeId,
                             healthCondition: res.data.data.healthCondition,
                             dieteticContraindication: res.data.data.dieteticContraindication,
                             allergy: res.data.data.allergy,
@@ -134,6 +155,7 @@ Page({
                             vaccine: res.data.data.vaccine
                         }
                         this.setData({ base: _base })
+                        console.log(res.data.data)
                     } else {
                         // 新增
                         let _base = {

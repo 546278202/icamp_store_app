@@ -16,7 +16,7 @@ Page({
     onLoad(options) {
         if (options.detail) {
             this.setData({
-                options: JSON.parse(decodeURIComponent(options.detail))[0],
+                options: JSON.parse(decodeURIComponent(options.detail)),
             });
         }
         this.getCamperDetail()
