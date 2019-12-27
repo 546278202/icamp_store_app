@@ -3,4 +3,10 @@ page {
     font-family: PingFangSC;
     padding-bottom: 50px;
 }
-
+button::after {
+  border: none;
+}
+button {
+  border-radius:0;
+  background-color: #fff;
+}

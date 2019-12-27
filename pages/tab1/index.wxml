@@ -4,12 +4,9 @@
     <view bindtap="bindViewTap" style="display:flex;flex:1;flex-direction:column;align-items: center;font-size:12px; color:#303030" wx:for="{{imgUrls2}}" wx:for-item="item" wx:for-index='index' data-index="{{index}}">
         <image src="{{item.src}}" style="height:22px;width:22px;" />
         <!-- <image src="{{item.src}}" style="height:22px;width:22px;" mode='aspectFit' /> -->
-
-
         <view style="margin-top:5px;">{{item.name}}</view>
     </view>
 </view>
-
 <view style="background:#fff;margin-top: 15px;padding-top: 13px;">
     <swiper previous-margin='30px' next-margin='30px' bindchange="swiperChange" indicator-dots="{{indicatorDots}}" circular="true" autoplay="true" indicator-active-color="#5B85BF" style='height:{{"386px"}};'>
         <swiper-item wx:for="{{hotGoodsList}}" wx:for-item="item" wx:for-index='index'>

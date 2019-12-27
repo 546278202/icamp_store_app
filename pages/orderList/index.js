@@ -3,6 +3,7 @@ const app = getApp()
 Page({
     data: {
         loadingState: true,
+        noData: false,
         page: 0,
         size: 10,
         status: 1,
@@ -81,13 +82,20 @@ Page({
                 GoodsList: GoodsList,
                 page: page
             })
+            console.log(this.data.GoodsList.length)
+            if (this.data.GoodsList.length == 0) {
+                console.log("暂无数据")
+                this.setData({ noData: true, loadingState: false })
+            } else {
+                this.setData({ noData: false, })
+            }
+
             if (arr.length < this.data.size) {
                 console.log("已经最后一页了")
-                this.setData({
-                    loadingState: false,
-                })
+                this.setData({ loadingState: false, })
                 return
             }
+
         }, true)
     },
     goDetailPage(e) {

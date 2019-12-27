@@ -4,14 +4,65 @@ Page({
     data: {
         list: null,
         severList: [],
-        options: null
+        options: null,
+        code: null,
+        userInfo: null
     },
     onLoad: function(options) {
+
+
         this.setData({
             options: JSON.parse(decodeURIComponent(options.detail)),
         });
+
+        wx.getStorage({
+            key: 'userInfo',
+            success: (res) => {
+                this.setData({ userInfo: res.data })
+                if (!res.data.openId) {
+                    wx.login({
+                        success: (res) => {
+                            console.log(res)
+                            this.setData({ code: res.code })
+                        }
+                    })
+                }
+            }
+        })
+
         console.log(this.data.options)
         this.getDetail()
+    },
+    // 授权登陆
+    bindgetphonenumber(e) {
+        if (e.errMsg = "getPhoneNumber:ok") {
+            let wxInfo = {
+                encryptedData: e.detail.encryptedData,
+                iv: e.detail.iv
+            }
+            let paramer = {
+                from: 0,
+                code: this.data.code,
+                wxInfo: wxInfo //手机号密文，非必填
+            }
+            this.userLogin(paramer)
+        }
+    },
+    userLogin(paramer) {
+        app.wxRequest('POST', app.globalData.URL + '/user/login', paramer, (res) => {
+            if (res.statusCode == 200) {
+                if (res.data.status == 200) {
+                    wx.setStorageSync("sessionid", res.header["Set-Cookie"])
+                    wx.setStorageSync("userInfo", res.data.data)
+                    wx.getStorage({
+                        key: 'userInfo',
+                        success: (res) => {
+                            this.setData({ userInfo: res.data })
+                        }
+                    })
+                }
+            }
+        }, true)
     },
     //根据订单号，营员id、项目编号查询详细信息
     getCamperDetail(e) {
@@ -62,6 +113,8 @@ Page({
         //     severList: _arr,
         // });
     },
+
+
     //发起支付
     orderPay() {
         console.log(this.data.list)

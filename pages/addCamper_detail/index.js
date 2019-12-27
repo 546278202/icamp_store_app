@@ -94,7 +94,7 @@ Page({
     },
     operationCamper() {
         console.log(this.data.base)
-        if (this.data.base.camperId && this.data.base.heigh) {
+        if (this.data.base.heigh) {
             app.wxRequest('POST', app.globalData.URL + "/camper/detail", this.data.base, (res) => {
                 if (res.statusCode == 200) {
                     wx.redirectTo({
@@ -114,7 +114,7 @@ Page({
                     if (res.data.data) {
                         // 编辑
                         let _base = {
-                            camperId: res.data.data.camperId,
+                            // camperId: res.data.data.camperId,
                             imgId: res.data.data.imgId,
                             heigh: res.data.data.heigh,
                             weigth: res.data.data.weigth,
